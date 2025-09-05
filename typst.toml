@@ -1,0 +1,16 @@
+[package]
+name = "uni-template"
+version = "0.1.0"
+compiler = "0.13.0"
+entrypoint = "src/lib.typ"
+
+authors = [ "Rasmus Buurman <rasmus@rbuurman.de>" ]
+
+repository = "https://github.com/rabuu/typst-uni-template"
+license = "MIT"
+
+description = "A template for university assignment submissions"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
