@@ -53,6 +53,15 @@
       header-ascent: 0pt,
     )
 
+    set par(
+      first-line-indent: 1em,
+    )
+
+    set enum(
+      tight: false,
+      numbering: "a1)"
+    )
+
     if title != none {
       align(center, text(1.5em, underline([*#title*])))
     }
