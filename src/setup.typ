@@ -22,7 +22,7 @@
 
   initial-task-number: 1,
 
-  score-box-enabled: true,
+  score-box-enabled: false,
   score-box-first-task: none,
   score-box-last-task: none,
   score-box-tasks: none,
