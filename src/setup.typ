@@ -67,6 +67,10 @@
   context {
     let top-margin = measure(width: page.width - left-margin - right-margin, header).height
 
+    //
+    // SETTINGS
+    //
+
     set page(
       paper: paper,
       numbering: numbering,
@@ -89,11 +93,16 @@
       numbering: "a1)"
     )
 
+    //
+    // TASK COUNTER
+    //
+
     let task-counter = counter("task")
     task-counter.update(initial-task-number - 1)
 
     //
     // WIDGETS
+    // (info box & score box)
     //
 
     let widget-number = (score-box-enabled, info-box-enabled).map(x => if x { 1 } else { 0 }).sum()
@@ -129,9 +138,17 @@
       v(1em)
     }
 
+    //
+    // TITLE
+    //
+
     if title != none {
       align(center, text(title-size, underline([*#title*])))
     }
+
+    //
+    // REST OF THE DOCUMENT
+    //
 
     doc
   }
