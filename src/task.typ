@@ -3,6 +3,8 @@
   show-counter: true,
   reset-counter: none,
   task-string: context if text.lang == "de" { "Aufgabe" } else { "Task" },
+  above: auto,
+  below: 2em,
   content,
 ) = {
   let counter = counter("task")
@@ -16,7 +18,7 @@
     if name != none [: #emph(name)]
   }
 
-  block[
+  block(above: above, below: below)[
     = #title
     #content
   ]
