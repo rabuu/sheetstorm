@@ -1,4 +1,5 @@
 #import "header.typ": configure-header
+#import "widgets/score-box.typ": score-box
 
 #let setup(
   course: none,
@@ -20,6 +21,13 @@
   header-extra-right: none,
 
   initial-task-number: 1,
+
+  score-box-enabled: true,
+  score-box-first-task: none,
+  score-box-last-task: none,
+  score-box-tasks: none,
+  score-box-inset: 0.7em,
+  score-box-align: center,
 
   doc,
 ) = {
@@ -66,6 +74,18 @@
 
     let task-counter = counter("task")
     task-counter.update(initial-task-number - 1)
+
+    if score-box-enabled {
+      align(center,
+        score-box(
+          first-task: initial-task-number,
+          last-task: score-box-last-task,
+          tasks: score-box-tasks,
+          inset: score-box-inset,
+          align: score-box-align,
+        )
+      )
+    }
 
     if title != none {
       align(center, text(1.5em, underline([*#title*])))
