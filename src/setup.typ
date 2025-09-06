@@ -7,6 +7,8 @@
   authors: none,
   tutor: none,
 
+  title-size: 1.6em,
+
   x-margin: none,
   left-margin: none,
   right-margin: none,
@@ -128,7 +130,7 @@
     }
 
     if title != none {
-      align(center, text(1.5em, underline([*#title*])))
+      align(center, text(title-size, underline([*#title*])))
     }
 
     doc
