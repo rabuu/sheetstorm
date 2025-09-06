@@ -1,5 +1,5 @@
 #import "header.typ": configure-header
-#import "widgets/score-box.typ": score-box
+#import "widgets.typ"
 
 #let setup(
   course: none,
@@ -22,15 +22,30 @@
 
   initial-task-number: 1,
 
+  widget-gap: 4em,
+
   score-box-enabled: false,
   score-box-first-task: none,
   score-box-last-task: none,
   score-box-tasks: none,
   score-box-inset: 0.7em,
   score-box-align: center,
+  score-box-cell-width: 4.5em,
+
+  info-box-enabled: false,
+  info-box-show-ids: true,
+  info-box-show-emails: true,
+  info-box-inset: 0.7em,
+  info-box-gutter: 1em,
 
   doc,
 ) = {
+  let author-names = if authors != none { authors.map(a => if "name" in a { a.name }) }
+  let author-ids = if authors != none { authors.map(a => if "id" in a { a.id }) }
+  let author-emails = if authors != none { authors.map(a => if "email" in a { a.email }) }
+  let has-ids = if author-ids != none { author-ids.filter(x => x != none).len() > 0 } else { false }
+  let has-emails = if author-emails != none { author-emails.filter(x => x != none).len() > 0 } else { false }
+
   let x-margin = if x-margin == none { 1.7cm } else { x-margin }
   let left-margin = if left-margin == none { x-margin } else { left-margin }
   let right-margin = if right-margin == none { x-margin } else { right-margin }
@@ -39,7 +54,7 @@
   let header = configure-header(
     course: course,
     title: title,
-    authors: authors,
+    authors: author-names,
     tutor: tutor,
     show-title-on-first-page: header-show-title-on-first-page,
     extra-left: header-extra-left,
@@ -75,16 +90,41 @@
     let task-counter = counter("task")
     task-counter.update(initial-task-number - 1)
 
-    if score-box-enabled {
-      align(center,
-        score-box(
-          first-task: initial-task-number,
-          last-task: score-box-last-task,
-          tasks: score-box-tasks,
-          inset: score-box-inset,
-          align: score-box-align,
-        )
-      )
+    //
+    // WIDGETS
+    //
+
+    let widget-number = (score-box-enabled, info-box-enabled).map(x => if x { 1 } else { 0 }).sum()
+
+    let info-box = if info-box-enabled and author-names != none { widgets.info-box(
+      author-names,
+      student-ids: if info-box-show-ids and has-ids { author-ids },
+      emails: if info-box-show-emails and has-emails { author-emails },
+      inset: info-box-inset,
+      gutter: info-box-gutter,
+    )}
+
+    let score-box = if score-box-enabled { widgets.score-box(
+      first-task: initial-task-number,
+      last-task: score-box-last-task,
+      tasks: score-box-tasks,
+      inset: score-box-inset,
+      align: score-box-align,
+      fill-space: widget-number > 1,
+      cell-width: score-box-cell-width,
+    )}
+
+    if score-box-enabled or info-box-enabled {
+      let alignment = if widget-number == 2 { (left + horizon, right + horizon) } else { center + horizon }
+
+      align(center, grid(
+        columns: widget-number,
+        align: alignment,
+        gutter: widget-gap,
+        ..(info-box, score-box).filter(x => x != none)
+      ))
+
+      v(1em)
     }
 
     if title != none {
