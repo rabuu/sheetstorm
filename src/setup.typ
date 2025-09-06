@@ -19,6 +19,8 @@
   header-extra-center: none,
   header-extra-right: none,
 
+  initial-task-number: 1,
+
   doc,
 ) = {
   let x-margin = if x-margin == none { 1.7cm } else { x-margin }
@@ -61,6 +63,9 @@
       tight: false,
       numbering: "a1)"
     )
+
+    let task-counter = counter("task")
+    task-counter.update(initial-task-number - 1)
 
     if title != none {
       align(center, text(1.5em, underline([*#title*])))
