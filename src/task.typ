@@ -30,7 +30,7 @@
     if name != none [: #emph(name)]
   }
 
-  block(above: above, below: below)[
+  block(width: 100%, above: above, below: below)[
     = #title
     #content
   ]
