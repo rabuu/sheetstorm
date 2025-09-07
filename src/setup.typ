@@ -93,6 +93,8 @@
       numbering: "a1)"
     )
 
+    show link: underline
+
     //
     // TASK COUNTER
     //
