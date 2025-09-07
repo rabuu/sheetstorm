@@ -13,12 +13,17 @@ typship install local
 
 Then, you can use it in a Typst file:
 ```typst
-#import "@local/uni-template:0.1.0"
+#import "@local/uni-template:0.1.0" as template: task
 
-#show: uni-template.setup.with(
+#show: template.setup.with(
   course: smallcaps[A very interesting course 101],
   title: "Assignment 42",
-  authors: ("John Doe", "Erika Mustermann"),
+  authors: (
+    (name: "John Doe", id: 123456),
+    (name: "Erika Mustermann", id: 654321),
+  ),
+
+  info-box-enabled: true,
 )
 
 #lorem(3000)
