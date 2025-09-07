@@ -5,8 +5,8 @@
 }
 
 #let subtask-numbering-pattern(depth) = {
-  if calc.rem(depth, 3) == 1 { "a." }
-  else if calc.rem(depth, 3) == 2 { "1." }
+  if depth == 1 { "(a)" }
+  else if depth > 1 and calc.rem(depth, 2) == 0 { "1." }
   else { "i." }
 }
 
