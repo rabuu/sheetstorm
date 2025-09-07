@@ -20,7 +20,7 @@
   #lorem(100)
 ]
 
-#task(name: "Subtasks")[
+#task(name: "Subtasks", subtask-numbering: true)[
   + _What is the color of a banana?_
 
     A banana is *yellow*.
