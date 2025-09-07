@@ -1,5 +1,6 @@
 #import "header.typ": header-content
 #import "widgets.typ"
+#import "util.typ": is-some
 
 /// The setup function for the template
 ///
@@ -59,8 +60,8 @@
   let author-names = if authors != none { authors.map(a => if "name" in a { a.name }) }
   let author-ids = if authors != none { authors.map(a => if "id" in a { a.id }) }
   let author-emails = if authors != none { authors.map(a => if "email" in a { a.email }) }
-  let has-ids = if author-ids != none { author-ids.filter(x => x != none).len() > 0 } else { false }
-  let has-emails = if author-emails != none { author-emails.filter(x => x != none).len() > 0 } else { false }
+  let has-ids = if author-ids != none { author-ids.filter(is-some).len() > 0 } else { false }
+  let has-emails = if author-emails != none { author-emails.filter(is-some).len() > 0 } else { false }
 
   let x-margin = if x-margin == none { 1.7cm } else { x-margin }
   let left-margin = if left-margin == none { x-margin } else { left-margin }
@@ -150,7 +151,7 @@
         columns: widget-number,
         align: alignment,
         gutter: widget-gap,
-        ..(info-box, score-box).filter(x => x != none)
+        ..(info-box, score-box).filter(is-some)
       ))
 
       v(1em)

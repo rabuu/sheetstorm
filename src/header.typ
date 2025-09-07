@@ -1,6 +1,8 @@
+#import "util.typ": is-some
+
 /// Helper function that takes an array of content and puts it together as a block
 #let header-section(xs) = box(
-  for i in xs.filter(x => x != none).intersperse(linebreak()) { i }
+  for i in xs.filter(is-some).intersperse(linebreak()) { i }
 )
 
 /// Create the contents of the header
@@ -25,8 +27,8 @@
 
     // left
     header-section((
-      if date != none { datetime.today().display(date) } else { none },
-      if tutor != none [Tutor: #tutor] else { none },
+      if date != none { datetime.today().display(date) },
+      if tutor != none [Tutor: #tutor],
       extra-left,
     )),
 

@@ -1,3 +1,5 @@
+#import "util.typ": is-some, to-content
+
 /// Score Box widget
 ///
 /// This function creates an empty table for each task where the scores can be filled in.
@@ -42,7 +44,7 @@
   inset: 0.7em,
   gutter: 1em,
 ) = {
-  let info = (student-ids, emails).filter(x => x != none).map(xs => xs.map(x => [#x]))
+  let info = (student-ids, emails).filter(is-some).map(xs => xs.map(to-content))
   let entries = names.zip(..info).flatten()
 
   box(stroke: black, inset: inset, grid(
