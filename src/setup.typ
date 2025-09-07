@@ -1,5 +1,6 @@
 #import "header.typ": header-content
 #import "widgets.typ"
+#import "numbering.typ": apply-numbering-pattern
 #import "util.typ": is-some
 
 /// The setup function for the template
@@ -9,7 +10,7 @@
 /// ```typst
 /// #show: uni-template.setup.with(
 ///   title: "A cool title",
-///   numbering: "1",
+///   page-numbering: "1",
 /// )
 /// ```
 ///
@@ -29,7 +30,7 @@
   bottom-margin: none,
 
   paper: "a4",
-  numbering: "1 / 1",
+  page-numbering: "1 / 1",
 
   header-date: "[day].[month].[year]",
   header-show-title-on-first-page: false,
@@ -89,7 +90,7 @@
 
     set page(
       paper: paper,
-      numbering: numbering,
+      numbering: page-numbering,
       margin: (
         top: top-margin,
         bottom: bottom-margin,
@@ -107,7 +108,8 @@
 
     set enum(
       tight: false,
-      numbering: "a1)"
+      full: true,
+      numbering: apply-numbering-pattern,
     )
 
     show link: underline
