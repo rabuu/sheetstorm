@@ -28,3 +28,6 @@ Then, you can use it in a Typst file:
 
 #lorem(3000)
 ```
+
+## TODOs / Ideas
+- Points for tasks
