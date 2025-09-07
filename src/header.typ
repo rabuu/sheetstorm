@@ -3,7 +3,8 @@
   for i in xs.filter(x => x != none).intersperse(linebreak()) { i }
 )
 
-#let configure-header(
+/// Create the contents of the header
+#let header-content(
   course: none,
   title: none,
   authors: none,

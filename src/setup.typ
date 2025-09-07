@@ -1,4 +1,4 @@
-#import "header.typ": configure-header
+#import "header.typ": header-content
 #import "widgets.typ"
 
 #let setup(
@@ -17,6 +17,7 @@
   paper: "a4",
   numbering: "1 / 1",
 
+  header-date: "[day].[month].[year]",
   header-show-title-on-first-page: false,
   header-extra-left: none,
   header-extra-center: none,
@@ -53,11 +54,12 @@
   let right-margin = if right-margin == none { x-margin } else { right-margin }
   let bottom-margin = if bottom-margin == none { 1.2cm } else { bottom-margin }
 
-  let header = configure-header(
+  let header = header-content(
     course: course,
     title: title,
     authors: author-names,
     tutor: tutor,
+    date: header-date,
     show-title-on-first-page: header-show-title-on-first-page,
     extra-left: header-extra-left,
     extra-center: header-extra-center,
