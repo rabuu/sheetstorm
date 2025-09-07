@@ -1,21 +1,18 @@
 # sheetstorm
 A Typst template for university exercise sheets.
 
-This is a work in progress. The package is not published to the [Typst universe](https://typst.app/universe) yet.
+## Quick Start
 
-## Development
-First, install the package, e.g. to the `@local` namespace.
-
-This is very easy with a tool like [typship](https://github.com/sjfhsjfh/typship):
+### Template CLI
 ```sh
-typship install local
+typst init @preview/sheetstorm
 ```
 
-Then, you can use it in a Typst file:
+### Manual
 ```typst
-#import "@local/sheetstorm:0.1.0" as template: task
+#import "@preview/sheetstorm:0.1.0"
 
-#show: template.setup.with(
+#show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
   title: "Assignment 42",
   authors: (
@@ -25,9 +22,23 @@ Then, you can use it in a Typst file:
 
   info-box-enabled: true,
 )
+```
 
-#lorem(3000)
+## Preview
+![Preview of the sheetstorm template](./thumbnail.png)
+
+## Development
+For local development, install the package to the `@local` namespace.
+
+This is very easy with a tool like [typship](https://github.com/sjfhsjfh/typship):
+```sh
+typship install local
+```
+
+Then, you can use it in a Typst file:
+```typst
+#import "@local/sheetstorm:0.1.0"
 ```
 
 ## TODOs / Ideas
-- Points for tasks
+- [ ] Points for tasks

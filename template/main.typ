@@ -1,6 +1,6 @@
-#import "@local/sheetstorm:0.1.0" as template: task
+#import "@preview/sheetstorm:0.1.0" as sheetstorm: task
 
-#show: template.setup.with(
+#show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
   title: "Assignment 42",
   authors: (
