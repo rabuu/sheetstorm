@@ -13,7 +13,6 @@
     range(first-task, last-task + 1)
   }
 
-
   table(
     columns: if fill-space {
       tasks.map(_ => 1fr) + (1.3fr,)
