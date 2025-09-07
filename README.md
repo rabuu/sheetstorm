@@ -1,5 +1,5 @@
-# uni-template
-A typst template for university assignment submissions.
+# sheetstorm
+A Typst template for university exercise sheets.
 
 This is a work in progress. The package is not published to the [Typst universe](https://typst.app/universe) yet.
 
@@ -13,7 +13,7 @@ typship install local
 
 Then, you can use it in a Typst file:
 ```typst
-#import "@local/uni-template:0.1.0" as template: task
+#import "@local/sheetstorm:0.1.0" as template: task
 
 #show: template.setup.with(
   course: smallcaps[A very interesting course 101],

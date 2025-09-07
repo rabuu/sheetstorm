@@ -1,4 +1,4 @@
-#import "@local/uni-template:0.1.0" as template: task
+#import "@local/sheetstorm:0.1.0" as template: task
 
 #show: template.setup.with(
   course: smallcaps[A very interesting course 101],
@@ -13,7 +13,7 @@
 )
 
 #task(name: "Introduction")[
-  This is the #link("https://github.com/rabuu/uni-template")[`uni-template`].
+  This is the #link("https://github.com/rabuu/sheetstorm")[`sheetstorm`].
   It provides a sane default layout for university assignment submissions with the option of customizability.
 
   Here you would write down your solutions for the first task:

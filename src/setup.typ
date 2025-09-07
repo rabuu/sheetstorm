@@ -8,7 +8,7 @@
 /// This is the main "entrypoint" for the template.
 /// Apply this function with a show everything rule to use it:
 /// ```typst
-/// #show: uni-template.setup.with(
+/// #show: sheetstorm.setup.with(
 ///   title: "A cool title",
 ///   page-numbering: "1",
 /// )

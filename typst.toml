@@ -1,15 +1,15 @@
 [package]
-name = "uni-template"
+name = "sheetstorm"
 version = "0.1.0"
 compiler = "0.13.0"
 entrypoint = "src/lib.typ"
 
 authors = [ "Rasmus Buurman <rasmus@rbuurman.de>" ]
 
-repository = "https://github.com/rabuu/typst-uni-template"
+repository = "https://github.com/rabuu/sheetstorm"
 license = "MIT"
 
-description = "A template for university assignment submissions"
+description = "A template for university exercise sheets"
 
 [template]
 path = "template"
