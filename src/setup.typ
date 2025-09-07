@@ -1,6 +1,19 @@
 #import "header.typ": header-content
 #import "widgets.typ"
 
+/// The setup function for the template
+///
+/// This is the main "entrypoint" for the template.
+/// Apply this function with a show everything rule to use it:
+/// ```typst
+/// #show: uni-template.setup.with(
+///   title: "A cool title",
+///   numbering: "1",
+/// )
+/// ```
+///
+/// Here you can set many options to customize the template settings.
+/// For general page settings, prefer to set it using this function if available.
 #let setup(
   course: none,
   title: none,
