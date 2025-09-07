@@ -1,3 +1,5 @@
+#import "numbering.typ": apply-numbering-pattern, subtask-numbering-pattern
+
 /// A task block
 ///
 /// Use this function to create a section for each task.
@@ -15,6 +17,8 @@
   show-counter: true,
   reset-counter: none,
   task-string: context if text.lang == "de" { "Aufgabe" } else { "Task" },
+  subtask-numbering: false,
+  subtask-numbering-pattern: subtask-numbering-pattern,
   above: auto,
   below: 2em,
   content,
@@ -31,6 +35,15 @@
   }
 
   block(width: 100%, above: above, below: below)[
+    #set enum(
+      full: true,
+      numbering: if subtask-numbering {
+        apply-numbering-pattern.with(numbering-pattern: subtask-numbering-pattern)
+      } else {
+        apply-numbering-pattern
+      }
+    )
+
     = #title
     #content
   ]

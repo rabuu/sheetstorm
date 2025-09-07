@@ -1,6 +1,6 @@
 #import "header.typ": header-content
 #import "widgets.typ"
-#import "numbering.typ": apply-numbering-pattern
+#import "numbering.typ": apply-numbering-pattern, default-numbering-pattern
 #import "util.typ": is-some
 
 /// The setup function for the template
