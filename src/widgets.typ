@@ -1,4 +1,4 @@
-#import "util.typ": is-some, to-content
+#import "util.typ": is-some
 
 /// Score Box widget
 ///
@@ -44,7 +44,7 @@
   inset: 0.7em,
   gutter: 1em,
 ) = {
-  let info = (student-ids, emails).filter(is-some).map(xs => xs.map(to-content))
+  let info = (student-ids, emails).filter(is-some)
   let entries = names.zip(..info).flatten()
 
   box(stroke: black, inset: inset, grid(

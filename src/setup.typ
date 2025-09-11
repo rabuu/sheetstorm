@@ -58,11 +58,24 @@
 
   doc,
 ) = {
-  let author-names = if authors != none { authors.map(a => if "name" in a { a.name }) }
-  let author-ids = if authors != none { authors.map(a => if "id" in a { a.id }) }
-  let author-emails = if authors != none { authors.map(a => if "email" in a { a.email }) }
-  let has-ids = if author-ids != none { author-ids.filter(is-some).len() > 0 } else { false }
-  let has-emails = if author-emails != none { author-emails.filter(is-some).len() > 0 } else { false }
+  let author-names
+  let author-ids
+  let author-emails
+  let has-ids = false
+  let has-emails = false
+
+  if authors != none {
+    author-names = authors.map(a =>
+      if type(a) == dictionary and "name" in a [ #a.name ]
+      else if a != none [ #a ]
+    )
+
+    author-ids = authors.map(a => if type(a) == dictionary and "id" in a [ #a.id ])
+    author-emails = authors.map(a => if type(a) == dictionary and "email" in a [ #a.email ])
+
+    if author-ids != none { has-ids = author-ids.filter(is-some).len() > 0 }
+    if author-emails != none { has-emails = author-emails.filter(is-some).len() > 0 }
+  }
 
   let x-margin = if x-margin == none { 1.7cm } else { x-margin }
   let left-margin = if left-margin == none { x-margin } else { left-margin }
