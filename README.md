@@ -39,6 +39,3 @@ Then, you can use it in a Typst file:
 ```typst
 #import "@local/sheetstorm:0.1.0"
 ```
-
-## TODOs / Ideas
-- [ ] Points for tasks

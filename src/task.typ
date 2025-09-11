@@ -19,18 +19,22 @@
   task-string: context if text.lang == "de" { "Aufgabe" } else { "Task" },
   subtask-numbering: false,
   subtask-numbering-pattern: subtask-numbering-pattern,
+  points: none,
+  show-points: true,
+  points-string: context if text.lang == "de" { "Punkte" } else { "Points" },
   above: auto,
   below: 2em,
   content,
 ) = {
-  let counter = counter("task")
-  if reset-counter == none { counter.step() } else { counter.update(reset-counter) }
+  let task-count = counter("task")
+  if reset-counter == none { task-count.step() } else { task-count.update(reset-counter) }
+
+  let points-enabled = type(points) == int
+  if points-enabled { counter("points").update(p => p + points) }
 
   let title = {
     task-string
-    if show-counter {
-      [ #context counter.display()]
-    }
+    if show-counter [ #context task-count.display()]
     if name != none [: #emph(name)]
   }
 
@@ -44,7 +48,11 @@
       }
     )
 
-    = #title
+    #block({
+      show heading: box
+      [= #title]
+      if points-enabled and show-points [#h(1fr) (#points #points-string)]
+    })
     #content
   ]
 }

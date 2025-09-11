@@ -9,6 +9,7 @@
   first-task: none,
   last-task: none,
   tasks: none,
+  show-points: true,
   fill-space: false,
   cell-width: 4.5em,
   inset: 0.7em,
@@ -20,6 +21,9 @@
     range(first-task, last-task + 1)
   }
 
+  let points = counter("points").final().first()
+  let points-sum = if show-points and points != none and points > 0 [#h(3em) \/ #points] else { v(1em) }
+
   table(
     columns: if fill-space {
       tasks.map(_ => 1fr) + (1.3fr,)
@@ -29,7 +33,7 @@
     inset: inset,
     align: align,
     table.header(..(tasks.map(i => [*#i*]) + ([$sum$],))),
-    ..(tasks + (1,)).map(_ => v(1em)),
+    ..(tasks).map(_ => v(1em)) + (points-sum,),
   )
 }
 
