@@ -18,16 +18,18 @@
 /// For general page settings, prefer to set it using this function if available.
 #let setup(
   course: none,
-  title: none,
   authors: none,
   tutor: none,
 
+  title: none,
+  title-default-styling: true,
   title-size: 1.6em,
 
-  x-margin: none,
-  left-margin: none,
-  right-margin: none,
-  bottom-margin: none,
+  margin-left: 1.7cm,
+  margin-right: 1.7cm,
+  margin-bottom: 1.7cm,
+  margin-above-header: 0cm,
+  margin-below-header: 0cm,
 
   paper: "a4",
   page-numbering: "1 / 1",
@@ -41,6 +43,8 @@
   initial-task-number: 1,
 
   widget-gap: 4em,
+  widget-spacing-above: 0em,
+  widget-spacing-below: 1em,
 
   score-box-enabled: false,
   score-box-first-task: none,
@@ -77,11 +81,6 @@
     if author-emails != none { has-emails = author-emails.filter(is-some).len() > 0 }
   }
 
-  let x-margin = if x-margin == none { 1.7cm } else { x-margin }
-  let left-margin = if left-margin == none { x-margin } else { left-margin }
-  let right-margin = if right-margin == none { x-margin } else { right-margin }
-  let bottom-margin = if bottom-margin == none { 1.2cm } else { bottom-margin }
-
   let header = header-content(
     course: course,
     title: title,
@@ -95,20 +94,20 @@
   )
 
   context {
-    let top-margin = measure(width: page.width - left-margin - right-margin, header).height
-
     //
     // SETTINGS
     //
+
+    let header-height = measure(width: page.width - margin-left - margin-right, header).height
 
     set page(
       paper: paper,
       numbering: page-numbering,
       margin: (
-        top: top-margin,
-        bottom: bottom-margin,
-        left: left-margin,
-        right: right-margin,
+        top: header-height + margin-above-header,
+        bottom: margin-bottom,
+        left: margin-left,
+        right: margin-right,
       ),
       header: header,
       header-ascent: 0pt,
@@ -133,6 +132,11 @@
 
     let task-counter = counter("task")
     task-counter.update(initial-task-number - 1)
+
+    //
+    // SPACING BELOW HEADER
+    //
+    v(margin-below-header)
 
     //
     // WIDGETS
@@ -162,6 +166,8 @@
     if score-box-enabled or info-box-enabled {
       let alignment = if widget-number == 2 { (left + horizon, right + horizon) } else { center + horizon }
 
+      v(widget-spacing-above)
+
       align(center, grid(
         columns: widget-number,
         align: alignment,
@@ -169,7 +175,7 @@
         ..(info-box, score-box).filter(is-some)
       ))
 
-      v(1em)
+      v(widget-spacing-below)
     }
 
     //
@@ -177,7 +183,8 @@
     //
 
     if title != none {
-      align(center, text(title-size, underline([*#title*])))
+      let styled-title = if title-default-styling { underline[*#title*] } else [#title]
+      align(center, text(title-size, styled-title))
     }
 
     //
