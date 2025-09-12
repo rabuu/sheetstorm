@@ -10,7 +10,7 @@ typst init @preview/sheetstorm
 
 ### Manual
 ```typst
-#import "@preview/sheetstorm:0.1.0"
+#import "@preview/sheetstorm:0.2.0"
 
 #show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
@@ -27,6 +27,8 @@ typst init @preview/sheetstorm
 ## Preview
 ![Preview of the sheetstorm template](./thumbnail.png)
 
+There are more [examples](./examples).
+
 ## Development
 For local development, install the package to the `@local` namespace.
 
@@ -37,5 +39,5 @@ typship install local
 
 Then, you can use it in a Typst file:
 ```typst
-#import "@local/sheetstorm:0.1.0"
+#import "@local/sheetstorm:0.2.0"
 ```
