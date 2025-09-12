@@ -1,4 +1,5 @@
 #import "numbering.typ": apply-numbering-pattern, subtask-numbering-pattern
+#import "i18n.typ"
 
 /// A task block
 ///
@@ -16,12 +17,13 @@
   name: none,
   show-counter: true,
   reset-counter: none,
-  task-string: context if text.lang == "de" { "Aufgabe" } else { "Task" },
+  task-string: none,
   subtask-numbering: false,
   subtask-numbering-pattern: subtask-numbering-pattern,
   points: none,
   show-points: true,
-  points-string: context if text.lang == "de" { "Punkte" } else { "Points" },
+  points-string: none,
+  point-string: none,
   above: auto,
   below: 2em,
   content,
@@ -31,6 +33,15 @@
 
   let points-enabled = type(points) == int
   if points-enabled { counter("points").update(p => p + points) }
+
+  task-string = if task-string == none { context i18n.task() }
+
+  point-string = if point-string == none {
+    if points-string != none { points-string }
+    else { context i18n.point() }
+  } else { point-string }
+
+  points-string = if points-string == none { context i18n.points() } else { points-string }
 
   let title = {
     task-string
@@ -51,7 +62,11 @@
     #block({
       show heading: box
       [= #title]
-      if points-enabled and show-points [#h(1fr) (#points #points-string)]
+      if points-enabled and show-points {
+        let p-string = if points == 1 { point-string } else { points-string }
+        h(1fr)
+        [(#points #p-string)]
+      }
     })
     #content
   ]

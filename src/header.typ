@@ -1,3 +1,4 @@
+#import "i18n.typ"
 #import "util.typ": is-some
 
 /// Helper function that takes an array of content and puts it together as a block
@@ -11,7 +12,9 @@
   title: none,
   authors: none,
   tutor: none,
-  date: "[day].[month].[year]",
+
+  date: datetime.today(),
+  date-format: none,
 
   show-title-on-first-page: false,
 
@@ -27,7 +30,10 @@
 
     // left
     header-section((
-      if date != none { datetime.today().display(date) },
+      if date != none {
+        context date.display(if date-format != none { date-format } else { i18n.default-date() })
+      },
+      if date-format != none { datetime.today().display(date-format) },
       if tutor != none [Tutor: #tutor],
       extra-left,
     )),

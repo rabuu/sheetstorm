@@ -1,6 +1,7 @@
 #import "header.typ": header-content
 #import "widgets.typ"
 #import "numbering.typ": apply-numbering-pattern, default-numbering-pattern
+#import "i18n.typ"
 #import "util.typ": is-some
 
 /// The setup function for the template
@@ -34,7 +35,8 @@
   paper: "a4",
   page-numbering: "1 / 1",
 
-  header-date: "[day].[month].[year]",
+  header-date: datetime.today(),
+  header-date-format: none,
   header-show-title-on-first-page: false,
   header-extra-left: none,
   header-extra-center: none,
@@ -88,6 +90,7 @@
     authors: author-names,
     tutor: tutor,
     date: header-date,
+    date-format: header-date-format,
     show-title-on-first-page: header-show-title-on-first-page,
     extra-left: header-extra-left,
     extra-center: header-extra-center,
