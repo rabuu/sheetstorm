@@ -72,6 +72,8 @@
   let has-emails = false
 
   if authors != none {
+    if type(authors) != array { authors = (authors,) }
+
     author-names = authors.map(a =>
       if type(a) == dictionary and "name" in a [ #a.name ]
       else if a != none [ #a ]
