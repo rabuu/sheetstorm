@@ -14,7 +14,7 @@
 
 // You can customize the task command like so:
 #let task = task.with(
-  show-counter: false,
+  counter-show: false,
   subtask-numbering: true,
   subtask-numbering-pattern: my-custom-numbering-pattern,
 )
@@ -28,4 +28,4 @@
       + Ho
 ]
 
-#task(show-counter: true)[Unless you explicitely enable the counter.]
+#task(counter-show: true)[Unless you explicitely enable the counter.]

@@ -15,22 +15,22 @@
 /// ```
 #let task(
   name: none,
-  show-counter: true,
-  reset-counter: none,
+  counter-show: true,
+  counter-reset: none,
   task-string: none,
   subtask-numbering: false,
   subtask-numbering-pattern: subtask-numbering-pattern,
   points: none,
-  show-points: true,
+  points-show: true,
   points-string: none,
   bonus: false,
   bonus-show-star: true,
-  above: auto,
-  below: 2em,
+  space-above: auto,
+  space-below: 2em,
   content,
 ) = {
   let task-count = counter("sheetstorm-task")
-  if reset-counter == none { task-count.step() } else { task-count.update(reset-counter) }
+  if counter-reset == none { task-count.step() } else { task-count.update(counter-reset) }
 
   let points-enabled = false
   let current-points
@@ -56,12 +56,12 @@
 
   let title = {
     task-string
-    if show-counter [ #context task-count.display()]
+    if counter-show [ #context task-count.display()]
     if name != none [: #emph(name)]
     if bonus and bonus-show-star [\*]
   }
 
-  block(width: 100%, above: above, below: below)[
+  block(width: 100%, above: space-above, below: space-below)[
     #set enum(
       full: true,
       numbering: if subtask-numbering {
@@ -74,7 +74,7 @@
     #block({
       show heading: box
       [= #title <sheetstorm-task>]
-      if points-enabled and show-points {
+      if points-enabled and points-show {
         h(1fr)
         [(#display-points #points-string)]
       }
