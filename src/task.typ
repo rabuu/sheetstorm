@@ -4,8 +4,7 @@
 /// A task block
 ///
 /// Use this function to create a section for each task.
-/// It creates a heading and handles spacing.
-///
+/// It supports customized task numbers, points and bonus tasks.
 /// ```typst
 /// #task(name: "Pythagorean theorem")[
 ///   _What is the Pythagorean theorem?_
@@ -15,9 +14,9 @@
 /// ```
 #let task(
   name: none,
+  task-string: none,
   counter-show: true,
   counter-reset: none,
-  task-string: none,
   subtask-numbering: false,
   subtask-numbering-pattern: subtask-numbering-pattern,
   points: none,
