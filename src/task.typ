@@ -23,6 +23,8 @@
   points: none,
   show-points: true,
   points-string: none,
+  bonus: false,
+  bonus-show-star: true,
   above: auto,
   below: 2em,
   content,
@@ -48,6 +50,8 @@
 
   state("points").update(if points-enabled { current-points })
 
+  state("bonus").update(bonus)
+
   task-string = if task-string == none { context i18n.task() }
   points-string = if points-string == none { context i18n.points() }
 
@@ -55,6 +59,7 @@
     task-string
     if show-counter [ #context task-count.display()]
     if name != none [: #emph(name)]
+    if bonus and bonus-show-star [\*]
   }
 
   block(width: 100%, above: above, below: below)[

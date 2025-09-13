@@ -1,4 +1,4 @@
-#import "util.typ": is-some
+#import "util.typ": is-some, to-content
 
 /// Score Box widget
 ///
@@ -8,36 +8,55 @@
 #let score-box(
   tasks: none,
   show-points: true,
+  bonus-show-star: true,
+  bonus-counts-for-sum: false,
   fill-space: false,
   cell-width: 4.5em,
   inset: 0.7em,
 ) = context {
-  let tasks-query = query(<task>)
-  let task-counter = counter("task")
-  let points-state = state("points")
+  let empty = v(1em)
 
-  let tasks = tasks
+  let display-tasks
+  let display-points
+
   if tasks == none {
-    tasks = tasks-query.map(t => task-counter.at(t.location()).first())
+    let tasks-query = query(<task>)
+    let task-counter = counter("task")
+    let points-state = state("points")
+    let bonus-state = state("bonus")
+
+    let task-list = tasks-query.map(t => task-counter.at(t.location()).first())
+    let point-list = tasks-query.map(t => points-state.at(t.location()))
+    let bonus-task-list = tasks-query.map(t => bonus-state.at(t.location()))
+
+    display-tasks = task-list.zip(bonus-task-list, exact: true).map(((t, b)) =>
+      if b and bonus-show-star [*#t\**] else [*#t*]
+    )
+
+    let counting-points = point-list
+      .zip(bonus-task-list, exact: true)
+      .map(((p, b)) => if not b or bonus-counts-for-sum { p })
+      .filter(is-some)
+
+    let points-sum = if counting-points.len() > 0 { counting-points.sum() }
+
+    display-points = (point-list + (points-sum,)).map(p =>
+      if show-points and p != none [\/ #p] else { empty }
+    )
+  } else {
+    display-tasks = tasks.map(to-content)
+    display-points = tasks.map(_ => empty)
   }
-
-  let points = tasks-query.map(t => points-state.at(t.location()))
-  let raw-points = points.filter(is-some)
-  let points-sum = if raw-points.len() > 0 { raw-points.sum() }
-
-  let display-points = (points + (points-sum,)).map(p =>
-    if show-points and p != none [\/ #p] else { v(1em) }
-  )
 
   table(
     columns: if fill-space {
-      tasks.map(_ => 1fr) + (1.3fr,)
+      display-tasks.map(_ => 1fr) + (1.3fr,)
     } else {
-      tasks.map(_ => cell-width) + (1.3 * cell-width,)
+      display-tasks.map(_ => cell-width) + (1.3 * cell-width,)
     },
     inset: inset,
     align: (_, row) => if row == 1 { right } else { center },
-    table.header(..(tasks.map(i => [*#i*]) + ([$sum$],))),
+    table.header(..(display-tasks + ([$sum$],))),
     ..display-points
   )
 }

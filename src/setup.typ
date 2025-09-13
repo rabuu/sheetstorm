@@ -51,6 +51,8 @@
   score-box-enabled: false,
   score-box-tasks: none,
   score-box-show-points: true,
+  score-box-bonus-counts-for-sum: false,
+  score-box-bonus-show-star: true,
   score-box-inset: 0.7em,
   score-box-cell-width: 4.5em,
 
@@ -159,6 +161,8 @@
     let score-box = if score-box-enabled { widgets.score-box(
       tasks: score-box-tasks,
       show-points: score-box-show-points,
+      bonus-counts-for-sum: score-box-bonus-counts-for-sum,
+      bonus-show-star: score-box-bonus-show-star,
       inset: score-box-inset,
       fill-space: widget-number > 1,
       cell-width: score-box-cell-width,
