@@ -8,11 +8,6 @@
   else { "Task" }
 }
 
-#let point() = {
-  if text.lang == "de" { "Punkt" }
-  else { "Point" }
-}
-
 #let points() = {
   if text.lang == "de" { "Punkte" }
   else { "Points" }

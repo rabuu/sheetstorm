@@ -23,7 +23,6 @@
   points: none,
   show-points: true,
   points-string: none,
-  point-string: none,
   above: auto,
   below: 2em,
   content,
@@ -31,17 +30,26 @@
   let task-count = counter("task")
   if reset-counter == none { task-count.step() } else { task-count.update(reset-counter) }
 
-  let points-enabled = type(points) == int
-  state("points").update(if points-enabled { points })
+  let points-enabled = false
+  let current-points
+  let display-points
+
+  if type(points) == int {
+    points-enabled = true
+    current-points = points
+    display-points = [#points]
+
+  // multiple points specified, e.g. `points: (1, 3, 1)`, gets rendered as "1 + 3 + 1"
+  } else if type(points) == array and points.map(p => type(p) == int).reduce((a, b) => a and b) {
+    points-enabled = true
+    current-points = points.sum()
+    display-points = points.map(str).intersperse(" + ").sum()
+  }
+
+  state("points").update(if points-enabled { current-points })
 
   task-string = if task-string == none { context i18n.task() }
-
-  point-string = if point-string == none {
-    if points-string != none { points-string }
-    else { context i18n.point() }
-  } else { point-string }
-
-  points-string = if points-string == none { context i18n.points() } else { points-string }
+  points-string = if points-string == none { context i18n.points() }
 
   let title = {
     task-string
@@ -63,9 +71,8 @@
       show heading: box
       [= #title <task>]
       if points-enabled and show-points {
-        let p-string = if points == 1 { point-string } else { points-string }
         h(1fr)
-        [(#points #p-string)]
+        [(#display-points #points-string)]
       }
     })
     #content
