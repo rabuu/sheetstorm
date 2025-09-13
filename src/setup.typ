@@ -49,8 +49,6 @@
   widget-spacing-below: 1em,
 
   score-box-enabled: false,
-  score-box-first-task: none,
-  score-box-last-task: none,
   score-box-tasks: none,
   score-box-show-points: true,
   score-box-inset: 0.7em,
@@ -160,8 +158,6 @@
     )}
 
     let score-box = if score-box-enabled { widgets.score-box(
-      first-task: initial-task-number,
-      last-task: score-box-last-task,
       tasks: score-box-tasks,
       show-points: score-box-show-points,
       inset: score-box-inset,

@@ -61,7 +61,7 @@
 
     #block({
       show heading: box
-      [= #title]
+      [= #title <task>]
       if points-enabled and show-points {
         let p-string = if points == 1 { point-string } else { points-string }
         h(1fr)

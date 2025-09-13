@@ -6,8 +6,6 @@
 /// By default, it reads the number of tasks from the `task` counter,
 /// but you can set the task values manually.
 #let score-box(
-  first-task: none,
-  last-task: none,
   tasks: none,
   show-points: true,
   fill-space: false,
@@ -15,10 +13,10 @@
   inset: 0.7em,
   align: center,
 ) = context {
+  let task-counter = counter("task")
+
   let tasks = if tasks != none { tasks } else {
-    let first-task = if first-task == none { 1 } else { first-task }
-    let last-task = if last-task == none { counter("task").final().first() } else { last-task }
-    range(first-task, last-task + 1)
+    query(<task>).map(t => task-counter.at(t.location()).first())
   }
 
   let points = counter("points").final().first()
