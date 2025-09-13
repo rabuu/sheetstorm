@@ -32,7 +32,7 @@
   if reset-counter == none { task-count.step() } else { task-count.update(reset-counter) }
 
   let points-enabled = type(points) == int
-  if points-enabled { counter("points").update(p => p + points) }
+  state("points").update(if points-enabled { points })
 
   task-string = if task-string == none { context i18n.task() }
 

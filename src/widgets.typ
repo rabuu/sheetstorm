@@ -11,16 +11,23 @@
   fill-space: false,
   cell-width: 4.5em,
   inset: 0.7em,
-  align: center,
 ) = context {
+  let tasks-query = query(<task>)
   let task-counter = counter("task")
+  let points-state = state("points")
 
-  let tasks = if tasks != none { tasks } else {
-    query(<task>).map(t => task-counter.at(t.location()).first())
+  let tasks = tasks
+  if tasks == none {
+    tasks = tasks-query.map(t => task-counter.at(t.location()).first())
   }
 
-  let points = counter("points").final().first()
-  let points-sum = if show-points and points != none and points > 0 [#h(3em) \/ #points] else { v(1em) }
+  let points = tasks-query.map(t => points-state.at(t.location()))
+  let raw-points = points.filter(is-some)
+  let points-sum = if raw-points.len() > 0 { raw-points.sum() }
+
+  let display-points = (points + (points-sum,)).map(p =>
+    if show-points and p != none [\/ #p] else { v(1em) }
+  )
 
   table(
     columns: if fill-space {
@@ -29,9 +36,9 @@
       tasks.map(_ => cell-width) + (1.3 * cell-width,)
     },
     inset: inset,
-    align: align,
+    align: (_, row) => if row == 1 { right } else { center },
     table.header(..(tasks.map(i => [*#i*]) + ([$sum$],))),
-    ..(tasks).map(_ => v(1em)) + (points-sum,),
+    ..display-points
   )
 }
 

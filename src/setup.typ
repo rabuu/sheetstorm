@@ -52,7 +52,6 @@
   score-box-tasks: none,
   score-box-show-points: true,
   score-box-inset: 0.7em,
-  score-box-align: center,
   score-box-cell-width: 4.5em,
 
   info-box-enabled: false,
@@ -161,7 +160,6 @@
       tasks: score-box-tasks,
       show-points: score-box-show-points,
       inset: score-box-inset,
-      align: score-box-align,
       fill-space: widget-number > 1,
       cell-width: score-box-cell-width,
     )}
