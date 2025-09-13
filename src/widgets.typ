@@ -20,10 +20,10 @@
   let display-points
 
   if tasks == none {
-    let tasks-query = query(<task>)
-    let task-counter = counter("task")
-    let points-state = state("points")
-    let bonus-state = state("bonus")
+    let tasks-query = query(<sheetstorm-task>)
+    let task-counter = counter("sheetstorm-task")
+    let points-state = state("sheetstorm-points")
+    let bonus-state = state("sheetstorm-bonus")
 
     let task-list = tasks-query.map(t => task-counter.at(t.location()).first())
     let point-list = tasks-query.map(t => points-state.at(t.location()))

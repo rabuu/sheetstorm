@@ -29,7 +29,7 @@
   below: 2em,
   content,
 ) = {
-  let task-count = counter("task")
+  let task-count = counter("sheetstorm-task")
   if reset-counter == none { task-count.step() } else { task-count.update(reset-counter) }
 
   let points-enabled = false
@@ -48,9 +48,8 @@
     display-points = points.map(str).intersperse(" + ").sum()
   }
 
-  state("points").update(if points-enabled { current-points })
-
-  state("bonus").update(bonus)
+  state("sheetstorm-points").update(if points-enabled { current-points })
+  state("sheetstorm-bonus").update(bonus)
 
   task-string = if task-string == none { context i18n.task() }
   points-string = if points-string == none { context i18n.points() }
@@ -74,7 +73,7 @@
 
     #block({
       show heading: box
-      [= #title <task>]
+      [= #title <sheetstorm-task>]
       if points-enabled and show-points {
         h(1fr)
         [(#display-points #points-string)]

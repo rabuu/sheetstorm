@@ -135,7 +135,7 @@
     // TASK COUNTER
     //
 
-    let task-counter = counter("task")
+    let task-counter = counter("sheetstorm-task")
     task-counter.update(initial-task-number - 1)
 
     //
