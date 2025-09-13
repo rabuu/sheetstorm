@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.2.0" as sheetstorm: task
+#import "@preview/sheetstorm:0.3.0" as sheetstorm: task
 
 #show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
@@ -20,7 +20,7 @@
   #lorem(100)
 ]
 
-#task(name: "Subtasks", subtask-numbering: true, points: 3)[
+#task(name: "Subtasks", subtask-numbering: true, points: (1, 2))[
   + _What is the color of a banana?_
 
     A banana is *yellow*.
@@ -49,4 +49,4 @@
   Therefore, the statement is proven using the principle of induction. #h(1fr)$square$
 ]
 
-#task(points: 1, lorem(300))
+#task(points: 1, bonus: true, lorem(300))
