@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.3.2" as sheetstorm: task
+#import "@preview/sheetstorm:0.3.3" as sheetstorm: task
 
 #set text(lang: "de")
 

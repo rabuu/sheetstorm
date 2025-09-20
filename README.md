@@ -10,7 +10,7 @@ typst init @preview/sheetstorm
 
 ### Manual
 ```typst
-#import "@preview/sheetstorm:0.3.2"
+#import "@preview/sheetstorm:0.3.3"
 
 #show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
@@ -39,5 +39,5 @@ typship install local
 
 Then, you can use it in a Typst file:
 ```typst
-#import "@local/sheetstorm:0.3.2"
+#import "@local/sheetstorm:0.3.3"
 ```
