@@ -24,6 +24,7 @@
   points-string: none,
   bonus: false,
   bonus-show-star: true,
+  hidden: false,
   space-above: auto,
   space-below: 2em,
   content,
@@ -49,6 +50,7 @@
 
   state("sheetstorm-points").update(if points-enabled { current-points })
   state("sheetstorm-bonus").update(bonus)
+  state("sheetstorm-hidden-task").update(hidden)
 
   task-string = if task-string == none { context i18n.task() }
   points-string = if points-string == none { context i18n.points() }
