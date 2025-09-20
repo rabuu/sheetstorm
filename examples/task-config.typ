@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.3.0" as sheetstorm: task
+#import "@preview/sheetstorm:0.3.1" as sheetstorm: task
 
 #show: sheetstorm.setup.with(
   title: "Task Configuration Example",
