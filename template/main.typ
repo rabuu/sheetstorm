@@ -10,6 +10,9 @@
 
   info-box-enabled: true,
   score-box-enabled: true,
+
+  // Here you can customize the layout of the page, the header, the widgets.
+  // Look at the parameters of the `setup` function.
 )
 
 #task(name: "Introduction")[
