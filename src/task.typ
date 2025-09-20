@@ -57,8 +57,10 @@
 
   let title = {
     task-string
-    if task-string != "" [ ]
-    if counter-show { context task-count.display() }
+    if counter-show {
+      if task-string != "" [ ]
+      context task-count.display()
+    }
     if name != none [: #emph(name)]
     if bonus and bonus-show-star [\*]
   }
