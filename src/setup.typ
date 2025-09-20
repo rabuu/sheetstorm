@@ -44,7 +44,8 @@
 
   initial-task-number: 1,
 
-  widget-gap: 4em,
+  widget-column-gap: 4em,
+  widget-row-gap: 1em,
   widget-spacing-above: 0em,
   widget-spacing-below: 1em,
 
@@ -148,9 +149,11 @@
     // (info box & score box)
     //
 
+    let info-box-enabled = info-box-enabled and author-names != none
+
     let widget-number = (score-box-enabled, info-box-enabled).map(x => if x { 1 } else { 0 }).sum()
 
-    let info-box = if info-box-enabled and author-names != none { widgets.info-box(
+    let info-box = if info-box-enabled { widgets.info-box(
       author-names,
       student-ids: if info-box-show-ids and has-ids { author-ids },
       emails: if info-box-show-emails and has-emails { author-emails },
@@ -164,21 +167,35 @@
       bonus-counts-for-sum: score-box-bonus-counts-for-sum,
       bonus-show-star: score-box-bonus-show-star,
       inset: score-box-inset,
-      fill-space: widget-number > 1,
       cell-width: score-box-cell-width,
     )}
 
     if score-box-enabled or info-box-enabled {
-      let alignment = if widget-number == 2 { (left + horizon, right + horizon) } else { center + horizon }
-
       v(widget-spacing-above)
 
-      align(center, grid(
-        columns: widget-number,
-        align: alignment,
-        gutter: widget-gap,
-        ..(info-box, score-box).filter(is-some)
-      ))
+      layout(size => {
+        let (columns, alignment) = {
+          if widget-number == 1 {
+            (1, center + horizon)
+          } else if widget-number == 2 {
+            let a = measure(info-box).width
+            let b = measure(score-box).width
+            if a + b > size.width {
+              (1, center + horizon)
+            } else {
+              (2, (left + horizon, right + horizon))
+            }
+          }
+        }
+
+        align(center, grid(
+          columns: columns,
+          align: alignment,
+          column-gutter: widget-column-gap,
+          row-gutter: widget-row-gap,
+          ..(info-box, score-box).filter(is-some)
+        ))
+      })
 
       v(widget-spacing-below)
     }
