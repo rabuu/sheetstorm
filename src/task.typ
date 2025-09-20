@@ -52,8 +52,8 @@
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
 
-  task-string = if task-string == none { context i18n.task() }
-  points-string = if points-string == none { context i18n.points() }
+  task-string = if task-string == none { context i18n.task() } else { task-string }
+  points-string = if points-string == none { context i18n.points() } else { points-string }
 
   let title = {
     task-string
