@@ -44,6 +44,7 @@
 
   initial-task-number: 1,
 
+  widget-order-reversed: false,
   widget-column-gap: 4em,
   widget-row-gap: 1em,
   widget-spacing-above: 0em,
@@ -171,6 +172,12 @@
     )}
 
     if score-box-enabled or info-box-enabled {
+      let display-widgets = if not widget-order-reversed {
+        (info-box, score-box)
+      } else {
+        (score-box, info-box)
+      }.filter(is-some)
+
       v(widget-spacing-above)
 
       layout(size => {
@@ -193,7 +200,7 @@
           align: alignment,
           column-gutter: widget-column-gap,
           row-gutter: widget-row-gap,
-          ..(info-box, score-box).filter(is-some)
+          ..display-widgets
         ))
       })
 
