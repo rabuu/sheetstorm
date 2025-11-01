@@ -35,8 +35,9 @@
   paper: "a4",
   page-numbering: "1 / 1",
 
-  header-date: datetime.today(),
-  header-date-format: none,
+  date: datetime.today(),
+  date-format: none,
+
   header-show-title-on-first-page: false,
   header-extra-left: none,
   header-extra-center: none,
@@ -92,8 +93,8 @@
     title: title,
     authors: author-names,
     tutor: tutor,
-    date: header-date,
-    date-format: header-date-format,
+    date: date,
+    date-format: date-format,
     show-title-on-first-page: header-show-title-on-first-page,
     extra-left: header-extra-left,
     extra-center: header-extra-center,
