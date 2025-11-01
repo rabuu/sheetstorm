@@ -10,6 +10,7 @@
         pkgs = import nixpkgs { inherit system; };
       in {
         devShells.default = pkgs.mkShell {
+          name = "sheetstorm";
           packages = with pkgs; [
             typst
             tinymist
