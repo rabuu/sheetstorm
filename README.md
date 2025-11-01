@@ -8,9 +8,14 @@ A Typst template for university exercise sheets.
 typst init @preview/sheetstorm
 ```
 
-### Manual
+### Import
 ```typst
 #import "@preview/sheetstorm:0.3.3"
+```
+
+## Example
+```typst
+#import "@preview/sheetstorm:0.3.3" as sheetstorm: task
 
 #show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
@@ -21,23 +26,20 @@ typst init @preview/sheetstorm
   ),
 
   info-box-enabled: true,
+  score-box-enabled: true,
 )
+
+#task(name: "Introduction")[
+  This is #link("https://github.com/rabuu/sheetstorm")[`sheetstorm`],
+  a template library that provides a sane default layout for university assignment submissions with the option of customizability.
+
+  Here you would write down your solutions for the first task:
+  #lorem(100)
+]
 ```
 
-## Preview
+### Preview
 ![Preview of the sheetstorm template](./thumbnail.png)
 
-There are more [examples](./examples).
-
-## Development
-For local development, install the package to the `@local` namespace.
-
-This is very easy with a tool like [typship](https://github.com/sjfhsjfh/typship):
-```sh
-typship install local
-```
-
-Then, you can use it in a Typst file:
-```typst
-#import "@local/sheetstorm:0.3.3"
-```
+### More examples
+More examples can be found [here](./examples).
