@@ -30,10 +30,10 @@
 
     // left
     header-section((
-      if date != none {
-        context date.display(if date-format != none { date-format } else { i18n.default-date() })
-      },
-      if date-format != none { datetime.today().display(date-format) },
+      if date != none { context {
+        let format = if date-format != none { date-format } else { i18n.default-date() }
+        date.display(format)
+      }},
       if tutor != none [Tutor: #tutor],
       extra-left,
     )),

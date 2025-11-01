@@ -5,6 +5,7 @@
 - The date format is `YYYY-MM-DD`.
 
 ## [Unreleased]
+- Fixed `date-format` bug in header
 
 ## [0.3.3] - 2025-09-22
 No information available.
