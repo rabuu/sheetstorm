@@ -139,7 +139,7 @@
     //
 
     let task-counter = counter("sheetstorm-task")
-    task-counter.update(initial-task-number - 1)
+    task-counter.update(initial-task-number)
 
     //
     // SPACING BELOW HEADER

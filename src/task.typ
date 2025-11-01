@@ -30,7 +30,7 @@
   content,
 ) = {
   let task-count = counter("sheetstorm-task")
-  if counter-reset == none { task-count.step() } else { task-count.update(counter-reset) }
+  if counter-reset != none { task-count.update(counter-reset) }
 
   let points-enabled = false
   let current-points
@@ -85,4 +85,6 @@
     })
     #content
   ]
+
+  task-count.step()
 }

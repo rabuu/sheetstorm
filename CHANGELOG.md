@@ -9,6 +9,7 @@
 - Changed `setup` options: (BREAKING)
   - `header-date` -> `date`
   - `header-date-format` -> `date-format`
+- Changed task number update behavior
 
 ## [0.3.3] - 2025-09-22
 No information available.
