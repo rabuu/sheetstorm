@@ -36,7 +36,11 @@ typst init @preview/sheetstorm
   Here you would write down your solutions for the first task:
   #lorem(100)
 ]
+
+// ...
 ```
+
+See [here](./template/main.typ) for full example template.
 
 ### Preview
 ![Preview of the sheetstorm template](./thumbnail.png)
