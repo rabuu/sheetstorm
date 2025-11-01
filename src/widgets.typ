@@ -46,9 +46,15 @@
     display-points = (point-list + (points-sum,)).map(p =>
       if show-points and p != none [\/ #p] else { empty }
     )
+  } else if type(tasks) != array {
+    return none
   } else {
     display-tasks = tasks.map(to-content)
     display-points = tasks.map(_ => empty)
+  }
+
+  if display-tasks.len() == 0 {
+    return none
   }
 
   table(
