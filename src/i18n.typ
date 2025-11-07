@@ -11,3 +11,13 @@
 #let points() = {
   if text.lang == "de" { "Punkte" } else { "Points" }
 }
+
+#let proof() = {
+  if text.lang == "de" { "Beweis" }
+  else { "Proof" }
+}
+
+#let corollary() = {
+  if text.lang == "de" { "Korollar" }
+  else { "Corollary" }
+}
