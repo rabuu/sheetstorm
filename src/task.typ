@@ -41,8 +41,11 @@
     current-points = points
     display-points = [#points]
 
-  // multiple points specified, e.g. `points: (1, 3, 1)`, gets rendered as "1 + 3 + 1"
-  } else if type(points) == array and points.map(p => type(p) == int).reduce((a, b) => a and b) {
+    // multiple points specified, e.g. `points: (1, 3, 1)`, gets rendered as "1 + 3 + 1"
+  } else if (
+    type(points) == array
+      and points.map(p => type(p) == int).reduce((a, b) => a and b)
+  ) {
     points-enabled = true
     current-points = points.sum()
     display-points = points.map(str).intersperse(" + ").sum()
@@ -52,8 +55,12 @@
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
 
-  task-string = if task-string == none { context i18n.task() } else { task-string }
-  points-string = if points-string == none { context i18n.points() } else { points-string }
+  task-string = if task-string == none { context i18n.task() } else {
+    task-string
+  }
+  points-string = if points-string == none { context i18n.points() } else {
+    points-string
+  }
 
   let title = {
     task-string
@@ -69,10 +76,12 @@
     #set enum(
       full: true,
       numbering: if subtask-numbering {
-        apply-numbering-pattern.with(numbering-pattern: subtask-numbering-pattern)
+        apply-numbering-pattern.with(
+          numbering-pattern: subtask-numbering-pattern,
+        )
       } else {
         apply-numbering-pattern
-      }
+      },
     )
 
     #block({

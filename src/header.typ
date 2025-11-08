@@ -3,7 +3,7 @@
 
 /// Helper function that takes an array of content and puts it together as a block
 #let header-section(xs) = box(
-  for i in xs.filter(is-some).intersperse(linebreak()) { i }
+  for i in xs.filter(is-some).intersperse(linebreak()) { i },
 )
 
 /// Create the contents of the header
@@ -12,12 +12,9 @@
   title: none,
   authors: none,
   tutor: none,
-
   date: datetime.today(),
   date-format: none,
-
   show-title-on-first-page: false,
-
   extra-left: none,
   extra-center: none,
   extra-right: none,
@@ -30,10 +27,14 @@
 
     // left
     header-section((
-      if date != none { context {
-        let format = if date-format != none { date-format } else { i18n.default-date() }
-        date.display(format)
-      }},
+      if date != none {
+        context {
+          let format = if date-format != none { date-format } else {
+            i18n.default-date()
+          }
+          date.display(format)
+        }
+      },
       if tutor != none [Tutor: #tutor],
       extra-left,
     )),

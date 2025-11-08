@@ -7,9 +7,7 @@
 )
 
 #let my-custom-numbering-pattern(depth) = {
-  if depth == 1 { "i)" }
-  else if depth == 2 { "1." }
-  else { "(a)" }
+  if depth == 1 { "i)" } else if depth == 2 { "1." } else { "(a)" }
 }
 
 // You can customize the task command like so:

@@ -14,6 +14,7 @@
           packages = with pkgs; [
             typst
             tinymist
+            typstyle
 
             just
           ];
