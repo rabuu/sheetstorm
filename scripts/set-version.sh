@@ -75,7 +75,7 @@ sed -i "s/version = \"$PKG_VERSION\"/version = \"$NEW_VERSION\"/" typst.toml
 
 if git ls-files | xargs grep -q "$PKG_VERSION"; then
 	echo
-	echo "There are still some occurences of the string '$PKG_VERSION':"
+	echo "There are still some occurrences of the string '$PKG_VERSION':"
 	echo
 	git ls-files | xargs grep "$PKG_VERSION"
 fi
