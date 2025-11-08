@@ -11,7 +11,7 @@
   Es ist sehr einfach, das Template für deutschsprachige Dokumente zu benutzen.
   Es muss lediglich die Sprache umgestellt werden:
   ```typst
-#set text(lang: "de")
+  #set text(lang: "de")
   ```
 ]
 

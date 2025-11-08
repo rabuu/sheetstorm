@@ -42,12 +42,13 @@
   _Proof._ It is easy to see that the statement is true for the number $0$:
   $sum_(i=0)^0 i = 0 = (0 dot 1)/2$
   Let's assume that the statement is true for some $n$. It follows:
-  $ sum_(i=0)^(n+1) i 
-    &= sum_(i=0)^n i + (n+1)
-    = (n dot (n+1)) / 2 + (n + 1)
-    = (n^2 + n) / 2 + (2n + 2)/2 \
-    &= (n^2 + 3n + 2) / 2
-    = ((n+1) dot (n+2)) / 2 $
+  $
+    sum_(i=0)^(n+1) i & = sum_(i=0)^n i + (n+1)
+                        = (n dot (n+1)) / 2 + (n + 1)
+                        = (n^2 + n) / 2 + (2n + 2)/2 \
+                      & = (n^2 + 3n + 2) / 2
+                        = ((n+1) dot (n+2)) / 2
+  $
 
   Therefore, the statement is proven using the principle of induction. #h(1fr)$square$
 ]

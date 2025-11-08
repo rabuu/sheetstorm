@@ -26,15 +26,17 @@
     let points-state = state("sheetstorm-points")
     let bonus-state = state("sheetstorm-bonus")
 
-    let task-query = task-query.filter(t => not hidden-task-state.at(t.location()))
+    let task-query = task-query.filter(t => {
+      not hidden-task-state.at(t.location())
+    })
 
     let task-list = task-query.map(t => task-counter.at(t.location()).first())
     let point-list = task-query.map(t => points-state.at(t.location()))
     let bonus-task-list = task-query.map(t => bonus-state.at(t.location()))
 
-    display-tasks = task-list.zip(bonus-task-list, exact: true).map(((t, b)) =>
-      if b and bonus-show-star [*#t\**] else [*#t*]
-    )
+    display-tasks = task-list
+      .zip(bonus-task-list, exact: true)
+      .map(((t, b)) => if b and bonus-show-star [*#t\**] else [*#t*])
 
     let counting-points = point-list
       .zip(bonus-task-list, exact: true)
@@ -43,9 +45,8 @@
 
     let points-sum = if counting-points.len() > 0 { counting-points.sum() }
 
-    display-points = (point-list + (points-sum,)).map(p =>
-      if show-points and p != none [\/ #p] else { empty }
-    )
+    display-points = (point-list + (points-sum,)).map(p => if show-points
+      and p != none [\/ #p] else { empty })
   } else if type(tasks) != array {
     return none
   } else {
