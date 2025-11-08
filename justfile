@@ -14,4 +14,4 @@ set-version version *options:
 	./scripts/set-version.sh "{{version}}" {{options}}
 
 format:
-	typstyle -i .
+	typstyle --inplace .
