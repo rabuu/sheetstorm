@@ -11,9 +11,8 @@
 /// 2. numbering: optional custom numbering
 /// 3. name: optional theorem name
 /// 4. content: theorem body
-#let theotitle = context i18n.theorem()
 #let theorem(
-  kind: theotitle,
+  kind: context i18n.theorem(),
   numbering: auto,
   name: none,
   content,
@@ -47,12 +46,10 @@
 }
 
 /// Corollary, based on the theorem style
-#let cortitle = context i18n.corollary()
-#let corollary = theorem.with(kind:cortitle)
+#let corollary = theorem.with(kind: context i18n.corollary())
 
 /// Lemma, based on the theorem style
-#let lemtitle = context i18n.lemma()
-#let lemma = theorem.with(kind: lemtitle)
+#let lemma = theorem.with(kind: context i18n.lemma())
 
 /// Proof enviroment with a default square end-symbol
 #let proof(
