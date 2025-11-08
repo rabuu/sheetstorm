@@ -60,16 +60,16 @@
   content,
 ) = {
   let title = context { i18n.proof() }
-  let proofbox = block(
+  block(
     fill: luma(100%),
     inset: 4pt,
     outset: 1pt,
     radius: 4pt,
     below: 1pt,
     width: 100%,
-    [_#title._#h(3pt) #content],
+    [
+      _#title._ #content #h(1fr)\u{2060}#box[#h(1em)#symbol]
+    ],
   )
-  let proofend = align(right, symbol)
-  return [#proofbox #proofend]
 }
 
