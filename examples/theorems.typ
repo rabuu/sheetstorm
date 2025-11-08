@@ -17,7 +17,7 @@
 
   /// Example: Theorem with emphasized = false
   #sheetstorm.theorem(
-    emphasized: false
+    emphasized: false,
   )[This is a theorem without emphasized text.]
 
   /// Example: Theorem with custom numbering
