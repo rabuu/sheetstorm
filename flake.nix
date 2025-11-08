@@ -14,7 +14,8 @@
           packages = with pkgs; [
             typst
             tinymist
-            typship
+
+            just
           ];
         };
       }
