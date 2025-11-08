@@ -68,10 +68,10 @@ done
 echo "Old version: ${PKG_VERSION}"
 echo "New version: ${NEW_VERSION}"
 
-find . \( -name '*.typ' -o -name 'README.md' \) -type f \
+find "$PKG_ROOT" \( -name '*.typ' -o -name 'README.md' \) -type f \
 	-exec sed -i "s/$PKG_NAME:$PKG_VERSION/$PKG_NAME:$NEW_VERSION/" '{}' \;
 
-sed -i "s/version = \"$PKG_VERSION\"/version = \"$NEW_VERSION\"/" typst.toml
+sed -i "s/version = \"$PKG_VERSION\"/version = \"$NEW_VERSION\"/" "$PKG_ROOT/typst.toml"
 
 if git ls-files | xargs grep -q "$PKG_VERSION"; then
 	echo
