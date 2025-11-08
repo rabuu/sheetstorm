@@ -15,6 +15,11 @@
     name: [Beautiful Name],
   )[This theorem is special because it is named. The numbering follows the standard.]
 
+  /// Example: Theorem with emphasized = false
+  #sheetstorm.theorem(
+    emphasized: false
+  )[This is a theorem without emphasized text.]
+
   /// Example: Theorem with custom numbering
   #sheetstorm.theorem(
     numbering: 4.2,

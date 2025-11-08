@@ -15,6 +15,7 @@
   kind: context i18n.theorem(),
   numbering: auto,
   name: none,
+  emphasized: true,
   content,
 ) = {
   let theorem-count = counter("sheetstorm-theorem-count")
@@ -30,6 +31,8 @@
     [*#kind#numbering*#name*.*]
   }
 
+  if emphasized { content = emph(content) }
+
   block(
     fill: luma(100%),
     inset: 4pt,
@@ -37,7 +40,7 @@
     radius: 4pt,
     above: 10pt,
     below: 10pt,
-    [#prefix _#content _],
+    [#prefix #content],
   )
 
   if auto-numbering {
