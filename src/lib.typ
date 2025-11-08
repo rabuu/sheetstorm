@@ -1,4 +1,4 @@
 #import "setup.typ": setup
 #import "task.typ": task
-#import "theorem.typ": theorem, proof, lemma, corollary
+#import "theorem.typ": corollary, lemma, proof, theorem
 #import "widgets.typ" as widgets

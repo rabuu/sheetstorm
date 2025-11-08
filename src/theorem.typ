@@ -1,7 +1,7 @@
 #import "i18n.typ"
 
 /// Theoremstyle package
-/// 
+///
 /// These functions provides a styled enviroment for theorems, lemmas, corollaries and proofs.
 /// It includes automatic numbering, optional naming, and customizable end symbols for proofs.
 
@@ -37,11 +37,11 @@
     radius: 4pt,
     above: 10pt,
     below: 10pt,
-    [#prefix _#content _]
+    [#prefix _#content _],
   )
 
   if auto-numbering {
-   theorem-count.step()
+    theorem-count.step()
   }
 }
 
@@ -56,7 +56,7 @@
   symbol: $square$,
   content,
 ) = {
-  let title = context{ i18n.proof()}
+  let title = context { i18n.proof() }
   let proofbox = block(
     fill: luma(100%),
     inset: 4pt,
@@ -64,7 +64,7 @@
     radius: 4pt,
     below: 1pt,
     width: 100%,
-    [_#title._#h(3pt) #content]
+    [_#title._#h(3pt) #content],
   )
   let proofend = align(right, symbol)
   return [#proofbox #proofend]

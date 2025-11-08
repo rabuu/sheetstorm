@@ -13,21 +13,17 @@
 }
 
 #let proof() = {
-  if text.lang == "de" { "Beweis" }
-  else { "Proof" }
+  if text.lang == "de" { "Beweis" } else { "Proof" }
 }
 
 #let corollary() = {
-  if text.lang == "de" { "Korollar" }
-  else { "Corollary" }
+  if text.lang == "de" { "Korollar" } else { "Corollary" }
 }
 
 #let theorem() = {
-  if text.lang == "de" { "Satz" }
-  else { "Theorem" }
+  if text.lang == "de" { "Satz" } else { "Theorem" }
 }
 
 #let lemma() = {
-  if text.lang == "de" { "Lemma" }
-  else { "Lemma" }
+  if text.lang == "de" { "Lemma" } else { "Lemma" }
 }
