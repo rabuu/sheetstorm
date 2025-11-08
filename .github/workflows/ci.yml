@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '**'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      # - uses: actions/checkout@v5
+      # - name: Install `just` from crates.io
+      #   uses: baptiste0928/cargo-install@v3
+      #   with:
+      #     crate: just
+      - name: Install `typstyle` from crates.io
+        uses: baptiste0928/cargo-install@v3
+        with:
+          crate: typstyle
+      # - uses: typst-community/setup-typst@v4
+      #   with:
+      #     typst-version: '0.13.1'
+      - run: |
+          # typst --version
+          typstyle --version
+          typstyle --check .
+          # just test
