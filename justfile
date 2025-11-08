@@ -3,6 +3,7 @@ alias i := install
 alias v := set-version
 alias f := format
 alias fmt := format
+alias t := test
 
 package target *options:
 	./scripts/package.sh "{{target}}" {{options}}
@@ -15,3 +16,6 @@ set-version version *options:
 
 format:
 	typstyle --inplace .
+
+test:
+	./scripts/test/compile-examples.sh
