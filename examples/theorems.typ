@@ -8,7 +8,7 @@
 
 #task(points: 42)[
   /// Example: Standard theorem
-  #sheetstorm.theorem()[This is a theorem with the standard numbering and no name.]
+  #sheetstorm.theorem[This is a theorem with the standard numbering and no name.]
 
   /// Example: Named theorem
   #sheetstorm.theorem(
@@ -21,13 +21,13 @@
   )[This thoerem uses a custom numbering. Be creative when defining your one numbering style.]
 
   /// Example: Standard corollary
-  #sheetstorm.corollary()[A corollary usually follows from a preceding theorem. ]
+  #sheetstorm.corollary[A corollary usually follows from a preceding theorem. ]
 
   ///Example: Standard lemma
-  #sheetstorm.lemma()[A lemma is typically a supporting statement. You can also assign a name or custom numbering as for theorem.]
+  #sheetstorm.lemma[A lemma is typically a supporting statement. You can also assign a name or custom numbering as for theorem.]
 
   /// Example: Standard proof
-  #sheetstorm.proof()[This is a standard proof.]
+  #sheetstorm.proof[This is a standard proof.]
 
   /// Example: Proof with special symbol
   #sheetstorm.proof(symbol: $q.e.d.$)[This proof ends with a custom symbol.]
