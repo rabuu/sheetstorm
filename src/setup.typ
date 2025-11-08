@@ -130,11 +130,13 @@
     show link: underline
 
     //
-    // TASK COUNTER
+    // COUNTERS
     //
 
     let task-counter = counter("sheetstorm-task")
     task-counter.update(initial-task-number)
+    let theorem-counter = counter("sheetstorm-theorem-count")
+    theorem-counter.update(1)
 
     //
     // SPACING BELOW HEADER

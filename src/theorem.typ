@@ -5,59 +5,54 @@
 /// These functions provides a styled enviroment for theorems, lemmas, corollaries and proofs.
 /// It includes automatic numbering, optional naming, and customizable end symbols for proofs.
 
-/// State variable that tracks the number of created theorem-like boxes
-#let count = state("theorem-count",0)
-
-/// Updates the counter and returns the current theorem number
-#let compute(delta:1) = [
-  #count.update(x => x + delta)
-  #context{count.get()}
-]
-/// Removes all spaces from a given string
-#let nospace(txt) = {
-  show regex(" "): it => []
-  txt
-}
-
 /// Creates a styled theorem block
 /// Arguments:
 /// 1. kind: lable of the theorem type, e.g. "Theorem", "Lemma"
 /// 2. numbering: optional custom numbering
 /// 3. name: optional theorem name
 /// 4. content: theorem body
+#let theotitle = context i18n.theorem()
 #let theorem(
-  kind: [Theorem],
-  numbering: none,
-  name: [],
+  kind: theotitle,
+  numbering: auto,
+  name: none,
   content,
 ) = {
-  let count = nospace(compute())
-  if(numbering != none){
-    count = numbering
+  let theorem-count = counter("sheetstorm-theorem-count")
+
+  let auto-numbering = (numbering == auto)
+  if auto-numbering {
+    numbering = context theorem-count.get().first()
   }
-  if(name != []){
-    name = [*#kind #count*#h(2pt) (#name)*.*]
-  } else {
-    name = [*#kind #count.*]
+
+  let prefix = {
+    let numbering = if numbering != none [ #numbering]
+    let name = if name != none [ (#name)]
+    [*#kind#numbering*#name*.*]
   }
-  let theoblock = block(
+
+  block(
     fill: luma(100%),
     inset: 4pt,
     outset: 4pt,
     radius: 4pt,
     above: 10pt,
     below: 10pt,
-    [#name _#content _ ]
+    [#prefix _#content _]
   )
-  return theoblock
+
+  if auto-numbering {
+   theorem-count.step()
+  }
 }
 
 /// Corollary, based on the theorem style
-#let title = context i18n.corollary()
-#let corollary = theorem.with(kind:title)
+#let cortitle = context i18n.corollary()
+#let corollary = theorem.with(kind:cortitle)
 
 /// Lemma, based on the theorem style
-#let lemma = theorem.with(kind: [Lemma])
+#let lemtitle = context i18n.lemma()
+#let lemma = theorem.with(kind: lemtitle)
 
 /// Proof enviroment with a default square end-symbol
 #let proof(
@@ -77,5 +72,4 @@
   let proofend = align(right, symbol)
   return [#proofbox #proofend]
 }
-
 
