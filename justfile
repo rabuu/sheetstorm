@@ -19,3 +19,4 @@ format:
 
 test:
 	./scripts/test/compile-examples.sh
+	./scripts/test/compile-template.sh
