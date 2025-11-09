@@ -1,4 +1,3 @@
-#jakl
 #import "@local/sheetstorm:0.3.3" as sheetstorm: task
 
 #set text(lang: "de")
