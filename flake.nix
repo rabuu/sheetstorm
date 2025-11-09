@@ -1,10 +1,16 @@
 {
   description = "sheetstorm - a typst template for university exercise sheets";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    tytanic = {
+      url = "github:typst-community/tytanic/v0.3.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, tytanic, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -15,7 +21,7 @@
             typst
             tinymist
             typstyle
-
+            tytanic.outputs.packages.${system}.default
             just
           ];
         };

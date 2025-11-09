@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.4.0" as sheetstorm: proof, task
+#import "@preview/sheetstorm:0.3.3" as sheetstorm: proof, task
 
 #show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
