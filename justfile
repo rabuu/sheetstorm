@@ -17,6 +17,6 @@ set-version version *options:
 format:
 	typstyle --inplace .
 
-test:
-	./scripts/test/compile-examples.sh
-	./scripts/test/compile-template.sh
+test: install
+	./scripts/update-example-tests.sh
+	tt run
