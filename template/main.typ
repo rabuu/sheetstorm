@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.3.3" as sheetstorm: task
+#import "@preview/sheetstorm:0.4.0" as sheetstorm: proof, task
 
 #show: sheetstorm.setup.with(
   course: smallcaps[A very interesting course 101],
@@ -39,18 +39,18 @@
   Then you can do some cool math. You could, for example, try to proof that:
   $ forall n gt.eq 0: sum_(i=0)^n i = (n dot (n+1))/2 $
 
-  _Proof._ It is easy to see that the statement is true for the number $0$:
-  $sum_(i=0)^0 i = 0 = (0 dot 1)/2$
-  Let's assume that the statement is true for some $n$. It follows:
-  $
-    sum_(i=0)^(n+1) i & = sum_(i=0)^n i + (n+1)
-                        = (n dot (n+1)) / 2 + (n + 1)
-                        = (n^2 + n) / 2 + (2n + 2)/2 \
-                      & = (n^2 + 3n + 2) / 2
-                        = ((n+1) dot (n+2)) / 2
-  $
-
-  Therefore, the statement is proven using the principle of induction. #h(1fr)$square$
+  #proof[
+    It is easy to see that the statement is true for the number $0$:
+    $sum_(i=0)^0 i = 0 = (0 dot 1)/2$
+    Let's assume that the statement is true for some $n$. It follows:
+    $
+      sum_(i=0)^(n+1) i & = sum_(i=0)^n i + (n+1)
+                          = (n dot (n+1)) / 2 + (n + 1)
+                          = (n^2 + n) / 2 + (2n + 2)/2 \
+                        & = (n^2 + 3n + 2) / 2
+                          = ((n+1) dot (n+2)) / 2
+    $
+  ]
 ]
 
 #task(points: 1, bonus: true, lorem(300))
