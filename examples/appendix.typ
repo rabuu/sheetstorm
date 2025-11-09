@@ -15,10 +15,10 @@
   For an extended discussion, refer to @app2.
 ]
 
-/// 
+///
 /// Appendix
-/// 
-#show: sheetstorm.appendix 
+///
+#show: sheetstorm.appendix
 
 = Detailed solutions
 
