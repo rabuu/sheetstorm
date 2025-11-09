@@ -12,6 +12,7 @@
 - Changed task number update behavior
 - Fixed empty score box, hide it when no tasks
 - Added `theorem`, `lemma`, `corollary` and `proof`
+- Added appendix
 
 ## [0.3.3] - 2025-09-22
 No information available.
