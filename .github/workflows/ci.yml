@@ -13,7 +13,19 @@ permissions:
   statuses: write
 
 jobs:
-  ci:
+  check-formatting:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install `typstyle` from crates.io
+        uses: baptiste0928/cargo-install@v3
+        with:
+          crate: typstyle
+      - name: Check formatting
+        run: typstyle --check .
+
+  test:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     steps:
@@ -22,15 +34,9 @@ jobs:
         uses: baptiste0928/cargo-install@v3
         with:
           crate: just
-      - name: Install `typstyle` from crates.io
+      - name: Install `tytanic` from crates.io
         uses: baptiste0928/cargo-install@v3
         with:
-          crate: typstyle
-      - uses: typst-community/setup-typst@v4
-        with:
-          typst-version: '0.13.1'
-      - run: |
-          typst --version
-          typstyle --version
-          typstyle --check .
-          just test
+          crate: tytanic@0.3.1
+      - name: Run test suite
+        run: just test
