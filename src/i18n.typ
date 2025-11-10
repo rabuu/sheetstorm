@@ -27,3 +27,7 @@
 #let lemma() = {
   if text.lang == "de" { "Lemma" } else { "Lemma" }
 }
+
+#let appendix() = {
+  if text.lang == "de" { "Anhang" } else { "Appendix" }
+}
