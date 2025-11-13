@@ -20,10 +20,10 @@
   extra-right: none,
 ) = {
   let header = grid(
-    columns: (1fr, 3fr, 1fr),
+    columns: (1fr, 1.25fr, 1fr),
     align: (left, center, right),
     rows: (auto, auto),
-    row-gutter: 0.5em,
+    gutter: 0.5em,
 
     // left
     header-section((
