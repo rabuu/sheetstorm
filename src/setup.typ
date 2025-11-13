@@ -37,7 +37,7 @@
   header-extra-left: none,
   header-extra-center: none,
   header-extra-right: none,
-  header-tutor-prefix: context i18n.tutor(),
+  header-tutor-prefix: context i18n.word("Tutor"),
   header-columns-spacing: (1fr, 1.25fr, 1fr),
   initial-task-number: 1,
   widget-order-reversed: false,

@@ -33,7 +33,7 @@
     header-section((
       if date != none {
         context date.display(if date-format == auto {
-          i18n.default-date()
+          i18n.date-format()
         } else { date-format })
       },
       if tutor != none [#tutor-prefix: #tutor],

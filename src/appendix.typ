@@ -4,7 +4,7 @@
 ///
 
 #let appendix(
-  title: context i18n.appendix(),
+  title: context i18n.word("Appendix"),
   title-size: 1.6em,
   numbering: "A.1.",
   body,
@@ -13,7 +13,7 @@
     text(18pt, strong(title))
   }
 
-  #set heading(numbering: numbering, supplement: context i18n.appendix())
+  #set heading(numbering: numbering, supplement: context i18n.word("Appendix"))
 
   #counter(heading).update(0)
 
