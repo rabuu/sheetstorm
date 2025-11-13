@@ -7,20 +7,24 @@
 )
 
 /// Create the contents of the header
+///
+/// This function is not exposed to the user, all configuration is done in the `setup` function.
 #let header-content(
-  course: none,
-  title: none,
-  authors: none,
-  tutor: none,
-  date: datetime.today(),
-  date-format: none,
-  show-title-on-first-page: false,
-  extra-left: none,
-  extra-center: none,
-  extra-right: none,
+  course,
+  title,
+  authors,
+  date,
+  date-format,
+  tutor,
+  tutor-prefix,
+  show-title-on-first-page,
+  extra-left,
+  extra-center,
+  extra-right,
+  columns-spacing,
 ) = {
   let header = grid(
-    columns: (1fr, 1.25fr, 1fr),
+    columns: columns-spacing,
     align: (left, center, right),
     rows: (auto, auto),
     gutter: 0.5em,
@@ -28,14 +32,11 @@
     // left
     header-section((
       if date != none {
-        context {
-          let format = if date-format != none { date-format } else {
-            i18n.default-date()
-          }
-          date.display(format)
-        }
+        context date.display(if date-format == auto {
+          i18n.default-date()
+        } else { date-format })
       },
-      if tutor != none [Tutor: #tutor],
+      if tutor != none [#tutor-prefix: #tutor],
       extra-left,
     )),
 
