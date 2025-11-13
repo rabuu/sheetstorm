@@ -13,6 +13,8 @@
 - Fixed empty score box, hide it when no tasks
 - Added `theorem`, `lemma`, `corollary` and `proof`
 - Added appendix
+- Added `header-tutor-prefix` and `columns-spacing` to template settings
+- Change column spacing in header
 
 ## [0.3.3] - 2025-09-22
 No information available.

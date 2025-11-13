@@ -31,3 +31,7 @@
 #let appendix() = {
   if text.lang == "de" { "Anhang" } else { "Appendix" }
 }
+
+#let tutor() = {
+  "Tutor"
+}

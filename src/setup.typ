@@ -32,11 +32,13 @@
   paper: "a4",
   page-numbering: "1 / 1",
   date: datetime.today(),
-  date-format: none,
+  date-format: auto,
   header-show-title-on-first-page: false,
   header-extra-left: none,
   header-extra-center: none,
   header-extra-right: none,
+  header-tutor-prefix: context i18n.tutor(),
+  header-columns-spacing: (1fr, 1.25fr, 1fr),
   initial-task-number: 1,
   widget-order-reversed: false,
   widget-column-gap: 4em,
@@ -81,16 +83,18 @@
   }
 
   let header = header-content(
-    course: course,
-    title: title,
-    authors: author-names,
-    tutor: tutor,
-    date: date,
-    date-format: date-format,
-    show-title-on-first-page: header-show-title-on-first-page,
-    extra-left: header-extra-left,
-    extra-center: header-extra-center,
-    extra-right: header-extra-right,
+    course,
+    title,
+    author-names,
+    date,
+    date-format,
+    tutor,
+    header-tutor-prefix,
+    header-show-title-on-first-page,
+    header-extra-left,
+    header-extra-center,
+    header-extra-right,
+    header-columns-spacing,
   )
 
   context {
