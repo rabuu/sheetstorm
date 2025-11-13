@@ -4,9 +4,8 @@
     de: "Aufgabe",
   ),
   Points: (
-   de: "Punkte",
+    de: "Punkte",
   ),
-
   // Theorem related
   Theorem: (
     de: "Satz",
@@ -16,14 +15,13 @@
     de: "Korollar",
   ),
   Proof: (
-   de: "Beweis",
+    de: "Beweis",
   ),
-
   // Other
   Tutor: (:),
   Appendix: (
-    de: "Anhang"
-  )
+    de: "Anhang",
+  ),
 )
 
 #let _dates = (
