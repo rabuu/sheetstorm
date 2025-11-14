@@ -9,10 +9,9 @@ function read-toml() {
 	perl -lne "print \"\$1\" if /^${key}\\s*=\\s*\"(.*)\"/" < "$file"
 }
 
-PKG_ROOT="${PKG_ROOT:-${PWD}}"
+PKG_ROOT="${PWD}"
 if [[ ! -f "$PKG_ROOT/typst.toml" ]]; then
 	echo "This script must be executed from the package root!"
-	echo "Alternatively set PKG_ROOT."
 	exit 1
 fi
 
