@@ -21,13 +21,19 @@
   extra-left,
   extra-center,
   extra-right,
-  columns-spacing,
+  columns,
+  align,
+  column-gutter,
+  row-gutter,
+  padding-top,
+  padding-bottom,
 ) = {
   let header = grid(
-    columns: columns-spacing,
-    align: (left, center, right),
+    columns: columns,
+    align: align,
     rows: (auto, auto),
-    gutter: 0.5em,
+    column-gutter: column-gutter,
+    row-gutter: row-gutter,
 
     // left
     header-section((
@@ -58,5 +64,5 @@
     grid.hline(),
   )
 
-  return pad(top: 0.8cm, bottom: 1cm, header)
+  return pad(top: padding-top, bottom: padding-bottom, header)
 }
