@@ -18,5 +18,8 @@ format:
 	typstyle --inplace .
 
 test: install
-	./scripts/update-example-tests.sh
+	./scripts/testing/check-example-tests.sh
 	tt run
+
+update-expected:
+	./scripts/testing/update-example-tests.sh
