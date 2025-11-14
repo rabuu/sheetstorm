@@ -12,7 +12,7 @@
 /// 3. name: optional theorem name
 /// 4. content: theorem body
 #let theorem(
-  kind: context i18n.theorem(),
+  kind: context i18n.word("Theorem"),
   numbering: auto,
   name: none,
   emphasized: true,
@@ -49,17 +49,17 @@
 }
 
 /// Corollary, based on the theorem style
-#let corollary = theorem.with(kind: context i18n.corollary())
+#let corollary = theorem.with(kind: context i18n.word("Corollary"))
 
 /// Lemma, based on the theorem style
-#let lemma = theorem.with(kind: context i18n.lemma())
+#let lemma = theorem.with(kind: context i18n.word("Lemma"))
 
 /// Proof enviroment with a default square end-symbol
 #let proof(
   symbol: $square$,
   content,
 ) = {
-  let title = context { i18n.proof() }
+  let title = context { i18n.word("Proof") }
   block(
     fill: luma(100%),
     inset: 4pt,

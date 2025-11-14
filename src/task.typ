@@ -14,14 +14,14 @@
 /// ```
 #let task(
   name: none,
-  task-string: none,
+  task-string: context i18n.word("Task"),
   counter-show: true,
   counter-reset: none,
   subtask-numbering: false,
   subtask-numbering-pattern: subtask-numbering-pattern,
   points: none,
   points-show: true,
-  points-string: none,
+  points-string: context i18n.word("Points"),
   bonus: false,
   bonus-show-star: true,
   hidden: false,
@@ -54,13 +54,6 @@
   state("sheetstorm-points").update(if points-enabled { current-points })
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
-
-  task-string = if task-string == none { context i18n.task() } else {
-    task-string
-  }
-  points-string = if points-string == none { context i18n.points() } else {
-    points-string
-  }
 
   let title = {
     task-string
