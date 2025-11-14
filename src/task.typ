@@ -42,10 +42,7 @@
     display-points = [#points]
 
     // multiple points specified, e.g. `points: (1, 3, 1)`, gets rendered as "1 + 3 + 1"
-  } else if (
-    type(points) == array
-      and points.map(p => type(p) == int).reduce((a, b) => a and b)
-  ) {
+  } else if type(points) == array and points.all(p => type(p) == int) {
     points-enabled = true
     current-points = points.sum()
     display-points = points.map(str).intersperse(" + ").sum()
