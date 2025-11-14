@@ -14,7 +14,10 @@
 - Added `theorem`, `lemma`, `corollary` and `proof`
 - Added appendix
 - Change default column spacing in header
-- Add a lot of new customization options
+- Added a lot of new customization options
+- Changed `task` options: (BREAKING)
+  - `task-string` -> `task-prefix`
+  - `points-string` -> `points-prefix`
 
 ## [0.3.3] - 2025-09-22
 No information available.
