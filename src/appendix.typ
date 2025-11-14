@@ -10,7 +10,7 @@
   body,
 ) = [
   #if title != none {
-    text(18pt, strong(title))
+    text(title-size, strong(title))
   }
 
   #set heading(numbering: numbering, supplement: context i18n.word("Appendix"))
