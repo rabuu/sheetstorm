@@ -25,7 +25,7 @@
 )
 
 #let _dates = (
-  en: "day [month repr:long] [year]",
+  _default: "[day] [month repr:long] [year]",
   de: "[day].[month].[year]",
 )
 
@@ -38,6 +38,5 @@
 }
 
 #let date-format() = {
-  let default-date-format = _dates.en
-  _dates.at(text.lang, default: default-date-format)
+  _dates.at(text.lang, default: _dates._default)
 }
