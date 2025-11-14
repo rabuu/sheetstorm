@@ -19,7 +19,7 @@ format:
 
 test: install
 	./scripts/testing/check-example-tests.sh
-	tt run
+	tt run --no-fail-fast
 
 update-expected:
 	./scripts/testing/update-example-tests.sh
