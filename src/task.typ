@@ -14,14 +14,14 @@
 /// ```
 #let task(
   name: none,
-  task-string: context i18n.word("Task"),
+  task-prefix: context i18n.word("Task"),
   counter-show: true,
   counter-reset: none,
   subtask-numbering: false,
   subtask-numbering-pattern: subtask-numbering-pattern,
   points: none,
   points-show: true,
-  points-string: context i18n.word("Points"),
+  points-prefix: context i18n.word("Points"),
   bonus: false,
   bonus-show-star: true,
   hidden: false,
@@ -53,9 +53,9 @@
   state("sheetstorm-hidden-task").update(hidden)
 
   let title = {
-    task-string
+    task-prefix
     if counter-show {
-      if task-string != "" [ ]
+      if task-prefix != "" [ ]
       context task-count.display()
     }
     if name != none [: #emph(name)]
@@ -79,7 +79,7 @@
       [= #title <sheetstorm-task>]
       if points-enabled and points-show {
         h(1fr)
-        [(#display-points #points-string)]
+        [(#display-points #points-prefix)]
       }
     })
     #content
