@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - name: Install `just` from crates.io
+        uses: baptiste0928/cargo-install@v3
+        with:
+          crate: just
       - name: Install `typstyle` from crates.io
         uses: baptiste0928/cargo-install@v3
         with:
