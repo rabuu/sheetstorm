@@ -20,10 +20,13 @@ set-version version *options:
 format:
 	typstyle --inplace .
 
+check-format:
+	typstyle --check .
+
 test: install
 	./scripts/testing/check-example-tests.sh
 	tt run --no-fail-fast
 
-update-expected:
+update-expected: install
 	./scripts/testing/update-example-tests.sh
 	tt update

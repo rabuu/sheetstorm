@@ -15,7 +15,6 @@ permissions:
 jobs:
   check-formatting:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v5
       - name: Install `typstyle` from crates.io
@@ -23,7 +22,7 @@ jobs:
         with:
           crate: typstyle
       - name: Check formatting
-        run: typstyle --check .
+        run: just check-format
 
   test:
     runs-on: ubuntu-latest
