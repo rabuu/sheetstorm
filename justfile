@@ -5,6 +5,9 @@ alias f := format
 alias fmt := format
 alias t := test
 
+# For reproducibility, it is now 01 January 1980
+export SOURCE_DATE_EPOCH := "315532800"
+
 package target *options:
 	./scripts/package.sh "{{target}}" {{options}}
 
@@ -23,3 +26,4 @@ test: install
 
 update-expected:
 	./scripts/testing/update-example-tests.sh
+	tt update
