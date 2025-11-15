@@ -13,8 +13,11 @@
 - Fixed empty score box, hide it when no tasks
 - Added `theorem`, `lemma`, `corollary` and `proof`
 - Added appendix
-- Added `header-tutor-prefix` and `columns-spacing` to template settings
-- Change column spacing in header
+- Change default column spacing in header
+- Added a lot of new customization options
+- Changed `task` options: (BREAKING)
+  - `task-string` -> `task-prefix`
+  - `points-string` -> `points-prefix`
 
 ## [0.3.3] - 2025-09-22
 No information available.

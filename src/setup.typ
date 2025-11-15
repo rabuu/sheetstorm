@@ -38,7 +38,12 @@
   header-extra-center: none,
   header-extra-right: none,
   header-tutor-prefix: context i18n.word("Tutor"),
-  header-columns-spacing: (1fr, 1.25fr, 1fr),
+  header-columns: (1fr, 1.25fr, 1fr),
+  header-align: (left, center, right),
+  header-column-gutter: 0.5em,
+  header-row-gutter: 0.5em,
+  header-padding-top: 0.8cm,
+  header-padding-bottom: 1cm,
   initial-task-number: 1,
   widget-order-reversed: false,
   widget-column-gap: 4em,
@@ -94,7 +99,12 @@
     header-extra-left,
     header-extra-center,
     header-extra-right,
-    header-columns-spacing,
+    header-columns,
+    header-align,
+    header-column-gutter,
+    header-row-gutter,
+    header-padding-top,
+    header-padding-bottom,
   )
 
   context {
