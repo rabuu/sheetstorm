@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+just check-format
+just test
