@@ -39,9 +39,6 @@ jobs:
         with:
           crate: tytanic
           version: 0.3.1
-      - uses: typst-community/setup-typst@v3
-        with:
-          typst-version: '0.13.1'
       - name: Run test suite
         run: just test
       - name: Archive artifacts
