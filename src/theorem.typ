@@ -16,8 +16,8 @@
   inset: 0em,
   outset: 0.5em,
   radius: 0em,
-  above: 1em,
-  below: 1em,
+  above: 1.3em,
+  below: 1.3em,
   width: 100%,
   content,
 ) = {
