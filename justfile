@@ -8,10 +8,10 @@ alias t := test
 # For reproducibility, it is now 01 January 1980
 export SOURCE_DATE_EPOCH := "315532800"
 
-package target *options:
+package target *options: clean
 	./scripts/package.sh "{{target}}" {{options}}
 
-install target="local":
+install target="local": clean
 	./scripts/package.sh "{{target}}"
 
 set-version version *options:
@@ -30,3 +30,6 @@ test: install
 update-expected: install
 	./scripts/testing/update-example-tests.sh
 	tt update
+
+clean:
+	./scripts/cleanup-artifacts.sh
