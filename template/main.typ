@@ -1,6 +1,6 @@
-#import "@preview/sheetstorm:0.3.3" as sheetstorm: proof, task
+#import "@preview/sheetstorm:0.3.3": *
 
-#show: sheetstorm.setup.with(
+#show: assignment.with(
   course: smallcaps[A very interesting course 101],
   title: "Assignment 42",
   authors: (
@@ -12,7 +12,7 @@
   score-box-enabled: true,
 
   // Here you can customize the layout of the page, the header, the widgets.
-  // Look at the parameters of the `setup` function.
+  // Look at the parameters of the `assignment` function.
 )
 
 #task(name: "Introduction")[

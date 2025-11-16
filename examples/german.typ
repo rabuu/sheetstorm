@@ -1,8 +1,8 @@
-#import "@preview/sheetstorm:0.3.3" as sheetstorm: task
+#import "@preview/sheetstorm:0.3.3": assignment, task
 
 #set text(lang: "de")
 
-#show: sheetstorm.setup.with(
+#show: assignment.with(
   title: "Deutsches Beispiel",
   authors: "Max Mustermann",
 )

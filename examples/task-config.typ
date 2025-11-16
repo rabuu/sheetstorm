@@ -1,6 +1,6 @@
-#import "@preview/sheetstorm:0.3.3" as sheetstorm: custom-enum-numbering, task
+#import "@preview/sheetstorm:0.3.3": assignment, custom-enum-numbering, task
 
-#show: sheetstorm.setup.with(
+#show: assignment.with(
   title: "Task Configuration Example",
   authors: "John Doe",
   initial-task-number: 3,

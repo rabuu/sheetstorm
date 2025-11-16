@@ -1,6 +1,6 @@
-#import "@preview/sheetstorm:0.3.3" as sheetstorm: task
+#import "@preview/sheetstorm:0.3.3": appendix, assignment, task
 
-#show: sheetstorm.setup.with(
+#show: assignment.with(
   title: "Assignment with Appendix",
   authors: "Appen Dix",
 )
@@ -18,7 +18,7 @@
 ///
 /// Appendix
 ///
-#show: sheetstorm.appendix
+#show: appendix
 
 = Detailed solutions
 

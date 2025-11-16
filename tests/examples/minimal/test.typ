@@ -1,6 +1,6 @@
-#import "@local/sheetstorm:0.3.3" as sheetstorm: task
+#import "@local/sheetstorm:0.3.3": assignment, task
 
-#show: sheetstorm.setup.with(
+#show: assignment.with(
   title: "Minimal Example",
   authors: "John Doe",
 )
