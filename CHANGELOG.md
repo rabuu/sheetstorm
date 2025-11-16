@@ -6,7 +6,7 @@
 
 ## [Unreleased]
 - Fixed `date-format` bug in header
-- Changed `setup` options: (BREAKING)
+- Renamed `setup` options: (BREAKING)
   - `header-date` -> `date`
   - `header-date-format` -> `date-format`
 - Changed task number update behavior
@@ -15,9 +15,14 @@
 - Added appendix
 - Change default column spacing in header
 - Added a lot of new customization options
-- Changed `task` options: (BREAKING)
+- Renamed `task` options: (BREAKING)
   - `task-string` -> `task-prefix`
   - `points-string` -> `points-prefix`
+- Removed `task` options: (BREAKING)
+  - `subtask-numbering-pattern`
+- Changed behavior of `task` options: (BREAKING)
+  - `subtask-pattern`
+- Added `custom-enum-numbering` helper
 
 ## [0.3.3] - 2025-09-22
 No information available.
