@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.3.3" as sheetstorm: task
+#import "@preview/sheetstorm:0.3.3" as sheetstorm: custom-enum-numbering, task
 
 #show: sheetstorm.setup.with(
   title: "Task Configuration Example",
@@ -6,15 +6,10 @@
   initial-task-number: 3,
 )
 
-#let my-custom-numbering-pattern(depth) = {
-  if depth == 1 { "i)" } else if depth == 2 { "1." } else { "(a)" }
-}
-
 // You can customize the task command like so:
 #let task = task.with(
   counter-show: false,
-  subtask-numbering: true,
-  subtask-numbering-pattern: my-custom-numbering-pattern,
+  subtask-numbering: custom-enum-numbering(("i)", "1.", "(a)")),
 )
 
 #task(name: "Unnumbered Task")[
