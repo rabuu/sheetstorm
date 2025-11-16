@@ -5,8 +5,9 @@
 - The date format is `YYYY-MM-DD`.
 
 ## [Unreleased]
+- Renamed `setup` -> `assignment` (BREAKING)
 - Fixed `date-format` bug in header
-- Renamed `setup` options: (BREAKING)
+- Renamed `setup`/`assignment` options: (BREAKING)
   - `header-date` -> `date`
   - `header-date-format` -> `date-format`
 - Changed task number update behavior
