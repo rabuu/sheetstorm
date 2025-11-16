@@ -1,6 +1,5 @@
 #import "header.typ": header-content
 #import "widgets.typ"
-#import "numbering.typ": apply-numbering-pattern, default-numbering-pattern
 #import "i18n.typ"
 #import "util.typ": is-some
 
@@ -133,12 +132,6 @@
     set par(
       first-line-indent: 1em,
       justify: true,
-    )
-
-    set enum(
-      tight: false,
-      full: true,
-      numbering: apply-numbering-pattern,
     )
 
     show link: underline

@@ -1,19 +1,35 @@
-#let default-numbering-pattern(depth) = {
-  if calc.rem(depth, 3) == 1 { "1." } else if calc.rem(depth, 3) == 2 {
-    "a."
-  } else { "i." }
-}
+/// A helper to set a custom enum numbering based on the list depth
+///
+/// You must set `enum(full: true)` for it to work.
+///
+/// Example:
+/// ```
+/// #set enum(
+///   full: true,
+///   numbering: custom-enum-numbering(("a)", "1."))
+/// )
+/// ```
+#let custom-enum-numbering(patterns, cycle: false, default: auto) = {
+  // Handle arguments
+  assert(type(patterns) == array)
+  assert(patterns.all(p => type(p) == str))
+  assert(patterns.len() > 0)
+  assert(type(cycle) == bool)
+  if default == auto { default = patterns.last() }
+  assert(type(default) == str)
 
-#let subtask-numbering-pattern(depth) = {
-  if depth == 1 { "(a)" } else if depth > 1 and calc.rem(depth, 2) == 0 {
-    "1."
-  } else { "i." }
-}
+  return (..nums) => {
+    assert(nums.pos().len() > 0)
+    let depth = nums.pos().len() - 1
+    let value = nums.pos().last()
 
-#let apply-numbering-pattern(
-  numbering-pattern: default-numbering-pattern,
-  ..nums,
-) = {
-  let nums = nums.pos()
-  numbering(numbering-pattern(nums.len()), nums.last())
+    // Determine correct pattern for given depth
+    let pattern = if cycle {
+      patterns.at(calc.rem(depth, patterns.len()))
+    } else {
+      patterns.at(depth, default: default)
+    }
+
+    numbering(pattern, value)
+  }
 }

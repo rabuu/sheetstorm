@@ -1,4 +1,4 @@
-#import "numbering.typ": apply-numbering-pattern, subtask-numbering-pattern
+#import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
 
 /// A task block
@@ -17,8 +17,7 @@
   task-prefix: context i18n.word("Task"),
   counter-show: true,
   counter-reset: none,
-  subtask-numbering: false,
-  subtask-numbering-pattern: subtask-numbering-pattern,
+  subtask-numbering: custom-enum-numbering(("a)", "1.", "i.")),
   points: none,
   points-show: true,
   points-prefix: context i18n.word("Points"),
@@ -64,15 +63,9 @@
 
   block(width: 100%, above: space-above, below: space-below)[
     #set enum(
-      full: true,
-      numbering: if subtask-numbering {
-        apply-numbering-pattern.with(
-          numbering-pattern: subtask-numbering-pattern,
-        )
-      } else {
-        apply-numbering-pattern
-      },
-    )
+      full: type(subtask-numbering) != str,
+      numbering: subtask-numbering,
+    ) if subtask-numbering != none
 
     #block({
       show heading: box
