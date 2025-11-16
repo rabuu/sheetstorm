@@ -9,7 +9,7 @@ authors = [ "Rasmus Buurman <rasmus@rbuurman.de>" ]
 repository = "https://github.com/rabuu/sheetstorm"
 license = "MIT"
 
-description = "A template for university exercise sheets."
+description = "A template for assignment sheets."
 
 categories = ["layout", "report"]
 keywords = ["handin", "assignment"]

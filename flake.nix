@@ -1,5 +1,5 @@
 {
-  description = "sheetstorm - a typst template for university exercise sheets";
+  description = "sheetstorm - a Typst template for assignment sheets";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
