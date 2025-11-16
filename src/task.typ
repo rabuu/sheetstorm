@@ -17,7 +17,7 @@
   task-prefix: context i18n.word("Task"),
   counter-show: true,
   counter-reset: none,
-  subtask-numbering: custom-enum-numbering(("a)", "1.", "i.")),
+  subtask-numbering: custom-enum-numbering("a)", "1.", "i."),
   points: none,
   points-show: true,
   points-prefix: context i18n.word("Points"),

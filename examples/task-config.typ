@@ -9,7 +9,7 @@
 // You can customize the task command like so:
 #let task = task.with(
   counter-show: false,
-  subtask-numbering: custom-enum-numbering(("i)", "1.", "(a)")),
+  subtask-numbering: custom-enum-numbering("i)", "1.", "(a)"),
 )
 
 #task(name: "Unnumbered Task")[
