@@ -17,7 +17,7 @@
 
 #task(name: "Introduction")[
   This is #link("https://github.com/rabuu/sheetstorm")[`sheetstorm`],
-  a template library that provides a sane default layout for university assignment submissions with the option of customizability.
+  a template library that provides a sane default layout for assignment submissions with the option of customizability.
 
   Here you would write down your solutions for the first task:
   #lorem(100)
