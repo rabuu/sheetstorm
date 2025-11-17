@@ -134,6 +134,32 @@
       justify: true,
     )
 
+    show ref: it => {
+      let el = it.element
+
+      if el.func() == figure and el.kind == "sheetstorm-task-label" {
+        let task-count = counter("sheetstorm-task").at(el.location()).first()
+        link(el.location())[#el.supplement #task-count]
+      } else if el.func() == figure and el.kind == "sheetstorm-subtask-label" {
+        link(el.location(), el.supplement)
+      } else if el.func() == figure and el.kind == "sheetstorm-theorem-label" {
+        let theorem-id = state("sheetstorm-theorem-id").at(el.location())
+        if theorem-id == auto {
+          theorem-id = counter("sheetstorm-theorem-count")
+            .at(el.location())
+            .first()
+        }
+        if theorem-id == none {
+          panic(
+            "This theorem is not referencable. Provide a name or numbering.",
+          )
+        }
+        link(el.location())[#el.supplement #theorem-id]
+      } else {
+        it
+      }
+    }
+
     show link: underline
 
     //

@@ -1,4 +1,5 @@
 #import "i18n.typ"
+#import "labelling.typ": impromptu-label
 
 /// Theoremstyle package
 ///
@@ -10,6 +11,8 @@
   kind: context i18n.word("Theorem"),
   numbering: auto,
   name: none,
+  label: none,
+  supplement: auto,
   emphasized: true,
   fill: none,
   stroke: none,
@@ -22,6 +25,10 @@
   content,
 ) = {
   let theorem-count = counter("sheetstorm-theorem-count")
+
+  state("sheetstorm-theorem-id").update(
+    if name != none ["#name"] else { numbering },
+  )
 
   let auto-numbering = (numbering == auto)
   if auto-numbering {
@@ -45,7 +52,17 @@
     above: above,
     below: below,
     width: width,
-    [#prefix #content],
+    {
+      if label != none {
+        if supplement == auto { supplement = kind }
+        impromptu-label(
+          kind: "sheetstorm-theorem-label",
+          supplement: supplement,
+          label,
+        )
+      }
+      [#prefix #content]
+    },
   )
 
   if auto-numbering {
