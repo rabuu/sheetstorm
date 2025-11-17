@@ -24,6 +24,7 @@
 - Changed behavior of `task` options: (BREAKING)
   - `subtask-pattern`
 - Added `custom-enum-numbering` helper
+- Added new `todo` feature
 
 ## [0.3.3] - 2025-09-22
 No information available.
