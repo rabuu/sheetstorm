@@ -1,5 +1,6 @@
 #import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
+#import "todo.typ": todo, todo-counter
 
 /// A task block
 ///
@@ -16,6 +17,7 @@
   name: none,
   task-prefix: context i18n.word("Task"),
   counter-show: true,
+  todo-show: true,
   counter-reset: none,
   subtask-numbering: custom-enum-numbering("a)", "1.", "i."),
   points: none,
@@ -67,16 +69,48 @@
       numbering: subtask-numbering,
     ) if subtask-numbering != none
 
-    #block({
+    #let todo-warn = text(red)[*[TODO]*]
+    #let curr-todo-count = context {
+      let curr-task = query(selector(<sheetstorm-task>).before(here()))
+        .last()
+        .location()
+      let curr-task-end = query(selector(<sheetstorm-task-end>).after(here()))
+        .first()
+        .location()
+
+      let curr-todo-count = todo-counter.at(curr-task-end).first()
+      if (curr-todo-count > 0) { todo-warn }
+    }
+
+
+    #block(context {
       show heading: box
-      [= #title <sheetstorm-task>]
+
+      [#metadata("sheetstorm-task-start")<sheetstorm-task>]
+      [= #title ]
+      if todo-show and curr-todo-count != none {
+        h(1em)
+        curr-todo-count
+      }
       if points-enabled and points-show {
         h(1fr)
         [(#display-points #points-prefix)]
       }
     })
     #content
+
+    #metadata("sheetstorm-task-end")<sheetstorm-task-end>
   ]
 
   task-count.step()
+  context todo-counter.update(0)
 }
+
+#task(points: 32)[
+  + _Some kind of exercise._\
+    #lorem(200)\
+
+  + _Some other exercise._\
+    #todo()
+]
+
