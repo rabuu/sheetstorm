@@ -106,11 +106,3 @@
   context todo-counter.update(0)
 }
 
-#task(points: 32)[
-  + _Some kind of exercise._\
-    #lorem(200)\
-
-  + _Some other exercise._\
-    #todo()
-]
-
