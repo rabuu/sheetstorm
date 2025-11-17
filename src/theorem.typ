@@ -14,6 +14,7 @@
   label: none,
   supplement: auto,
   emphasized: true,
+  reference-prefer-name: false,
   fill: none,
   stroke: none,
   inset: 0em,
@@ -27,7 +28,11 @@
   let theorem-count = counter("sheetstorm-theorem-count")
 
   state("sheetstorm-theorem-id").update(
-    if name != none ["#name"] else { numbering },
+    if reference-prefer-name {
+      if name != none ["#name"] else { numbering }
+    } else {
+      if numbering != none { numbering } else ["#name"]
+    },
   )
 
   let auto-numbering = (numbering == auto)
