@@ -3,12 +3,12 @@
 #import "i18n.typ"
 #import "util.typ": is-some
 
-/// The setup function for the template
+/// Setup the document as an assignment sheet.
 ///
 /// This is the main "entrypoint" for the template.
 /// Apply this function with a show everything rule to use it:
-/// ```typst
-/// #show: sheetstorm.setup.with(
+/// ```
+/// #show: assignment.with(
 ///   title: "A cool title",
 ///   page-numbering: "1",
 /// )
@@ -16,7 +16,7 @@
 ///
 /// Here you can set many options to customize the template settings.
 /// For general page settings, prefer to set it using this function if available.
-#let setup(
+#let assignment(
   course: none,
   authors: none,
   tutor: none,

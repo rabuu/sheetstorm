@@ -15,9 +15,9 @@ typst init @preview/sheetstorm
 
 ## Example
 ```typst
-#import "@preview/sheetstorm:0.3.3" as sheetstorm: task
+#import "@preview/sheetstorm:0.3.3": *
 
-#show: sheetstorm.setup.with(
+#show: assignment.with(
   course: smallcaps[A very interesting course 101],
   title: "Assignment 42",
   authors: (

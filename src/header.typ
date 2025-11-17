@@ -8,7 +8,8 @@
 
 /// Create the contents of the header
 ///
-/// This function is not exposed to the user, all configuration is done in the `setup` function.
+/// This function is not exposed to the user,
+/// all configuration is done in the `assignment` template function.
 #let header-content(
   course,
   title,
