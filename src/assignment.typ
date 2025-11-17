@@ -61,6 +61,7 @@
   info-box-show-emails: true,
   info-box-inset: 0.7em,
   info-box-gutter: 1em,
+  hyperlink-style: underline,
   doc,
 ) = {
   let author-names
@@ -139,7 +140,12 @@
 
       if el.func() == figure and el.kind == "sheetstorm-task-label" {
         let task-count = counter("sheetstorm-task").at(el.location()).first()
-        link(el.location())[#el.supplement #task-count]
+        let supp = if it.supplement == auto {
+          el.supplement
+        } else {
+          it.supplement
+        }
+        link(el.location())[#supp #task-count]
       } else if el.func() == figure and el.kind == "sheetstorm-subtask-label" {
         link(el.location(), el.supplement)
       } else if el.func() == figure and el.kind == "sheetstorm-theorem-label" {
@@ -154,13 +160,24 @@
             "This theorem is not referencable. Provide a name or numbering.",
           )
         }
-        link(el.location())[#el.supplement #theorem-id]
+        let supp = if it.supplement == auto {
+          el.supplement
+        } else {
+          it.supplement
+        }
+        link(el.location())[#supp #theorem-id]
       } else {
         it
       }
     }
 
-    show link: underline
+    show link: it => {
+      if type(it.dest) == str {
+        return hyperlink-style(it)
+      } else {
+        return it
+      }
+    }
 
     //
     // COUNTERS
