@@ -23,18 +23,19 @@
   #lorem(100)
 ]
 
-#task(name: "Subtasks", points: (1, 2))[
-  + _What is the color of a banana?_
+#task(name: "Subtasks", label: "task-subtasks", points: (1, 2))[
+  + _What is the color of a banana?_ #subtask-label("banana", identifier: "a)")
 
     A banana is *yellow*.
 
   + _Solve the following equations for $x$._
     + $x^2 = 4 ==> x = plus.minus 2$
     + $x = integral_0^1 x^2 ==> x = [1/3 x^3]_0^1 = 1/3$
+    + $x = "color of banana" ==> x = "yellow"$, see @banana
 ]
 
 #task(points: 11)[
-  Another task but without a name.
+  Another task but without a name. You can reference tasks from above where you set a label, for example @task-subtasks.
 
   Then you can do some cool math. You could, for example, try to proof that:
   $ forall n gt.eq 0: sum_(i=0)^n i = (n dot (n+1))/2 $
