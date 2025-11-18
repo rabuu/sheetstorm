@@ -1,6 +1,6 @@
 #import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
-#import "todo.typ": todo, todo-counter
+#import "todo.typ": todo, todo-box, todo-counter
 
 /// A task block
 ///
@@ -18,6 +18,7 @@
   task-prefix: context i18n.word("Task"),
   counter-show: true,
   todo-show: true,
+  todo-box: todo-box,
   counter-reset: none,
   subtask-numbering: custom-enum-numbering("a)", "1.", "i."),
   points: none,
@@ -69,7 +70,6 @@
       numbering: subtask-numbering,
     ) if subtask-numbering != none
 
-    #let todo-warn = text(red)[*[TODO]*]
     #let curr-todo-count = context {
       let curr-task = query(selector(<sheetstorm-task>).before(here()))
         .last()
@@ -79,7 +79,7 @@
         .location()
 
       let curr-todo-count = todo-counter.at(curr-task-end).first()
-      if (curr-todo-count > 0) { todo-warn }
+      if (curr-todo-count > 0) { todo-box() }
     }
 
 
@@ -90,7 +90,11 @@
       [= #title ]
       if todo-show and curr-todo-count != none {
         h(1em)
-        curr-todo-count
+        place(
+          horizon,
+          dx: 60pt,
+          curr-todo-count,
+        )
       }
       if points-enabled and points-show {
         h(1fr)
@@ -103,6 +107,9 @@
   ]
 
   task-count.step()
-  context todo-counter.update(0)
+  todo-counter.update(0)
 }
 
+#task[
+  #todo(comment: "Moin, schöner Beweis.")
+]

@@ -4,5 +4,4 @@
 #import "widgets.typ" as widgets
 #import "appendix.typ": appendix
 #import "numbering.typ": custom-enum-numbering
-#import "todo.typ": todo
-
+#import "todo.typ": todo, todo-box

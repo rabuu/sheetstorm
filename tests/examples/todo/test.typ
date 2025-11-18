@@ -1,5 +1,5 @@
 
-#import "@local/sheetstorm:0.3.3": assignment, task, todo
+#import "@local/sheetstorm:0.3.3": assignment, task, todo, todo-box
 
 #show: assignment.with(
   title: "Assignment with TODO's",
@@ -10,8 +10,8 @@
 /// Exercises with TODO's
 ///
 
-/// Default is `todo-show: true`
-#task[
+/// Default is with `todo-show: true` and a red box around `TODO`
+#task()[
   + _Some interesting exercise._\
     #lorem(200)\
 
@@ -19,14 +19,30 @@
     #todo()
 ]
 
-
-/// Deactivate the warning in the task title
+/// Deativate the warning TODO in the title, but add a comment and stroke color = black
 #task(todo-show: false)[
+  + _Are bananas red?_\
+    #lorem(15)
+
+  + _Are apples blue?_\
+    #todo(
+      comment: "Write down the proofs.",
+      todo-box: todo-box.with(stroke: black),
+    )
+]
+
+/// Deactivate the red box around `TODO`
+/// Stroke is customizable, i.e. `stroke: blue` would create a blue box.
+#let todo-box = todo-box.with(stroke: none)
+#let todo = todo.with(todo-box: todo-box)
+#let task = task.with(todo-box: todo-box)
+#task[
   + _What is your favorite fruit?_\
     #lorem(50)\
 
   + _What is your favorite animal?_\
     #todo()
+
   + _What is your favorite food?_\
     #todo()
 ]
