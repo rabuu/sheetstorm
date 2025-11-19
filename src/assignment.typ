@@ -140,10 +140,9 @@
     // COUNTERS
     //
 
-    let task-counter = counter("sheetstorm-task")
-    task-counter.update(initial-task-number)
-    let theorem-counter = counter("sheetstorm-theorem-count")
-    theorem-counter.update(1)
+    counter("sheetstorm-task").update(initial-task-number)
+    counter("sheetstorm-theorem-count").update(1)
+    counter("sheetstorm-todo").update(0)
 
     //
     // SPACING BELOW HEADER

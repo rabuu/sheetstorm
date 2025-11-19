@@ -70,7 +70,7 @@
       numbering: subtask-numbering,
     ) if subtask-numbering != none
 
-    #let curr-todo-count = context {
+    #let maybe-todo = context {
       let curr-task = query(selector(<sheetstorm-task>).before(here()))
         .last()
         .location()
@@ -82,15 +82,13 @@
       if (curr-todo-count > 0) { todo-box() }
     }
 
-
     #block(context {
       show heading: box
-
       [#metadata("sheetstorm-task-start")<sheetstorm-task>]
       [= #title ]
       h(1em)
-      if todo-show and curr-todo-count != none {
-        curr-todo-count
+      if todo-show and maybe-todo != none {
+        maybe-todo
       }
       h(1fr)
       if points-enabled and points-show {
@@ -98,7 +96,6 @@
       }
     })
     #content
-
     #metadata("sheetstorm-task-end")<sheetstorm-task-end>
   ]
 
