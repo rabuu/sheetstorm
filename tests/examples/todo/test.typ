@@ -16,7 +16,7 @@
     #lorem(200)\
 
   + _Some other exercise._\
-    #todo()
+    #todo("Here you can explain what's left to do.")
 ]
 
 /// Deativate the warning TODO in the title, but add a comment and stroke color = black
