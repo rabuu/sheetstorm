@@ -54,6 +54,18 @@
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
 
+  let maybe-todo = context {
+    let curr-task = query(selector(<sheetstorm-task>).before(here()))
+      .last()
+      .location()
+    let curr-task-end = query(selector(<sheetstorm-task-end>).after(here()))
+      .first()
+      .location()
+
+    let curr-todo-count = todo-counter.at(curr-task-end).first()
+    if (curr-todo-count > 0) { todo-box() }
+  }
+
   let title = {
     task-prefix
     if counter-show {
@@ -62,6 +74,11 @@
     }
     if name != none [: #emph(name)]
     if bonus and bonus-show-star [\*]
+
+    if todo-show and maybe-todo != none {
+      h(0.7em)
+      maybe-todo
+    }
   }
 
   block(width: 100%, above: space-above, below: space-below)[
@@ -70,28 +87,12 @@
       numbering: subtask-numbering,
     ) if subtask-numbering != none
 
-    #let maybe-todo = context {
-      let curr-task = query(selector(<sheetstorm-task>).before(here()))
-        .last()
-        .location()
-      let curr-task-end = query(selector(<sheetstorm-task-end>).after(here()))
-        .first()
-        .location()
-
-      let curr-todo-count = todo-counter.at(curr-task-end).first()
-      if (curr-todo-count > 0) { todo-box() }
-    }
-
     #block(context {
       show heading: box
       [#metadata("sheetstorm-task-start")<sheetstorm-task>]
       [= #title ]
-      h(1em)
-      if todo-show and maybe-todo != none {
-        maybe-todo
-      }
-      h(1fr)
       if points-enabled and points-show {
+        h(1fr)
         [(#display-points #points-prefix)]
       }
     })

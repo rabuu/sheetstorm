@@ -3,24 +3,37 @@
 ///
 
 /// TODO-Box used for both, in text and in title
-#let todo-box(comment: none, stroke: red) = {
+#let todo-box(
+  todo-prefix: [TODO],
+  todo-style: t => text(red)[*#t*],
+  text-style: t => t,
+  stroke: red,
+  inset: (x: 0.2em),
+  outset: (y: 0.3em),
+  radius: 0.3em,
+  ..content,
+) = {
+  let content = content.pos()
   box(
-    inset: (x: 3pt, y: 0.5pt),
-    outset: (y: 2.5pt),
+    inset: inset,
+    outset: outset,
     stroke: stroke,
-    radius: 3pt,
-    baseline: -10%,
-  )[#text(red)[*TODO*] #comment]
+    radius: radius,
+    {
+      todo-style(todo-prefix)
+      for content in content.map(text-style) {
+        h(0.3em)
+        content
+      }
+    },
+  )
 }
+
 /// Counter
 #let todo-counter = counter("sheetstorm-todo")
 
 /// TODO-function
-#let todo(comment: none, todo-box: todo-box) = {
+#let todo(todo-box: todo-box, ..comments) = {
   todo-counter.step()
-  if (comment != none) {
-    todo-box(comment: comment)
-  } else {
-    todo-box()
-  }
+  todo-box(..comments)
 }
