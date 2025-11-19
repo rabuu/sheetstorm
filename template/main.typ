@@ -24,7 +24,7 @@
 ]
 
 #task(name: "Subtasks", label: "task-subtasks", points: (1, 2))[
-  + _What is the color of a banana?_ #subtask-label("banana", identifier: "a)")
+  + _What is the color of a banana?_ #subtask-label("banana", display: "a)")
 
     A banana is *yellow*.
 
