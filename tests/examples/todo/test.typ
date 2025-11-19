@@ -12,7 +12,7 @@
 ///
 
 /// Default is with `todo-show: true` and a red box around `TODO`
-#task()[
+#task(points: 42)[
   + _Some interesting exercise._\
     #lorem(200)\
 
@@ -21,7 +21,7 @@
 ]
 
 /// Deativate the warning TODO in the title, but add a comment and stroke color = black
-#task(todo-show: false)[
+#task(points: 13, todo-show: false)[
   + _Are bananas red?_\
     #lorem(15)
 
@@ -36,7 +36,7 @@
 #let todo-box = todo-box.with(stroke: none)
 #let todo = todo.with(todo-box: todo-box)
 #let task = task.with(todo-box: todo-box)
-#task[
+#task(points: 22)[
   + _What is your favorite fruit?_\
     #lorem(50)\
 
