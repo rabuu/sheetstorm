@@ -88,16 +88,12 @@
 
       [#metadata("sheetstorm-task-start")<sheetstorm-task>]
       [= #title ]
+      h(1em)
       if todo-show and curr-todo-count != none {
-        h(1em)
-        place(
-          horizon,
-          dx: 60pt,
-          curr-todo-count,
-        )
+        curr-todo-count
       }
+      h(1fr)
       if points-enabled and points-show {
-        h(1fr)
         [(#display-points #points-prefix)]
       }
     })
@@ -109,7 +105,3 @@
   task-count.step()
   todo-counter.update(0)
 }
-
-#task[
-  #todo(comment: "Moin, schöner Beweis.")
-]
