@@ -4,6 +4,8 @@
 #show: assignment.with(
   title: "Assignment with TODO's",
   authors: "John Doe",
+  todo-show: true, /// here you can deactivate the `TODO` in the doc header
+  todo-box: todo-box, /// here you can customize the design of the `TODO` in the doc header
 )
 
 ///

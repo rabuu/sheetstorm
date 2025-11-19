@@ -29,11 +29,15 @@
   )
 }
 
-/// Counter
+/// Local-Counter
 #let todo-counter = counter("sheetstorm-todo")
+
+/// Global-Counter
+#let todo-global-count = counter("sheetstorm-global-todo")
 
 /// TODO-function
 #let todo(todo-box: todo-box, ..comments) = {
   todo-counter.step()
+  todo-global-count.step()
   todo-box(..comments)
 }

@@ -2,7 +2,7 @@
 #import "widgets.typ"
 #import "i18n.typ"
 #import "util.typ": is-some
-
+#import "todo.typ": todo-box, todo-global-count
 /// Setup the document as an assignment sheet.
 ///
 /// This is the main "entrypoint" for the template.
@@ -28,6 +28,8 @@
   margin-bottom: 1.7cm,
   margin-above-header: 0cm,
   margin-below-header: 0cm,
+  todo-show: true,
+  todo-box: todo-box,
   paper: "a4",
   page-numbering: "1 / 1",
   date: datetime.today(),
@@ -186,6 +188,7 @@
     counter("sheetstorm-task").update(initial-task-number)
     counter("sheetstorm-theorem-count").update(1)
     counter("sheetstorm-todo").update(0)
+    counter("sheetstorm-global-todo").update(0)
 
     //
     // SPACING BELOW HEADER
@@ -268,7 +271,10 @@
       let styled-title = if title-default-styling {
         underline[*#title*]
       } else [#title]
-      align(center, text(title-size, styled-title))
+      let maybe-todo = if todo-show and todo-global-count.final().first() > 0 {
+        todo-box()
+      } else { none }
+      align(center, text(title-size, [#styled-title #maybe-todo]))
     }
 
     //
