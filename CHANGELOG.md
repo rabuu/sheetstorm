@@ -25,6 +25,8 @@
   - `subtask-pattern`
 - Added `custom-enum-numbering` helper
 - Added new `todo` feature
+- Added referencing support for tasks (+ subtasks) and theorems
+
 
 ## [0.3.3] - 2025-09-22
 No information available.

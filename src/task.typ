@@ -1,6 +1,7 @@
 #import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
 #import "todo.typ": todo, todo-box, todo-counter
+#import "labelling.typ": impromptu-label
 
 /// A task block
 ///
@@ -16,6 +17,8 @@
 #let task(
   name: none,
   task-prefix: context i18n.word("Task"),
+  label: none,
+  supplement: auto,
   counter-show: true,
   todo-show: true,
   todo-box: todo-box,
@@ -86,6 +89,16 @@
       full: type(subtask-numbering) != str,
       numbering: subtask-numbering,
     ) if subtask-numbering != none
+
+
+    #if label != none {
+      if supplement == auto { supplement = task-prefix }
+      impromptu-label(
+        kind: "sheetstorm-task-label",
+        supplement: supplement,
+        label,
+      )
+    }
 
     #block(context {
       show heading: box
