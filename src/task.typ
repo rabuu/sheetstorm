@@ -99,7 +99,7 @@
       )
     }
 
-    #block(context {
+    #block({
       show heading: box
       [#metadata("sheetstorm-task-start")<sheetstorm-task>]
       [= #title ]
