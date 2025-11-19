@@ -1,4 +1,3 @@
-
 #import "@preview/sheetstorm:0.3.3": assignment, task, todo, todo-box
 
 #show: assignment.with(
@@ -18,7 +17,7 @@
     #lorem(200)\
 
   + _Some other exercise._\
-    #todo("Here you can explain what's left to do.")
+    #todo[Here you can explain what's left to do.]
 ]
 
 /// Deativate the warning TODO in the title, but add a comment and stroke color = black
@@ -28,9 +27,8 @@
 
   + _Are apples blue?_\
     #todo(
-      comment: "Write down the proofs.",
       todo-box: todo-box.with(stroke: black),
-    )
+    )[Write down the proofs.]
 ]
 
 /// Deactivate the red box around `TODO`

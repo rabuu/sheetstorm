@@ -13,6 +13,7 @@
   radius: 0.3em,
   ..content,
 ) = {
+  assert(content.named().len() == 0, message: "Invalid named argument")
   let content = content.pos()
   box(
     inset: inset,

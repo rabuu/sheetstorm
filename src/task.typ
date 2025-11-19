@@ -90,7 +90,6 @@
       numbering: subtask-numbering,
     ) if subtask-numbering != none
 
-
     #if label != none {
       if supplement == auto { supplement = task-prefix }
       impromptu-label(
