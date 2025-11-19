@@ -272,9 +272,9 @@
         underline[*#title*]
       } else [#title]
       let maybe-todo = if todo-show and todo-global-count.final().first() > 0 {
-        todo-box()
+        [#h(0.5em)#todo-box()]
       } else { none }
-      align(center, text(title-size, [#styled-title #maybe-todo]))
+      align(center, text(title-size, styled-title + maybe-todo))
     }
 
     //
