@@ -3,6 +3,9 @@
   Task: (
     de: "Aufgabe",
   ),
+  Subtask: (
+    de: "Teilaufgabe",
+  ),
   Points: (
     de: "Punkte",
   ),

@@ -61,6 +61,7 @@
   info-box-show-emails: true,
   info-box-inset: 0.7em,
   info-box-gutter: 1em,
+  hyperlink-style: underline,
   doc,
 ) = {
   let author-names
@@ -134,7 +135,49 @@
       justify: true,
     )
 
-    show link: underline
+    show ref: it => {
+      let el = it.element
+
+      if el.func() == figure and el.kind == "sheetstorm-task-label" {
+        let task-count = counter("sheetstorm-task").at(el.location()).first()
+        let supp = if it.supplement == auto {
+          el.supplement
+        } else {
+          it.supplement
+        }
+        link(el.location())[#supp #task-count]
+      } else if el.func() == figure and el.kind == "sheetstorm-subtask-label" {
+        link(el.location(), el.supplement)
+      } else if el.func() == figure and el.kind == "sheetstorm-theorem-label" {
+        let theorem-id = state("sheetstorm-theorem-id").at(el.location())
+        if theorem-id == auto {
+          theorem-id = counter("sheetstorm-theorem-count")
+            .at(el.location())
+            .first()
+        }
+        if theorem-id == none {
+          panic(
+            "This theorem is not referencable. Provide a name or numbering.",
+          )
+        }
+        let supp = if it.supplement == auto {
+          el.supplement
+        } else {
+          it.supplement
+        }
+        link(el.location())[#supp #theorem-id]
+      } else {
+        it
+      }
+    }
+
+    show link: it => {
+      if type(it.dest) == str {
+        return hyperlink-style(it)
+      } else {
+        return it
+      }
+    }
 
     //
     // COUNTERS

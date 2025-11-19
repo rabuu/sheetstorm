@@ -4,3 +4,4 @@
 #import "widgets.typ" as widgets
 #import "appendix.typ": appendix
 #import "numbering.typ": custom-enum-numbering
+#import "labelling.typ": subtask-label
