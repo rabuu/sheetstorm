@@ -3,67 +3,187 @@
 #import "i18n.typ"
 #import "util.typ": is-some
 #import "todo.typ": todo-box, todo-global-count
+
 /// Setup the document as an assignment sheet.
 ///
-/// This is the main "entrypoint" for the template.
-/// Apply this function with a show everything rule to use it:
-/// ```
+/// This is the template entrypoint and is expected to be used at the top of the document like so:
+/// ```typst
 /// #show: assignment.with(
 ///   title: "A cool title",
 ///   page-numbering: "1",
+///   // ...
 /// )
 /// ```
 ///
 /// Here you can set many options to customize the template settings.
-/// For general page settings, prefer to set it using this function if available.
+/// Some of them replace settings that you would normally use Typst built-in functions for.
+/// For a smooth experience, prefer to set the options here.
 #let assignment(
-  course: none,
-  authors: none,
-  tutor: none,
+  /// The document's title. -> content | str | none
   title: none,
-  title-default-styling: true,
+  /// A function that provides styling to the title.
+  ///
+  /// *Example:*
+  /// ```typst
+  /// #show: assignment.with(
+  ///   title: [My *cool* title],
+  ///   title-style: t => t,
+  /// )
+  /// ```
+  /// -> function
+  title-style: t => underline[*#t*],
+  /// The text size of the title. -> length
   title-size: 1.6em,
-  margin-left: 1.7cm,
-  margin-right: 1.7cm,
-  margin-bottom: 1.7cm,
-  margin-above-header: 0cm,
-  margin-below-header: 0cm,
-  todo-show: true,
-  todo-box: todo-box,
-  paper: "a4",
-  page-numbering: "1 / 1",
+  /// The course title, displayed in the header. -> content | str | none
+  course: none,
+  /// The name and information of the author/s of the document.
+  ///
+  /// Can be just a single author or an array of authors.
+  /// An author can be just the name as string, or a dictionary with the fields:
+  /// - `name` (mandatory)
+  /// - `id` (optional)
+  /// - `email` (optional)
+  ///
+  /// *Example:*
+  /// ```typst
+  /// #show assignment.with(
+  ///   authors: (
+  ///     (name: "John Doe", id: 123456, email: "john@doe.com"),
+  ///     (name: "Max Mustermann", id: 761524),
+  ///     "Bernd",
+  ///   ),
+  /// )
+  /// ```
+  /// -> array | dictionary | str | none
+  authors: none,
+  /// The name of tutor. -> content | str | none
+  tutor: none,
+  /// The document date, displayed in the header. -> datetime
   date: datetime.today(),
+  /// The date format that is used to display the document date.
+  ///
+  /// When set to #auto, a default value based on your document language is chosen.
+  ///
+  /// -> auto | str
   date-format: auto,
+  /// The left margin of the document. Prefer this to using `page.margin`.
+  /// -> auto | length
+  margin-left: 1.7cm,
+  /// The right margin of the document. Prefer this to using `page.margin`.
+  /// -> auto | length
+  margin-right: 1.7cm,
+  /// The bottom margin of the document. Prefer this to using `page.margin`.
+  /// -> auto | length
+  margin-bottom: 1.7cm,
+  /// The top margin of the document, taking the header into account. Prefer this to using `page.margin`.
+  /// -> auto | length
+  margin-above-header: 0cm,
+  /// The margin between header and the rest of the document. Prefer this to using `page.margin`.
+  /// -> auto | length
+  margin-below-header: 0cm,
+  /// Show a warning beside the title if there are any TODOs in the document.
+  /// -> bool
+  todo-show: true,
+  /// The layout for the TODO box that may be displayed in the title.
+  ///
+  /// Set this using the provided #todo-box function.
+  ///
+  /// *Example:*
+  /// ```typst
+  /// #show: assignment.with(
+  ///   todo-box: todo-box.with(stroke: none),
+  /// )
+  /// ```
+  /// -> function
+  todo-box: todo-box,
+  /// The document's paper size. Prefer this to using `page.paper`. -> str
+  paper: "a4",
+  /// The page numbering. Prefer this to using `page.numbering`. -> none | str | function
+  page-numbering: "1 / 1",
+  /// Whether to show the title in the header on the first page as well. -> bool
   header-show-title-on-first-page: false,
+  /// Extra content that is displayed in the left header column. -> content | str
   header-extra-left: none,
+  /// Extra content that is displayed in the center header column. -> content | str
   header-extra-center: none,
+  /// Extra content that is displayed in the right header column. -> content | str
   header-extra-right: none,
+  /// The word that prefixes the tutor name in the header. -> content | str
   header-tutor-prefix: context i18n.word("Tutor"),
+  /// The column settings of the header.
+  ///
+  /// This can break the entire header if you play with it carelessly.
+  ///
+  /// -> array
   header-columns: (1fr, 1.25fr, 1fr),
+  /// The alignment of the header columns.
+  ///
+  /// This can break the entire header if you play with it carelessly.
+  ///
+  /// -> array
   header-align: (left, center, right),
+  /// The space between the header columns. -> length
   header-column-gutter: 0.5em,
+  /// The space between the header and the header line. -> length
   header-row-gutter: 0.5em,
+  /// The top padding of the header. -> length
   header-padding-top: 0.8cm,
+  /// The bottom padding of the header. -> length
   header-padding-bottom: 1cm,
+  /// Whether to disable basic page settings.
+  ///
+  /// Don't use this option in a normal document.
+  /// It is included to use in sepecific settings like example rendering.
+  ///
+  /// -> bool
+  disable-page-configuration: false,
+  /// The initial counter value that is used for task numbering. -> int
   initial-task-number: 1,
+  /// Whether to reverse the order in which the widgets are displayed.
+  ///
+  /// By default, the info box is display first and the score box second.
+  ///
+  /// -> false
   widget-order-reversed: false,
+  /// The horizontal gap between the widgets. -> length
   widget-column-gap: 4em,
+  /// The vertical gap between the widgets. -> length
   widget-row-gap: 1em,
+  /// The padding above the widgets. -> length
   widget-spacing-above: 0em,
+  /// The padding below the widgets. -> length
   widget-spacing-below: 1em,
+  /// Whether to display the score box. -> bool
   score-box-enabled: false,
+  /// Set score box values manually. -> array | none
   score-box-tasks: none,
+  /// Whether to show the points per task. -> bool
   score-box-show-points: true,
+  /// Whether the points of bonus tasks count into the sum. -> bool
   score-box-bonus-counts-for-sum: false,
+  /// Whether to mark bonus tasks in the score box with a star. -> bool
   score-box-bonus-show-star: true,
+  /// The `inset` value of the score box. -> length
   score-box-inset: 0.7em,
+  /// The `cell-width` value of the score box. -> length
   score-box-cell-width: 4.5em,
+  /// Whether to display the info box. -> bool
   info-box-enabled: false,
+  /// Whether to show the author's `id` values the info box. -> bool
   info-box-show-ids: true,
+  /// Whether to show the author's `email` values the info box. -> bool
   info-box-show-emails: true,
+  /// The `inset` value of the info box. -> length
   info-box-inset: 0.7em,
+  /// The `gutter` value of the info box. -> length
   info-box-gutter: 1em,
+  /// A function that is used to style hyperlinks.
+  ///
+  /// This does _not_ have an effect on in-document links but only links that are specified using a string.
+  ///
+  /// -> function
   hyperlink-style: underline,
+  /// The document's body. -> content
   doc,
 ) = {
   let author-names
@@ -130,7 +250,7 @@
       ),
       header: header,
       header-ascent: 0pt,
-    )
+    ) if not disable-page-configuration
 
     set par(
       first-line-indent: 1em,
@@ -268,13 +388,12 @@
     //
 
     if title != none {
-      let styled-title = if title-default-styling {
-        underline[*#title*]
-      } else [#title]
       let maybe-todo = if todo-show and todo-global-count.final().first() > 0 {
-        [#h(0.5em)#todo-box()]
-      } else { none }
-      align(center, text(title-size, styled-title + maybe-todo))
+        h(0.5em)
+        todo-box()
+      }
+
+      align(center, text(size: title-size, title-style(title) + maybe-todo))
     }
 
     //
