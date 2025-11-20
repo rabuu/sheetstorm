@@ -15,8 +15,8 @@
 /// )
 /// ```
 ///
-/// Here you can set many options to customize the template settings.
-/// Some of them replace settings that you would normally use Typst built-in functions for.
+/// Here you can set many options to customize the template's behavior.
+/// Some of them replace settings that you would normally use Typst's built-in functions for.
 /// For a smooth experience, prefer to set the options here.
 #let assignment(
   /// The document's title. -> content | str | none
@@ -39,7 +39,7 @@
   /// The name and information of the author/s of the document.
   ///
   /// Can be just a single author or an array of authors.
-  /// An author can be just the name as string, or a dictionary with the fields:
+  /// An author can be just the name as string or a dictionary with the fields:
   /// - `name` (mandatory)
   /// - `id` (optional)
   /// - `email` (optional)
@@ -56,9 +56,9 @@
   /// ```
   /// -> array | dictionary | str | none
   authors: none,
-  /// The name of tutor. -> content | str | none
+  /// The name of the tutor, displayed in the header. -> content | str | none
   tutor: none,
-  /// The document date, displayed in the header. -> datetime
+  /// The document date, displayed in the header. -> datetime | none
   date: datetime.today(),
   /// The date format that is used to display the document date.
   ///
@@ -74,9 +74,9 @@
   margin-bottom: 1.7cm,
   /// The top margin of the document, taking the header into account. Prefer this to using `page.margin`. -> auto | length
   margin-above-header: 0cm,
-  /// The margin between header and the rest of the document. Prefer this to using `page.margin`. -> auto | length
+  /// The margin between the header and the rest of the document. Prefer this to using `page.margin`. -> auto | length
   margin-below-header: 0cm,
-  /// Show a warning beside the title if there are any TODOs in the document. -> bool
+  /// Whether to show a warning beside the title if there are any TODOs in the document. -> bool
   todo-show: true,
   /// The layout for the TODO box that may be displayed in the title.
   ///
@@ -104,7 +104,7 @@
   header-extra-right: none,
   /// The word that prefixes the tutor name in the header. -> content | str
   header-tutor-prefix: context i18n.word("Tutor"),
-  /// The column settings of the header.
+  /// The columns settings of the header.
   ///
   /// This can break the entire header if you play with it carelessly.
   ///
@@ -149,7 +149,7 @@
   widget-spacing-below: 1em,
   /// Whether to display the score box. -> bool
   score-box-enabled: false,
-  /// Set score box values manually. -> array | none
+  /// Set the score box task list manually. -> array | none
   score-box-tasks: none,
   /// Whether to show the points per task. -> bool
   score-box-show-points: true,
@@ -163,9 +163,9 @@
   score-box-cell-width: 4.5em,
   /// Whether to display the info box. -> bool
   info-box-enabled: false,
-  /// Whether to show the author's `id` values the info box. -> bool
+  /// Whether to show the authors `id` values the info box. -> bool
   info-box-show-ids: true,
-  /// Whether to show the author's `email` values the info box. -> bool
+  /// Whether to show the authors `email` values the info box. -> bool
   info-box-show-emails: true,
   /// The `inset` value of the info box. -> length
   info-box-inset: 0.7em,
