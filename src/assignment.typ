@@ -66,23 +66,17 @@
   ///
   /// -> auto | str
   date-format: auto,
-  /// The left margin of the document. Prefer this to using `page.margin`.
-  /// -> auto | length
+  /// The left margin of the document. Prefer this to using `page.margin`. -> auto | length
   margin-left: 1.7cm,
-  /// The right margin of the document. Prefer this to using `page.margin`.
-  /// -> auto | length
+  /// The right margin of the document. Prefer this to using `page.margin`. -> auto | length
   margin-right: 1.7cm,
-  /// The bottom margin of the document. Prefer this to using `page.margin`.
-  /// -> auto | length
+  /// The bottom margin of the document. Prefer this to using `page.margin`. -> auto | length
   margin-bottom: 1.7cm,
-  /// The top margin of the document, taking the header into account. Prefer this to using `page.margin`.
-  /// -> auto | length
+  /// The top margin of the document, taking the header into account. Prefer this to using `page.margin`. -> auto | length
   margin-above-header: 0cm,
-  /// The margin between header and the rest of the document. Prefer this to using `page.margin`.
-  /// -> auto | length
+  /// The margin between header and the rest of the document. Prefer this to using `page.margin`. -> auto | length
   margin-below-header: 0cm,
-  /// Show a warning beside the title if there are any TODOs in the document.
-  /// -> bool
+  /// Show a warning beside the title if there are any TODOs in the document. -> bool
   todo-show: true,
   /// The layout for the TODO box that may be displayed in the title.
   ///
@@ -177,7 +171,7 @@
   info-box-inset: 0.7em,
   /// The `gutter` value of the info box. -> length
   info-box-gutter: 1em,
-  /// A function that is used to style hyperlinks.
+  /// A function that is used to style hyperlinks created by #link.
   ///
   /// This does _not_ have an effect on in-document links but only links that are specified using a string.
   ///
