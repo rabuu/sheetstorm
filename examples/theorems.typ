@@ -49,5 +49,5 @@
   #proof[This is a standard proof.]
 
   /// Example: Proof with special symbol
-  #proof(symbol: $q.e.d.$)[This proof ends with a custom symbol.]
+  #proof(qed: $q.e.d.$)[This proof ends with a custom symbol.]
 ]
