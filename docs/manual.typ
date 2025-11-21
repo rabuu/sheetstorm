@@ -70,11 +70,6 @@
 #tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
 #pagebreak()
 
-= Widgets
-#let docs = tidy.parse-module(read("../src/widgets.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
-#pagebreak()
-
 = The "TODO" System
 #let docs = tidy.parse-module(read("../src/todo.typ"), scope: scope)
 #tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
@@ -82,6 +77,11 @@
 
 = Theorem and Proof Environments
 #let docs = tidy.parse-module(read("../src/theorem.typ"), scope: scope)
+#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#pagebreak()
+
+= Widgets
+#let docs = tidy.parse-module(read("../src/widgets.typ"), scope: scope)
 #tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
 #pagebreak()
 
