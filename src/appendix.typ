@@ -1,13 +1,25 @@
 #import "i18n.typ"
-///
-/// Appendix
-///
 
+/// Setup an appendix layout.
+///
+/// Use this function to turn the rest of the document into an appendix.
+/// ```typst
+/// #show: appendix
+///
+/// = Blablabla
+/// Now everything is displayed as appendix.
+/// ```
+/// -> content
 #let appendix(
+  /// The title of the whole appendix. -> content | str | none
   title: context i18n.word("Appendix"),
+  /// The text size of the appendix title. -> length
   title-size: 1.6em,
+  /// The supplement of the appendix sections. -> content | str | function | none
   supplement: context i18n.word("Appendix"),
+  /// The numbering pattern for the appendix sections. -> str | none
   numbering: "A.1.",
+  /// The appendix body itself. -> content
   body,
 ) = [
   #if title != none {

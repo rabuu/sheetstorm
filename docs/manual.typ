@@ -14,3 +14,9 @@
 = Setup
 #let docs = tidy.parse-module(read("../src/assignment.typ"), scope: scope)
 #tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+
+#pagebreak()
+
+= Utilities
+#let docs = tidy.parse-module(read("../src/appendix.typ"), scope: scope)
+#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
