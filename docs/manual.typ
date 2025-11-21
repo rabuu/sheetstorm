@@ -26,7 +26,7 @@
   block(text(weight: 700, 1.75em, raw(package)))
   block(text(1em, description))
   v(3em, weak: true)
-  [v#version]
+  [v#version #h(3em) #date]
   block(underline(link(repository)))
   v(3em, weak: true)
 })
