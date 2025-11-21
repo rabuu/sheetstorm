@@ -1,16 +1,37 @@
+/// A box for displaying TODOs.
 ///
-/// TODO
+/// It is used in different places to layout warning boxes.
 ///
-
-/// TODO-Box used for both, in text and in title
+/// Usually, you don't use it directly but may pass it to other functions that use it,
+/// so you can customize its appearance.
+///
+/// ```typst
+/// #let todo-box = todo-box.with(stroke: none)
+/// #let todo = todo.with(todo-box: todo-box)
+/// #let task = task.with(todo-box: todo-box)
+/// ```
+///
+/// -> content
 #let todo-box(
+  /// The text that is displayed at the beginning of the box. -> content
   todo-prefix: [TODO],
+  /// The styling of the `todo-prefix`. -> function
   todo-style: t => text(red)[*#t*],
+  /// The styling of the box's contents. -> function
   text-style: t => t,
+  /// The stroke of the box. -> stroke
   stroke: red,
+  /// The `inset` value of the box. -> relative | dictionary
   inset: (x: 0.2em),
+  /// The `outset` value of the box. -> relative | dictionary
   outset: (y: 0.3em),
+  /// The `radius` value of the box. -> relative | dictionary
   radius: 0.3em,
+  /// Arbitrary content that is passed into the box.
+  ///
+  /// You can only pass _positional_ arguments.
+  ///
+  /// -> arguments
   ..content,
 ) = {
   assert(content.named().len() == 0, message: "Invalid named argument")
@@ -30,15 +51,26 @@
   )
 }
 
-/// Local-Counter
-#let todo-counter = counter("sheetstorm-todo")
-
-/// Global-Counter
-#let todo-global-count = counter("sheetstorm-global-todo")
-
-/// TODO-function
-#let todo(todo-box: todo-box, ..comments) = {
-  todo-counter.step()
-  todo-global-count.step()
+/// Display a TODO warnig box
+#let todo(
+  /// The layout of the box.
+  ///
+  /// Set this using the provided #todo-box function.
+  ///
+  /// *Example:*
+  /// ```typst
+  /// #todo(todo-box: todo-box.with(stroke: none))[Custom box.]
+  /// ```
+  /// -> function
+  todo-box: todo-box,
+  /// Arbitrary content that is passed into the box.
+  ///
+  /// You can only pass _positional_ arguments.
+  ///
+  /// -> arguments
+  ..comments,
+) = {
+  counter("sheetstorm-todo").step()
+  counter("sheetstorm-global-todo").step()
   todo-box(..comments)
 }

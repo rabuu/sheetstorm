@@ -1,6 +1,6 @@
 #import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
-#import "todo.typ": todo, todo-box, todo-counter
+#import "todo.typ": todo, todo-box
 #import "labelling.typ": impromptu-label
 
 /// A task block
@@ -113,7 +113,7 @@
       .first()
       .location()
 
-    let curr-todo-count = todo-counter.at(curr-task-end).first()
+    let curr-todo-count = counter("sheetstorm-todo").at(curr-task-end).first()
     if (curr-todo-count > 0) { todo-box() }
   }
 
@@ -161,5 +161,5 @@
   ]
 
   task-count.step()
-  todo-counter.update(0)
+  counter("sheetstorm-todo").update(0)
 }

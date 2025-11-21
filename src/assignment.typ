@@ -2,7 +2,7 @@
 #import "widgets.typ"
 #import "i18n.typ"
 #import "util.typ": is-some
-#import "todo.typ": todo-box, todo-global-count
+#import "todo.typ": todo-box
 
 /// Setup the document as an assignment sheet.
 ///
@@ -382,7 +382,9 @@
     //
 
     if title != none {
-      let maybe-todo = if todo-show and todo-global-count.final().first() > 0 {
+      let maybe-todo = if (
+        todo-show and counter("sheetstorm-global-todo").final().first() > 0
+      ) {
         h(0.5em)
         todo-box()
       }
