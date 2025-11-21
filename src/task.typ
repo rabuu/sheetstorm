@@ -6,32 +6,80 @@
 /// A task block
 ///
 /// Use this function to create a section for each task.
-/// It supports customized task numbers, points and bonus tasks.
 /// ```typst
-/// #task(name: "Pythagorean theorem")[
+/// #task(name: "Pythagorean theorem", points: 1)[
 ///   _What is the Pythagorean theorem?_
 ///
 ///   $ a^2 + b^2 = c^2 $
 /// ]
 /// ```
+/// -> content
 #let task(
+  /// The name of the task. -> content | str | none
   name: none,
+  /// The prefix that is displayed before the task count. -> content | str
   task-prefix: context i18n.word("Task"),
+  /// A label that you can reference or query. -> str | none
   label: none,
+  /// The supplement of the task which is used in outlines and references.
+  ///
+  /// When set to #auto, it uses the same value as `task-prefix`.
+  ///
+  /// -> auto | content | str | function | none
   supplement: auto,
-  counter-show: true,
-  todo-show: true,
-  todo-box: todo-box,
+  /// The value of the task counter.
+  ///
+  /// If set to `none` it just steps the counter by one.
+  ///
+  /// -> none | int | function
   counter-reset: none,
+  /// Whether to display the value of the task counter in the task's title. -> bool
+  counter-show: true,
+  /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
+  todo-show: true,
+  /// The layout for the TODO box that may be displayed in the title.
+  ///
+  /// Set this using the provided #todo-box function.
+  ///
+  /// *Example:*
+  /// ```typst
+  /// #task(todo-box: todo-box.with(stroke: none))[
+  ///   #todo[Some TODO message.]
+  /// ]
+  /// ```
+  /// -> function
+  todo-box: todo-box,
+  /// Set the numbering for subtasks.
+  ///
+  /// If you give a numbering, it just sets the enum numbering accordingly.
+  /// If you set it to `none`, it disables the custom numbering completely.
+  ///
+  /// The library provides a handy `custom-enum-numbering` function that is expected to be used
+  /// when setting the numbering to a non-trivial value.
+  ///
+  /// -> function | str | none
   subtask-numbering: custom-enum-numbering("a)", "1.", "i."),
+  /// How many points the task can give.
+  ///
+  /// If there are subtasks, you can specify an array of numbers.
+  ///
+  /// -> int | array
   points: none,
+  /// Whether to show the points on the right side of the page above the task. -> bool
   points-show: true,
+  /// The word that is displayed before the points. -> content | str
   points-prefix: context i18n.word("Points"),
+  /// Whether the task is a bonus task. -> bool
   bonus: false,
+  /// Whether bonus tasks are marked with a star in the title. -> bool
   bonus-show-star: true,
+  /// Whether the task is hidden in the score box. -> bool
   hidden: false,
+  /// Padding above the task. -> auto | length
   space-above: auto,
+  /// Padding below the task. -> auto | length
   space-below: 2em,
+  /// The body of the task. -> content
   content,
 ) = {
   let task-count = counter("sheetstorm-task")
