@@ -4,6 +4,7 @@ alias v := set-version
 alias f := format
 alias fmt := format
 alias t := test
+alias doc := documentation
 
 # For reproducibility, it is now 01 January 1980
 export SOURCE_DATE_EPOCH := "315532800"
@@ -33,3 +34,6 @@ update-expected: install
 
 clean:
 	./scripts/cleanup-artifacts.sh
+
+documentation:
+	typst compile docs/manual.typ --root .
