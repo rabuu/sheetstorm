@@ -6,8 +6,8 @@ alias fmt := format
 alias t := test
 alias doc := documentation
 
-# For reproducibility, it is now 01 January 1980
-export SOURCE_DATE_EPOCH := "315532800"
+# For reproducibility, we set the date to 01 January 1980 while testing
+date := "315532800"
 
 package target *options: clean
 	./scripts/package.sh "{{target}}" {{options}}
@@ -24,11 +24,11 @@ format:
 check-format:
 	typstyle --check .
 
-test: install
+test $SOURCE_DATE_EPOCH=date: install
 	./scripts/testing/check-example-tests.sh
 	tt run --no-fail-fast
 
-update-expected: install
+update-expected $SOURCE_DATE_EPOCH=date: install
 	./scripts/testing/update-example-tests.sh
 	tt update
 
