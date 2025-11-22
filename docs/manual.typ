@@ -77,7 +77,12 @@
 
 = Theorem and Proof Environments
 #let docs = tidy.parse-module(read("../src/theorem.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#tidy.show-module(
+  docs,
+  show-outline: false,
+  break-param-descriptions: true,
+  sort-functions: none,
+)
 #pagebreak()
 
 = Widgets
