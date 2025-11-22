@@ -56,6 +56,7 @@
   ///
   /// The library provides a handy `custom-enum-numbering` function that is expected to be used
   /// when setting the numbering to a non-trivial value.
+  /// The required `enum.full` option is set automatically.
   ///
   /// -> function | str | none
   subtask-numbering: custom-enum-numbering("a)", "1.", "i."),
