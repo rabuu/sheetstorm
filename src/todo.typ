@@ -58,7 +58,7 @@
 #let todo(
   /// The layout of the box.
   ///
-  /// Set this using the provided #todo-box function.
+  /// Set this using the provided `todo-box` function.
   ///
   /// *Example:*
   /// ```typst

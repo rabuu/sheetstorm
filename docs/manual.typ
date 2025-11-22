@@ -55,47 +55,41 @@
 #show heading.where(level: 1): set heading(numbering: "1.")
 #show heading.where(level: 3): set text(1.2em)
 
-#let scope = (
-  sheetstorm: sheetstorm,
-  todo-box: sheetstorm.todo-box,
-)
-
-#let show-module = tidy.show-module.with(
-  show-outline: false,
-  break-param-descriptions: true,
-  sort-functions: none,
-  omit-private-definitions: true,
-)
+#let documentation(file) = {
+  let docs = tidy.parse-module(
+    read("/src/" + file),
+    scope: (sheetstorm: sheetstorm),
+  )
+  tidy.show-module(
+    docs,
+    show-outline: false,
+    break-param-descriptions: true,
+    sort-functions: none,
+    omit-private-definitions: true,
+  )
+}
 
 = Template Setup
-#let docs = tidy.parse-module(read("../src/assignment.typ"), scope: scope)
-#show-module(docs)
+#documentation("assignment.typ")
 #pagebreak()
 
 = Tasks
-#let docs = tidy.parse-module(read("../src/task.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#documentation("task.typ")
 #pagebreak()
 
 = The "TODO" System
-#let docs = tidy.parse-module(read("../src/todo.typ"), scope: scope)
-#show-module(docs)
+#documentation("todo.typ")
 #pagebreak()
 
 = Theorem and Proof Environments
-#let docs = tidy.parse-module(read("../src/theorem.typ"), scope: scope)
-#show-module(docs)
+#documentation("theorem.typ")
 #pagebreak()
 
 = Widgets
-#let docs = tidy.parse-module(read("../src/widgets.typ"), scope: scope)
-#show-module(docs)
+#documentation("widgets.typ")
 #pagebreak()
 
 = Utilities
-#let docs = tidy.parse-module(read("../src/appendix.typ"), scope: scope)
-#show-module(docs)
-#let docs = tidy.parse-module(read("../src/numbering.typ"), scope: scope)
-#show-module(docs)
-#let docs = tidy.parse-module(read("../src/labelling.typ"), scope: scope)
-#show-module(docs)
+#documentation("appendix.typ")
+#documentation("labelling.typ")
+#documentation("numbering.typ")

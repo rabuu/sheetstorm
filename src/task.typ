@@ -40,7 +40,7 @@
   todo-show: true,
   /// The layout for the TODO box that may be displayed in the title.
   ///
-  /// Set this using the provided #todo-box function.
+  /// Set this using the provided `todo-box` function.
   ///
   /// *Example:*
   /// ```typst
