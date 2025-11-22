@@ -34,6 +34,6 @@
     display = lbl
   }
 
-  let supplement = [#context i18n.word("Subtask") #display]
+  let supplement = [#context i18n.translate("Subtask") #display]
   impromptu-label(lbl, kind: "sheetstorm-subtask-label", supplement: supplement)
 }

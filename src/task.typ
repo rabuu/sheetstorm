@@ -39,7 +39,7 @@
   /// The name of the task. -> content | str | none
   name: none,
   /// The prefix that is displayed before the task count. -> content | str
-  task-prefix: context i18n.word("Task"),
+  task-prefix: context i18n.translate("Task"),
   /// A label that you can reference or query. -> str | none
   label: none,
   /// The supplement of the task which is used in outlines and references.
@@ -91,7 +91,7 @@
   /// Whether to show the points on the right side of the page above the task. -> bool
   points-show: true,
   /// The word that is displayed before the points. -> content | str
-  points-prefix: context i18n.word("Points"),
+  points-prefix: context i18n.translate("Points"),
   /// Whether the task is a bonus task. -> bool
   bonus: false,
   /// Whether bonus tasks are marked with a star in the title. -> bool

@@ -10,7 +10,7 @@
 /// -> content
 #let theorem(
   /// The theorem kind which is displayed as prefix. -> content | str
-  kind: context i18n.word("Theorem"),
+  kind: context i18n.translate("Theorem"),
   /// The numbering of the theorem.
   ///
   /// - #auto: Use an automatic counter.
@@ -107,10 +107,10 @@
 }
 
 /// Corollary environment, based on the `theorem` environment.
-#let corollary = theorem.with(kind: context i18n.word("Corollary"))
+#let corollary = theorem.with(kind: context i18n.translate("Corollary"))
 
 /// Lemma environment, based on the `theorem` environment.
-#let lemma = theorem.with(kind: context i18n.word("Lemma"))
+#let lemma = theorem.with(kind: context i18n.translate("Lemma"))
 
 /// Proof environment.
 ///
@@ -123,7 +123,7 @@
   /// The symbol that marks the end of the proof. -> content
   qed: $square$,
   /// The prefix that displayed at the beginning of the proof. -> content | str
-  prefix: context i18n.word("Proof"),
+  prefix: context i18n.translate("Proof"),
   /// The styling of the `prefix`. -> function
   prefix-style: p => [_#p._],
   /// The `fill` value of the proof box. -> none | color | gradient | tiling
