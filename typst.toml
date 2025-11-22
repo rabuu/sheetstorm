@@ -18,5 +18,5 @@ exclude = ["/examples/*", "/docs/*"]
 
 [template]
 path = "template"
-entrypoint = "main.typ"
+entrypoint = "assignment.typ"
 thumbnail = "thumbnail.png"
