@@ -1,8 +1,35 @@
 #import "header.typ": header-content
 #import "widgets.typ"
 #import "i18n.typ"
-#import "util.typ": is-some
+#import "util.typ": is-some, to-content
 #import "todo.typ": todo-box
+
+/// Internal helper to process the authors field in the `assignment` function.
+///
+/// -> array
+#let _handle_authors(authors) = {
+  if authors == none { return (none, none, none) }
+
+  if type(authors) != array { authors = (authors,) }
+
+  let author-names = authors
+    .map(a => if type(a) == dictionary {
+      assert("name" in a, message: "Missing mandatory field `name`.")
+      a.name
+    } else { a })
+    .map(to-content)
+  let author-ids = authors
+    .map(a => if type(a) == dictionary and "id" in a { a.id })
+    .map(to-content)
+  let author-emails = authors
+    .map(a => if type(a) == dictionary and "email" in a { a.email })
+    .map(to-content)
+
+  if author-ids.filter(is-some).len() == 0 { author-ids = none }
+  if author-emails.filter(is-some).len() == 0 { author-emails = none }
+
+  return (author-names, author-ids, author-emails)
+}
 
 /// Setup the document as an assignment sheet.
 ///
@@ -186,28 +213,7 @@
   /// The document's body. -> content
   doc,
 ) = {
-  let author-names
-  let author-ids
-  let author-emails
-  let has-ids = false
-  let has-emails = false
-
-  if authors != none {
-    if type(authors) != array { authors = (authors,) }
-
-    author-names = authors.map(a => if type(a) == dictionary
-      and "name" in a [ #a.name ] else if a != none [ #a ])
-
-    author-ids = authors.map(a => if type(a) == dictionary
-      and "id" in a [ #a.id ])
-    author-emails = authors.map(a => if type(a) == dictionary
-      and "email" in a [ #a.email ])
-
-    if author-ids != none { has-ids = author-ids.filter(is-some).len() > 0 }
-    if author-emails != none {
-      has-emails = author-emails.filter(is-some).len() > 0
-    }
-  }
+  let (author-names, author-ids, author-emails) = _handle_authors(authors)
 
   let header = header-content(
     course,
@@ -329,8 +335,8 @@
     let info-box = if info-box-enabled {
       widgets.info-box(
         author-names,
-        student-ids: if info-box-show-ids and has-ids { author-ids },
-        emails: if info-box-show-emails and has-emails { author-emails },
+        student-ids: if info-box-show-ids { author-ids },
+        emails: if info-box-show-emails { author-emails },
         inset: info-box-inset,
         gutter: info-box-gutter,
       )
