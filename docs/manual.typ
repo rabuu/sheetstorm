@@ -16,7 +16,19 @@
 #set document(author: authors, title: package)
 #set page(margin: 1.3cm, numbering: "1 / 1")
 
+#show heading.where(level: 1): set text(1.4em)
 #show heading.where(level: 1): it => block(smallcaps(it), below: 1em)
+#show heading.where(level: 3): it => {
+  set text(1.2em)
+  block(
+    below: 0.7em,
+    inset: 0.4em,
+    stroke: black,
+    fill: luma(235),
+    radius: 0.3em,
+    [Function: #it.body],
+  )
+}
 
 // TITLE PAGE
 
@@ -50,10 +62,7 @@
 
 #pagebreak()
 
-// -------------------------------------------
-
 #show heading.where(level: 1): set heading(numbering: "1.")
-#show heading.where(level: 3): set text(1.2em)
 
 #let documentation(file) = {
   let docs = tidy.parse-module(
@@ -68,6 +77,9 @@
     omit-private-definitions: true,
   )
 }
+
+= Example
+#raw(read("/template/main.typ"), lang: "typst")
 
 = Template Setup
 #documentation("assignment.typ")
