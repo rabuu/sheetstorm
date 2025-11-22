@@ -48,13 +48,13 @@
   ///
   /// -> auto | content | str | function | none
   supplement: auto,
-  /// Reset the value of the task counter manually.
+  /// Set the value of the task counter manually.
   ///
   /// If set to #auto, the counter is not reset.
   /// Regardless of this value, the counter is stepped at the end of the task.
   ///
   /// -> auto | int | function
-  counter-reset: auto,
+  counter: auto,
   /// Whether to display the value of the task counter in the task's title. -> bool
   counter-show: true,
   /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
@@ -105,7 +105,9 @@
   /// The body of the task. -> content
   content,
 ) = {
-  if counter-reset != auto { counter("sheetstorm-task").update(counter-reset) }
+  let c = std.counter
+
+  if counter != auto { c("sheetstorm-task").update(counter) }
 
   let (points-number, points-display) = _handle_points(points)
 
@@ -121,7 +123,7 @@
       .first()
       .location()
 
-    let curr-todo-count = counter("sheetstorm-todo").at(curr-task-end).first()
+    let curr-todo-count = c("sheetstorm-todo").at(curr-task-end).first()
     if (curr-todo-count > 0) { todo-box() }
   }
 
@@ -129,7 +131,7 @@
     task-prefix
     if counter-show {
       if task-prefix != "" [ ]
-      context counter("sheetstorm-task").display()
+      context c("sheetstorm-task").display()
     }
     if name != none [: #emph(name)]
     if bonus and bonus-show-star [\*]
@@ -168,6 +170,6 @@
     #metadata("sheetstorm-task-end")<sheetstorm-task-end>
   ]
 
-  counter("sheetstorm-task").step()
-  counter("sheetstorm-todo").update(0)
+  c("sheetstorm-task").step()
+  c("sheetstorm-todo").update(0)
 }

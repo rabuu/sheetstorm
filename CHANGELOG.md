@@ -19,6 +19,7 @@
 - Renamed `task` options: (BREAKING)
   - `task-string` -> `task-prefix`
   - `points-string` -> `points-prefix`
+  - `counter-reset` -> `counter`
 - Removed `task` options: (BREAKING)
   - `subtask-numbering-pattern`
 - Changed behavior of `task` options: (BREAKING)
