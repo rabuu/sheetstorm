@@ -18,6 +18,8 @@
 /// Here you can set many options to customize the template's behavior.
 /// Some of them replace settings that you would normally use Typst's built-in functions for.
 /// For a smooth experience, prefer to set the options here.
+///
+/// -> content
 #let assignment(
   /// The document's title. -> content | str | none
   title: none,
