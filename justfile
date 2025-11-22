@@ -1,9 +1,6 @@
-alias p := package
 alias i := install
-alias v := set-version
-alias f := format
-alias fmt := format
 alias t := test
+alias fmt := format
 alias doc := documentation
 
 # For reproducibility, we set the date to 01 January 1980 while testing
@@ -12,7 +9,8 @@ date := "315532800"
 package target *options: clean documentation
 	./scripts/package.sh "{{target}}" {{options}}
 
-install target="local": (package target)
+install target="local": clean
+	./scripts/package.sh "{{target}}"
 
 set-version version *options:
 	./scripts/set-version.sh "{{version}}" {{options}}

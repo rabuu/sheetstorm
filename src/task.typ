@@ -3,6 +3,25 @@
 #import "todo.typ": todo, todo-box
 #import "labelling.typ": impromptu-label
 
+/// Internal helper to process the `points` option of the `task` function.
+///
+/// Returns a 2-array of the total number of points and how they should be displayed.
+/// Multiple points like `points: (1, 3, 1)` get rendered as "1 + 3 + 1".
+///
+/// -> array
+#let _handle_points(points) = {
+  let current-points
+  let display-points
+
+  if type(points) == int {
+    return (points, [#points])
+  } else if type(points) == array and points.all(p => type(p) == int) {
+    return (points.sum(), points.map(str).intersperse(" + ").sum())
+  } else {
+    return (none, none)
+  }
+}
+
 /// Create a task section.
 ///
 /// Use this function as primary way to structure your document.
@@ -88,23 +107,9 @@
 ) = {
   if counter-reset != auto { counter("sheetstorm-task").update(counter-reset) }
 
-  let points-enabled = false
-  let current-points
-  let display-points
+  let (points-number, points-display) = _handle_points(points)
 
-  if type(points) == int {
-    points-enabled = true
-    current-points = points
-    display-points = [#points]
-
-    // multiple points specified, e.g. `points: (1, 3, 1)`, gets rendered as "1 + 3 + 1"
-  } else if type(points) == array and points.all(p => type(p) == int) {
-    points-enabled = true
-    current-points = points.sum()
-    display-points = points.map(str).intersperse(" + ").sum()
-  }
-
-  state("sheetstorm-points").update(if points-enabled { current-points })
+  state("sheetstorm-points").update(points-number)
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
 
@@ -154,9 +159,9 @@
       show heading: box
       [#metadata("sheetstorm-task-start")<sheetstorm-task>]
       [= #title ]
-      if points-enabled and points-show {
+      if points-show and points-display != none {
         h(1fr)
-        [(#display-points #points-prefix)]
+        [(#points-display #points-prefix)]
       }
     })
     #content
