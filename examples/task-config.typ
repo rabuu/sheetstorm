@@ -9,19 +9,21 @@
 
 // You can customize the task command like so:
 #let task = task.with(
-  counter-show: false,
   subtask-numbering: custom-enum-numbering("i)", "1.", "(a)"),
 )
 
-#task(name: "Unnumbered Task")[
-  Now, the task numbers are disabled for the whole document.
-
-  Also, we have our custom numbering pattern enabled by default:
+#task[
+  We have our custom numbering pattern enabled by default:
   + Hi
     + Hey
       + Ho
 ]
 
-#task(counter-show: true)[Unless you explicitely enable the counter.]
+#task(
+  counter-show: false,
+  name: "Name",
+)[You can disable the task number in the title.]
 
-#task(hidden: true)[This task is also hidden in the score box.]
+#task(hidden: true, counter: 7)[This task is hidden in the score box.]
+
+#task(counter: n => n + 1)[This would be task 8 but now it is task 9.]
