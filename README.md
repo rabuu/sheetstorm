@@ -1,49 +1,42 @@
 # sheetstorm
 A Typst template for assignment sheets.
 
+*Disclaimer:*
+Although we find this library to be perfectly usable, it is still rather new and under active development.
+Breaking changes in new versions are to be expected.
+
 ## Quick Start
-
-### Template CLI
-```sh
-typst init @preview/sheetstorm
-```
-
-### Import
-```typst
-#import "@preview/sheetstorm:0.3.3"
-```
-
-## Example
 ```typst
 #import "@preview/sheetstorm:0.3.3": *
 
 #show: assignment.with(
-  course: smallcaps[A very interesting course 101],
-  title: "Assignment 42",
-  authors: (
-    (name: "John Doe", id: 123456),
-    (name: "Erika Mustermann", id: 654321),
-  ),
-
-  info-box-enabled: true,
-  score-box-enabled: true,
+  title: "Your title",
+  // ...
 )
 
-#task(name: "Introduction")[
-  This is #link("https://github.com/rabuu/sheetstorm")[`sheetstorm`],
-  a template library that provides a sane default layout for assignment submissions with the option of customizability.
-
-  Here you would write down your solutions for the first task:
-  #lorem(100)
+#task[
+  #todo[Write down your solutions for task 1 here.]
 ]
-
-// ...
 ```
 
-See [here](./template/main.typ) for full example template.
+Or using the template CLI:
+```sh
+typst init @preview/sheetstorm
+```
 
-### Preview
+## Preview
 ![Preview of the sheetstorm template](./thumbnail.png)
 
-### More examples
-More examples can be found [here](./examples).
+See [here](./examples/assignment.typ) for the source code.
+
+## Documentation
+We have a [user manual](./docs/manual.pdf) that documents the entire public API with all customization options.
+
+There are also a few [examples](./examples) that illustrate how to use the template.
+
+## Feature Highlights
+- Sane minimal default layout with "vanilla" look
+- Very customizable with lots of configuration options
+- Multi-language capability (see [internationalization](./src/i18n.typ) module)
+- Built-in theorem/proof environments
+- "TODO" warning system
