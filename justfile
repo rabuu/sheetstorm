@@ -4,15 +4,15 @@ alias v := set-version
 alias f := format
 alias fmt := format
 alias t := test
+alias doc := documentation
 
-# For reproducibility, it is now 01 January 1980
-export SOURCE_DATE_EPOCH := "315532800"
+# For reproducibility, we set the date to 01 January 1980 while testing
+date := "315532800"
 
-package target *options: clean
+package target *options: clean documentation
 	./scripts/package.sh "{{target}}" {{options}}
 
-install target="local": clean
-	./scripts/package.sh "{{target}}"
+install target="local": (package target)
 
 set-version version *options:
 	./scripts/set-version.sh "{{version}}" {{options}}
@@ -23,13 +23,16 @@ format:
 check-format:
 	typstyle --check .
 
-test: install
+test $SOURCE_DATE_EPOCH=date: install
 	./scripts/testing/check-example-tests.sh
 	tt run --no-fail-fast
 
-update-expected: install
+update-expected $SOURCE_DATE_EPOCH=date: install
 	./scripts/testing/update-example-tests.sh
 	tt update
 
 clean:
 	./scripts/cleanup-artifacts.sh
+
+documentation:
+	typst compile docs/manual.typ --root .

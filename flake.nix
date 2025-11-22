@@ -24,6 +24,8 @@
             tytanic.outputs.packages.${system}.default
             just
           ];
+
+          shellHook = "unset SOURCE_DATE_EPOCH";
         };
       }
     );

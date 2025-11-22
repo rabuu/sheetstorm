@@ -14,7 +14,7 @@ description = "A template for assignment sheets."
 categories = ["layout", "report"]
 keywords = ["handin", "assignment"]
 
-exclude = ["/examples/*"]
+exclude = ["/examples/*", "/docs/*"]
 
 [template]
 path = "template"
