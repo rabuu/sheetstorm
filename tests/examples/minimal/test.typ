@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.3.3": assignment, task
+#import "@local/sheetstorm:0.4.0": assignment, task
 
 #show: assignment
 

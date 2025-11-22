@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.3.3": assignment, task
+#import "@preview/sheetstorm:0.4.0": assignment, task
 
 #set text(lang: "de")
 

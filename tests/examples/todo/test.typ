@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.3.3": assignment, task, todo, todo-box
+#import "@local/sheetstorm:0.4.0": assignment, task, todo, todo-box
 
 #show: assignment.with(
   title: "Assignment with TODO's",

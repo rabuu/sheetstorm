@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.3.3": *
+#import "@local/sheetstorm:0.4.0": *
 
 #show: assignment.with(
   course: smallcaps[Sheetstorm 101],
