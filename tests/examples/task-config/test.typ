@@ -19,10 +19,9 @@
       + Ho
 ]
 
-#task(
-  counter-show: false,
-  name: "Name",
-)[You can disable the task number in the title.]
+#task(counter-show: false, name: "Name")[
+  You can disable the task number in the title.
+]
 
 #task(hidden: true, counter: 7)[This task is hidden in the score box.]
 
