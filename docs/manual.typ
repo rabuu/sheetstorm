@@ -79,7 +79,11 @@
 }
 
 = Example
-#raw(read("/template/main.typ"), lang: "typst")
+#{
+  set text(size: 10pt)
+  raw(read("/examples/assignment.typ"), lang: "typst")
+}
+#pagebreak()
 
 = Template Setup
 #documentation("assignment.typ")

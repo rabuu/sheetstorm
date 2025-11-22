@@ -15,7 +15,8 @@
 
 #task(name: "Introduction")[
   This is #link("https://github.com/rabuu/sheetstorm")[`sheetstorm`],
-  a template library that provides a sane default layout for assignment submissions with the option of customizability.
+  a template library that provides a sane default layout for assignment submissions
+  with the option of customizability.
 
   Here you would write down your solutions for the first task:
   #lorem(30)
@@ -32,7 +33,8 @@
 ]
 
 #task(points: 11)[
-  Another task but without a name. You can reference tasks from above where you set a label, for example @task-subtasks.
+  Another task but without a name.
+  You can reference tasks from above where you set a label, for example @task-subtasks.
 
   Then you can do some cool math. You could, for example, try to proof that:
   $ forall n gt.eq 0: sum_(i=0)^n i = (n dot (n+1))/2 $
