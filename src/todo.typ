@@ -1,7 +1,6 @@
 /// A box for displaying TODOs.
 ///
 /// It is used in different places to layout warning boxes.
-///
 /// Usually, you don't use it directly but may pass it to other functions that use it,
 /// so you can customize its appearance.
 ///
@@ -51,7 +50,11 @@
   )
 }
 
-/// Display a TODO warnig box
+/// Mark a part of your document as unfinished.
+///
+/// This displays an inline warning box and signals to the context.
+///
+/// -> content
 #let todo(
   /// The layout of the box.
   ///

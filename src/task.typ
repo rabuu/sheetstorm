@@ -3,9 +3,10 @@
 #import "todo.typ": todo, todo-box
 #import "labelling.typ": impromptu-label
 
-/// A task block
+/// Create a task section.
 ///
-/// Use this function to create a section for each task.
+/// Use this function as primary way to structure your document.
+///
 /// ```typst
 /// #task(name: "Pythagorean theorem", points: 1)[
 ///   _What is the Pythagorean theorem?_

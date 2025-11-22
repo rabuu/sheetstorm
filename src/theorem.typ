@@ -1,7 +1,7 @@
 #import "i18n.typ"
 #import "labelling.typ": impromptu-label
 
-/// Theorem environment
+/// Theorem environment.
 ///
 /// *Example:*
 /// ```typst
@@ -106,13 +106,13 @@
   }
 }
 
-/// Corollary environment, based on the `theorem` environment
+/// Corollary environment, based on the `theorem` environment.
 #let corollary = theorem.with(kind: context i18n.word("Corollary"))
 
-/// Lemma environment, based on the `theorem` environment
+/// Lemma environment, based on the `theorem` environment.
 #let lemma = theorem.with(kind: context i18n.word("Lemma"))
 
-/// Proof environment
+/// Proof environment.
 ///
 /// *Example:*
 /// ```typst

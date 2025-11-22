@@ -1,6 +1,6 @@
 #import "util.typ": is-some, to-content
 
-/// Score Box widget
+/// The "score box" widget.
 ///
 /// This function creates an empty table for each task where the scores can be filled in.
 /// By default, it reads the number of tasks from the `task` counter,
@@ -83,7 +83,7 @@
   )
 }
 
-/// Info Box widget
+/// The "info box" widget.
 ///
 /// This function creates a box with information about the authors of the document.
 /// You need to provide the names of the authors and optionally student IDs and/or email addresses.
