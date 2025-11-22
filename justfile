@@ -1,9 +1,6 @@
-alias p := package
 alias i := install
-alias v := set-version
-alias f := format
-alias fmt := format
 alias t := test
+alias fmt := format
 alias doc := documentation
 
 # For reproducibility, we set the date to 01 January 1980 while testing
