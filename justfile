@@ -12,7 +12,8 @@ date := "315532800"
 package target *options: clean documentation
 	./scripts/package.sh "{{target}}" {{options}}
 
-install target="local": (package target)
+install target="local": clean
+	./scripts/package.sh "{{target}}"
 
 set-version version *options:
 	./scripts/set-version.sh "{{version}}" {{options}}
