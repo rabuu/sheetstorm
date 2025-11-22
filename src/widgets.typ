@@ -11,8 +11,12 @@
 ///
 /// -> content
 #let score-box(
-  /// Set the score box task list manually. -> array | none
-  tasks: none,
+  /// Set the score box task list manually.
+  ///
+  /// If #auto is set, figure out the tasks from the context.
+  ///
+  /// -> array | auto
+  tasks: auto,
   /// Whether to show the points per task. -> bool
   show-points: true,
   /// Whether the points of bonus tasks count into the sum. -> bool
@@ -31,7 +35,7 @@
   let display-tasks
   let display-points
 
-  if tasks == none {
+  if tasks == auto {
     let task-query = query(<sheetstorm-task>)
     let task-counter = counter("sheetstorm-task")
     let hidden-task-state = state("sheetstorm-hidden-task")

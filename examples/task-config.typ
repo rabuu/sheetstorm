@@ -3,6 +3,7 @@
 #show: assignment.with(
   title: "Task Configuration Example",
   authors: "John Doe",
+  score-box-enabled: true,
   initial-task-number: 3,
 )
 
@@ -22,3 +23,5 @@
 ]
 
 #task(counter-show: true)[Unless you explicitely enable the counter.]
+
+#task(hidden: true)[This task is also hidden in the score box.]
