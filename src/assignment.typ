@@ -8,22 +8,22 @@
 ///
 /// -> array
 #let _handle_authors(authors) = {
-  if authors == none { return (none, none, none) }
+  if authors == none { return ((), none, none) }
 
   if type(authors) != array { authors = (authors,) }
 
-  let author-names = authors
-    .map(a => if type(a) == dictionary {
+  let author-names = authors.map(a => {
+    if type(a) == dictionary {
       assert("name" in a, message: "Missing mandatory field `name`.")
-      a.name
-    } else { a })
-    .map(to-content)
-  let author-ids = authors
-    .map(a => if type(a) == dictionary and "id" in a { a.id })
-    .map(to-content)
-  let author-emails = authors
-    .map(a => if type(a) == dictionary and "email" in a { a.email })
-    .map(to-content)
+      [#a.name]
+    } else [#a]
+  })
+  let author-ids = authors.map(a => {
+    if type(a) == dictionary and "id" in a [#a.id]
+  })
+  let author-emails = authors.map(a => {
+    if type(a) == dictionary and "email" in a [#a.email]
+  })
 
   if author-ids.filter(is-some).len() == 0 { author-ids = none }
   if author-emails.filter(is-some).len() == 0 { author-emails = none }
