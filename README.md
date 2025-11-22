@@ -40,3 +40,4 @@ There are also a few [examples](./examples) that illustrate how to use the templ
 - Multi-language capability (see [internationalization](./src/i18n.typ) module)
 - Built-in theorem/proof environments
 - "TODO" warning system
+- Useful widgets: info box and score box
