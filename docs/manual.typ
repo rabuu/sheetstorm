@@ -60,9 +60,16 @@
   todo-box: sheetstorm.todo-box,
 )
 
+#let show-module = tidy.show-module.with(
+  show-outline: false,
+  break-param-descriptions: true,
+  sort-functions: none,
+  omit-private-definitions: true,
+)
+
 = Template Setup
 #let docs = tidy.parse-module(read("../src/assignment.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#show-module(docs)
 #pagebreak()
 
 = Tasks
@@ -72,28 +79,23 @@
 
 = The "TODO" System
 #let docs = tidy.parse-module(read("../src/todo.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#show-module(docs)
 #pagebreak()
 
 = Theorem and Proof Environments
 #let docs = tidy.parse-module(read("../src/theorem.typ"), scope: scope)
-#tidy.show-module(
-  docs,
-  show-outline: false,
-  break-param-descriptions: true,
-  sort-functions: none,
-)
+#show-module(docs)
 #pagebreak()
 
 = Widgets
 #let docs = tidy.parse-module(read("../src/widgets.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#show-module(docs)
 #pagebreak()
 
 = Utilities
 #let docs = tidy.parse-module(read("../src/appendix.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#show-module(docs)
 #let docs = tidy.parse-module(read("../src/numbering.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#show-module(docs)
 #let docs = tidy.parse-module(read("../src/labelling.typ"), scope: scope)
-#tidy.show-module(docs, show-outline: false, break-param-descriptions: true)
+#show-module(docs)
