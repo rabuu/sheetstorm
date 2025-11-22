@@ -45,7 +45,7 @@ jobs:
       - name: Install `typst`
         uses: typst-community/setup-typst@v4
         with:
-          - typst-version: ^0.13.1
+          typst-version: ^0.13.1
       - name: Run test suite
         run: just test
       - name: Archive artifacts
