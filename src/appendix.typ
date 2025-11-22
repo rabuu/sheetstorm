@@ -14,11 +14,11 @@
 /// -> content
 #let appendix(
   /// The title of the whole appendix. -> content | str | none
-  title: context i18n.word("Appendix"),
+  title: context i18n.translate("Appendix"),
   /// The text size of the appendix title. -> length
   title-size: 1.6em,
   /// The supplement of the appendix sections. -> content | str | function | none
-  supplement: context i18n.word("Appendix"),
+  supplement: context i18n.translate("Appendix"),
   /// The numbering pattern for the appendix sections. -> str | none
   numbering: "A.1.",
   /// The appendix body itself. -> content

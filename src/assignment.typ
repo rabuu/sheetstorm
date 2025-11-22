@@ -169,7 +169,7 @@
   /// Extra content that is displayed in the right header column. -> content | str
   header-extra-right: none,
   /// The word that prefixes the tutor name in the header. -> content | str
-  header-tutor-prefix: context i18n.word("Tutor"),
+  header-tutor-prefix: context i18n.translate("Tutor"),
   /// The columns settings of the header.
   ///
   /// This can break the entire header if you play with it carelessly.

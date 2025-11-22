@@ -1,4 +1,4 @@
-#let _words = (
+#let _translations = (
   // Task related
   Task: (
     de: "Aufgabe",
@@ -32,12 +32,11 @@
   de: "[day].[month].[year]",
 )
 
-#let word(key) = {
-  if not key in _words {
+#let translate(key) = {
+  if not key in _translations {
     return key
   }
-
-  _words.at(key).at(text.lang, default: key)
+  _translations.at(key).at(text.lang, default: key)
 }
 
 #let date-format() = {
