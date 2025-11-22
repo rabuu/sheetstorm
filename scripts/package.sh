@@ -12,6 +12,7 @@ files=(
 	src/
 	examples/
 	template/
+	docs/manual.pdf
 	typst.toml
 	README.md
 	LICENSE
