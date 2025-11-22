@@ -31,6 +31,43 @@
   return (author-names, author-ids, author-emails)
 }
 
+/// Internal wrapper of ref links.
+///
+/// This wraps the display implementation of the `ref` function.
+/// Since we provide some custom labels kinds, we must ensure that they get displayed correctly.
+#let _ref_wrapper(it) = {
+  let el = it.element
+
+  // Task labels
+  if el.func() == figure and el.kind == "sheetstorm-task-label" {
+    let task-count = counter("sheetstorm-task").at(el.location()).first()
+    let supp = if it.supplement == auto { el.supplement } else { it.supplement }
+    link(el.location())[#supp #task-count]
+
+    // Subtask labels
+  } else if el.func() == figure and el.kind == "sheetstorm-subtask-label" {
+    link(el.location(), el.supplement)
+
+    // Theorem labels
+  } else if el.func() == figure and el.kind == "sheetstorm-theorem-label" {
+    let theorem-id = state("sheetstorm-theorem-id").at(el.location())
+    if theorem-id == auto {
+      theorem-id = counter("sheetstorm-theorem-count").at(el.location()).first()
+    }
+    if theorem-id == none {
+      panic(
+        "This theorem is not referencable. Provide a name or numbering.",
+      )
+    }
+    let supp = if it.supplement == auto { el.supplement } else { it.supplement }
+    link(el.location())[#supp #theorem-id]
+
+    // Everything else
+  } else {
+    it
+  }
+}
+
 /// Setup the document as an assignment sheet.
 ///
 /// This is the template entrypoint and is expected to be used at the top of the document like so:
@@ -212,7 +249,7 @@
   hyperlink-style: underline,
   /// The document's body. -> content
   doc,
-) = {
+) = context {
   let (author-names, author-ids, author-emails) = _handle_authors(authors)
 
   let header = header-content(
@@ -235,179 +272,120 @@
     header-padding-bottom,
   )
 
-  context {
-    //
-    // SETTINGS
-    //
+  let header-height = measure(
+    width: page.width - margin-left - margin-right,
+    header,
+  ).height
 
-    let header-height = measure(
-      width: page.width - margin-left - margin-right,
-      header,
-    ).height
+  set page(
+    paper: paper,
+    numbering: page-numbering,
+    margin: (
+      top: header-height + margin-above-header,
+      bottom: margin-bottom,
+      left: margin-left,
+      right: margin-right,
+    ),
+    header: header,
+    header-ascent: 0pt,
+  ) if not disable-page-configuration
 
-    set page(
-      paper: paper,
-      numbering: page-numbering,
-      margin: (
-        top: header-height + margin-above-header,
-        bottom: margin-bottom,
-        left: margin-left,
-        right: margin-right,
-      ),
-      header: header,
-      header-ascent: 0pt,
-    ) if not disable-page-configuration
+  set par(
+    first-line-indent: 1em,
+    justify: true,
+  )
 
-    set par(
-      first-line-indent: 1em,
-      justify: true,
+  show ref: _ref_wrapper
+
+  show link: it => {
+    if type(it.dest) == str {
+      return hyperlink-style(it)
+    } else {
+      return it
+    }
+  }
+
+  // Initialize global counters
+  counter("sheetstorm-task").update(initial-task-number)
+  counter("sheetstorm-theorem-count").update(1)
+  counter("sheetstorm-todo").update(0)
+  counter("sheetstorm-global-todo").update(0)
+
+  // Space below the header
+  v(margin-below-header)
+
+  // Configure the widgets
+  let info-box-enabled = info-box-enabled and author-names != none
+  let widget-number = (score-box-enabled, info-box-enabled).filter(p => p).len()
+  let info-box = if info-box-enabled {
+    widgets.info-box(
+      author-names,
+      student-ids: if info-box-show-ids { author-ids },
+      emails: if info-box-show-emails { author-emails },
+      inset: info-box-inset,
+      gutter: info-box-gutter,
     )
+  }
+  let score-box = if score-box-enabled {
+    widgets.score-box(
+      tasks: score-box-tasks,
+      show-points: score-box-show-points,
+      bonus-counts-for-sum: score-box-bonus-counts-for-sum,
+      bonus-show-star: score-box-bonus-show-star,
+      inset: score-box-inset,
+      cell-width: score-box-cell-width,
+    )
+  }
 
-    show ref: it => {
-      let el = it.element
+  // Display the widgets
+  if score-box-enabled or info-box-enabled {
+    let display-widgets = if not widget-order-reversed {
+      (info-box, score-box)
+    } else {
+      (score-box, info-box)
+    }.filter(is-some)
 
-      if el.func() == figure and el.kind == "sheetstorm-task-label" {
-        let task-count = counter("sheetstorm-task").at(el.location()).first()
-        let supp = if it.supplement == auto {
-          el.supplement
-        } else {
-          it.supplement
-        }
-        link(el.location())[#supp #task-count]
-      } else if el.func() == figure and el.kind == "sheetstorm-subtask-label" {
-        link(el.location(), el.supplement)
-      } else if el.func() == figure and el.kind == "sheetstorm-theorem-label" {
-        let theorem-id = state("sheetstorm-theorem-id").at(el.location())
-        if theorem-id == auto {
-          theorem-id = counter("sheetstorm-theorem-count")
-            .at(el.location())
-            .first()
-        }
-        if theorem-id == none {
-          panic(
-            "This theorem is not referencable. Provide a name or numbering.",
-          )
-        }
-        let supp = if it.supplement == auto {
-          el.supplement
-        } else {
-          it.supplement
-        }
-        link(el.location())[#supp #theorem-id]
-      } else {
-        it
-      }
-    }
+    v(widget-spacing-above)
 
-    show link: it => {
-      if type(it.dest) == str {
-        return hyperlink-style(it)
-      } else {
-        return it
-      }
-    }
-
-    //
-    // COUNTERS
-    //
-
-    counter("sheetstorm-task").update(initial-task-number)
-    counter("sheetstorm-theorem-count").update(1)
-    counter("sheetstorm-todo").update(0)
-    counter("sheetstorm-global-todo").update(0)
-
-    //
-    // SPACING BELOW HEADER
-    //
-    v(margin-below-header)
-
-    //
-    // WIDGETS
-    // (info box & score box)
-    //
-
-    let info-box-enabled = info-box-enabled and author-names != none
-
-    let widget-number = (score-box-enabled, info-box-enabled)
-      .map(x => if x { 1 } else { 0 })
-      .sum()
-
-    let info-box = if info-box-enabled {
-      widgets.info-box(
-        author-names,
-        student-ids: if info-box-show-ids { author-ids },
-        emails: if info-box-show-emails { author-emails },
-        inset: info-box-inset,
-        gutter: info-box-gutter,
-      )
-    }
-
-    let score-box = if score-box-enabled {
-      widgets.score-box(
-        tasks: score-box-tasks,
-        show-points: score-box-show-points,
-        bonus-counts-for-sum: score-box-bonus-counts-for-sum,
-        bonus-show-star: score-box-bonus-show-star,
-        inset: score-box-inset,
-        cell-width: score-box-cell-width,
-      )
-    }
-
-    if score-box-enabled or info-box-enabled {
-      let display-widgets = if not widget-order-reversed {
-        (info-box, score-box)
-      } else {
-        (score-box, info-box)
-      }.filter(is-some)
-
-      v(widget-spacing-above)
-
-      layout(size => {
-        let (columns, alignment) = {
-          if widget-number == 1 {
+    layout(size => {
+      let (columns, alignment) = {
+        if widget-number == 1 {
+          (1, center + horizon)
+        } else if widget-number == 2 {
+          let a = measure(info-box).width
+          let b = measure(score-box).width
+          if a + b > size.width {
             (1, center + horizon)
-          } else if widget-number == 2 {
-            let a = measure(info-box).width
-            let b = measure(score-box).width
-            if a + b > size.width {
-              (1, center + horizon)
-            } else {
-              (2, (left + horizon, right + horizon))
-            }
+          } else {
+            (2, (left + horizon, right + horizon))
           }
         }
+      }
 
-        align(center, grid(
-          columns: columns,
-          align: alignment,
-          column-gutter: widget-column-gap,
-          row-gutter: widget-row-gap,
-          ..display-widgets
-        ))
-      })
+      align(center, grid(
+        columns: columns,
+        align: alignment,
+        column-gutter: widget-column-gap,
+        row-gutter: widget-row-gap,
+        ..display-widgets
+      ))
+    })
 
-      v(widget-spacing-below)
-    }
+    v(widget-spacing-below)
+  }
 
-    //
-    // TITLE
-    //
-
-    if title != none {
-      let maybe-todo = if (
-        todo-show and counter("sheetstorm-global-todo").final().first() > 0
-      ) {
+  // Display the title
+  if title != none {
+    let maybe-todo = context {
+      let todos-in-doc = counter("sheetstorm-global-todo").final().first() > 0
+      if todo-show and todos-in-doc {
         h(0.5em)
         todo-box()
       }
-
-      align(center, text(size: title-size, title-style(title) + maybe-todo))
     }
-
-    //
-    // REST OF THE DOCUMENT
-    //
-
-    doc
+    align(center, text(size: title-size, title-style(title) + maybe-todo))
   }
+
+  // This is the entire rest of the wrapped document
+  doc
 }
