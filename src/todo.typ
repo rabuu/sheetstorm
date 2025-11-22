@@ -4,6 +4,7 @@
 /// Usually, you don't use it directly but may pass it to other functions that use it,
 /// so you can customize its appearance.
 ///
+/// *Example*
 /// ```typst
 /// #let todo-box = todo-box.with(stroke: none)
 /// #let todo = todo.with(todo-box: todo-box)
@@ -60,7 +61,7 @@
   ///
   /// Set this using the provided `todo-box` function.
   ///
-  /// *Example:*
+  /// *Example*
   /// ```typst
   /// #todo(todo-box: todo-box.with(stroke: none))[Custom box.]
   /// ```

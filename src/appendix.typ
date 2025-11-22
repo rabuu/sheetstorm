@@ -3,6 +3,8 @@
 /// Setup an appendix layout.
 ///
 /// Use this function to turn the rest of the document into an appendix.
+///
+/// *Example*
 /// ```typst
 /// #show: appendix
 ///

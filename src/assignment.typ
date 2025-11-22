@@ -23,7 +23,7 @@
   title: none,
   /// A function that provides styling to the title.
   ///
-  /// *Example:*
+  /// *Example*
   /// ```typst
   /// #show: assignment.with(
   ///   title: [My *cool* title],
@@ -44,7 +44,7 @@
   /// - `id` (optional)
   /// - `email` (optional)
   ///
-  /// *Example:*
+  /// *Example*
   /// ```typst
   /// #show assignment.with(
   ///   authors: (
@@ -82,7 +82,7 @@
   ///
   /// Set this using the provided `todo-box` function.
   ///
-  /// *Example:*
+  /// *Example*
   /// ```typst
   /// #show: assignment.with(
   ///   todo-box: todo-box.with(stroke: none),

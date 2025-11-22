@@ -3,7 +3,7 @@
 
 /// Theorem environment.
 ///
-/// *Example:*
+/// *Example*
 /// ```typst
 /// #theorem(name: "Pythagoras")[$a^2 + b^2 = c^2$]
 /// ```
@@ -13,7 +13,7 @@
   kind: context i18n.word("Theorem"),
   /// The numbering of the theorem.
   ///
-  /// - `auto`: Use an automatic counter.
+  /// - #auto: Use an automatic counter.
   /// - `none`: Don't number the theorem at all.
   /// - Everything else is displayed as is.
   ///
@@ -114,7 +114,7 @@
 
 /// Proof environment.
 ///
-/// *Example:*
+/// *Example*
 /// ```typst
 /// #proof[Let $a=1$, then is $a+1 = 2$ immediate.]
 /// ```

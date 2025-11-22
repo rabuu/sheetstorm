@@ -7,7 +7,7 @@
 
 /// Attach a label to a subtask.
 ///
-/// *Example:*
+/// *Example*
 /// ```typst
 /// #task[
 ///   + This is the first subtask. #subtask-label("subtask-a", display: "a)")

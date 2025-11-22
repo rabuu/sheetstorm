@@ -23,7 +23,7 @@
 ///
 /// You must set `enum(full: true)` for it to work.
 ///
-/// *Example:*
+/// *Example*
 /// ```typst
 /// #set enum(
 ///   full: true,

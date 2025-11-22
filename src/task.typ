@@ -7,6 +7,7 @@
 ///
 /// Use this function as primary way to structure your document.
 ///
+/// *Example*
 /// ```typst
 /// #task(name: "Pythagorean theorem", points: 1)[
 ///   _What is the Pythagorean theorem?_
@@ -42,7 +43,7 @@
   ///
   /// Set this using the provided `todo-box` function.
   ///
-  /// *Example:*
+  /// *Example*
   /// ```typst
   /// #task(todo-box: todo-box.with(stroke: none))[
   ///   #todo[Some TODO message.]
