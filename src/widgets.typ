@@ -35,7 +35,7 @@
   let display-tasks
   let display-points
 
-  if tasks == none {
+  if tasks == auto {
     let task-query = query(<sheetstorm-task>)
     let task-counter = counter("sheetstorm-task")
     let hidden-task-state = state("sheetstorm-hidden-task")

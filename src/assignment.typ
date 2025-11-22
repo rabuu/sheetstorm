@@ -151,8 +151,12 @@
   widget-spacing-below: 1em,
   /// Whether to display the score box. -> bool
   score-box-enabled: false,
-  /// Set the score box task list manually. -> array | none
-  score-box-tasks: none,
+  /// Set the score box task list manually.
+  ///
+  /// If #auto is set, figure out the tasks from the context.
+  ///
+  /// -> array | auto
+  score-box-tasks: auto,
   /// Whether to show the points per task. -> bool
   score-box-show-points: true,
   /// Whether the points of bonus tasks count into the sum. -> bool
