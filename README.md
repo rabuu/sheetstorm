@@ -10,12 +10,12 @@ Breaking changes in new versions are to be expected.
 #import "@preview/sheetstorm:0.4.0": *
 
 #show: assignment.with(
-  title: "Your title",
+  title: "My title",
   // ...
 )
 
 #task[
-  #todo[Write down your solutions for task 1 here.]
+  // Write down your solutions for task 1 here.
 ]
 ```
 
