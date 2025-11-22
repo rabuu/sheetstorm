@@ -1,16 +1,14 @@
-#import "@preview/sheetstorm:0.3.3": *
+#import "@local/sheetstorm:0.3.3": *
 
 #show: assignment.with(
-  course: smallcaps[A very interesting course 101],
-  title: "Assignment 42",
+  course: smallcaps[Sheetstorm 101],
+  title: "Assignment Example",
   authors: (
     (name: "John Doe", id: 123456),
     (name: "Erika Mustermann", id: 654321),
   ),
-
   info-box-enabled: true,
   score-box-enabled: true,
-
   // Here you can customize the layout of the page, the header, the widgets.
   // Look at the parameters of the `assignment` function.
 )
@@ -20,7 +18,7 @@
   a template library that provides a sane default layout for assignment submissions with the option of customizability.
 
   Here you would write down your solutions for the first task:
-  #lorem(100)
+  #lorem(30)
 ]
 
 #task(name: "Subtasks", label: "task-subtasks", points: (1, 2))[
@@ -30,8 +28,7 @@
 
   + _Solve the following equations for $x$._
     + $x^2 = 4 ==> x = plus.minus 2$
-    + $x = integral_0^1 x^2 ==> x = [1/3 x^3]_0^1 = 1/3$
-    + $x = "color of banana" ==> x = "yellow"$, see @banana
+    + $x = "color of banana" ==> x = "yellow"$, see @banana.
 ]
 
 #task(points: 11)[
@@ -42,7 +39,7 @@
 
   #proof[
     It is easy to see that the statement is true for the number $0$:
-    $sum_(i=0)^0 i = 0 = (0 dot 1)/2$
+    $sum_(i=0)^0 i = 0 = (0 dot 1)/2$.
     Let's assume that the statement is true for some $n$. It follows:
     $
       sum_(i=0)^(n+1) i & = sum_(i=0)^n i + (n+1)
@@ -54,4 +51,12 @@
   ]
 ]
 
-#task(points: 1, bonus: true, lorem(300))
+#task(points: 1, bonus: true)[
+  #theorem(name: "Very smart formula", label: "example-theorem")[
+    Let $x$ be a natural number. Then:
+    $ x + 1 + 1 = x + 2 $
+  ]
+  #proof[The proof of @example-theorem is trivial.]
+
+  #lorem(50)
+]
