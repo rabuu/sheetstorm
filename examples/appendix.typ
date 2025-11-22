@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.3.3": appendix, assignment, task
+#import "@preview/sheetstorm:0.4.0": appendix, assignment, task
 
 #show: assignment.with(
   title: "Assignment with Appendix",

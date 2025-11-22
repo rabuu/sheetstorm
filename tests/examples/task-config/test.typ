@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.3.3": assignment, custom-enum-numbering, task
+#import "@local/sheetstorm:0.4.0": assignment, custom-enum-numbering, task
 
 #show: assignment.with(
   title: "Task Configuration Example",
