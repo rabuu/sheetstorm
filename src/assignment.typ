@@ -252,6 +252,13 @@
 ) = context {
   let (author-names, author-ids, author-emails) = _handle_authors(authors)
 
+  set document(
+    author: if author-names.all(n => type(n) == str) {
+      if author-names.len() == 1 { author-names.first() } else { author-names }
+    } else { () },
+    title: title,
+  )
+
   let header = header-content(
     course,
     title,
