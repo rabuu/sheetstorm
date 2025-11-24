@@ -5,4 +5,5 @@ We use [`just`](https://github.com/casey/just) for most common developing tasks:
 - Format the code base: `just format`
 - Update all test references and example tests: `just update-expected`
 - Compile documentation: `just doc`
-See the [justfile](../justfile) for more.
+
+See the `justfile` in the project root for more details.
