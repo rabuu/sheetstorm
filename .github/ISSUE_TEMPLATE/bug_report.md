@@ -1,7 +1,6 @@
 ---
 name: Bug report
 about: Report something that doesn't work how you want.
-title: "[bug]"
 labels: bug
 ---
 
