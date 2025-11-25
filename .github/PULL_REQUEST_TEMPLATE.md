@@ -9,6 +9,7 @@
 - [ ] The test suite passes
 - [ ] The code is formatted
 - [ ] The code is readable and well-documented
+- [ ] Every word that can be in the output is translatable
 - [ ] All new features are reflected in a test or example
 - [ ] All new examples have a generated associated test
 - [ ] Changes to the public API are documented in the CHANGELOG
