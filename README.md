@@ -41,3 +41,6 @@ There are also a few [examples](./examples) that illustrate how to use the templ
 - Built-in theorem/proof environments
 - "TODO" warning system
 - Useful widgets: info box and score box
+
+## Alternatives
+- [grape-suite](https://github.com/piepert/grape-suite)
