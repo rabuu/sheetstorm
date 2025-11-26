@@ -58,6 +58,8 @@
   /// Whether to display the value of the task counter in the task's title. -> bool
   counter-show: true,
   /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
+  todo: false,
+  /// Whether to show a warning beside the task title, without calling `#todo()`. -> bool
   todo-show: true,
   /// The layout for the TODO box that may be displayed in the title.
   ///
@@ -114,6 +116,10 @@
   state("sheetstorm-points").update(points-number)
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
+
+  if (todo) {
+    c("sheetstorm-todo").step()
+  }
 
   let maybe-todo = context {
     let curr-task = query(selector(<sheetstorm-task>).before(here()))

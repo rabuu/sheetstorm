@@ -31,6 +31,11 @@
     )[Write down the proofs.]
 ]
 
+/// Activate TODO in Task title manually
+#task(todo: true)[
+  #lorem(30)
+]
+
 /// Deactivate the red box around `TODO`
 /// Stroke is customizable, i.e. `stroke: blue` would create a blue box.
 #let todo-box = todo-box.with(stroke: none)
