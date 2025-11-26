@@ -31,7 +31,7 @@
     )[Write down the proofs.]
 ]
 
-/// Activate TODO in Task title manually
+/// Activate TODO in task title manually
 #task(todo: true)[
   #lorem(30)
 ]

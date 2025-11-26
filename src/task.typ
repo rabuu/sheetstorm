@@ -59,7 +59,7 @@
   counter-show: true,
   /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
   todo: false,
-  /// Whether to show a warning beside the task title, without calling `#todo()`. -> bool
+  /// Whether to show a warning beside the task title without calling `#todo`. -> bool
   todo-show: true,
   /// The layout for the TODO box that may be displayed in the title.
   ///
