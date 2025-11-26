@@ -6,6 +6,9 @@
 
 ## [Unreleased]
 
+### Added
+- Added an argument `todo` in `#task` to mark task with TODO
+
 ## [0.4.0] - 2025-11-22
 
 ### Breaking
