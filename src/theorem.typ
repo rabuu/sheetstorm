@@ -8,9 +8,11 @@
 /// #theorem(name: "Pythagoras")[$a^2 + b^2 = c^2$]
 /// ```
 /// -> content
-#let theorem(
+#let styled-environment(
   /// The theorem kind which is displayed as prefix. -> content | str
-  kind: context i18n.translate("Theorem"),
+  kind: none,
+  /// The styling of the `prefix`. -> function
+  prefix-style: n => strong[#n],
   /// The numbering of the theorem.
   ///
   /// - #auto: Use an automatic counter.
@@ -37,6 +39,10 @@
   reference-prefer-name: false,
   /// Whether the contents of the theorem is emphasized. -> bool
   emphasized: true,
+  /// Wether the environment is a proof or not. -> bool
+  isproof: false,
+  /// The symbol that marks the end of the proof. -> content
+  qed: $square$,
   /// The `fill` value of the theorem box. -> none | color | gradient | tiling
   fill: none,
   /// The `stroke` value of the theorem box. -> stroke
@@ -74,10 +80,12 @@
   let prefix = {
     let numbering = if numbering != none [ #numbering]
     let name = if name != none [ (#name)]
-    [*#kind#numbering*#name*.*]
+    [#prefix-style[#kind#numbering]#name#prefix-style[.]]
   }
 
   if emphasized { content = emph(content) }
+
+  if (isproof) { content = [#content #h(1fr)\u{2060}#box[#h(1em)#qed]] }
 
   block(
     fill: fill,
@@ -106,11 +114,30 @@
   }
 }
 
+/// Theorem environment, based on styled environment.
+#let theorem = styled-environment.with(kind: context i18n.translate(
+  "Theorem",
+))
+
 /// Corollary environment, based on the `theorem` environment.
-#let corollary = theorem.with(kind: context i18n.translate("Corollary"))
+#let corollary = styled-environment.with(kind: context i18n.translate(
+  "Corollary",
+))
 
 /// Lemma environment, based on the `theorem` environment.
-#let lemma = theorem.with(kind: context i18n.translate("Lemma"))
+#let lemma = styled-environment.with(kind: context i18n.translate("Lemma"))
+
+/// Definition environment, based on the `theorem` environment.
+#let definition = styled-environment.with(
+  kind: context i18n.translate("Definition"),
+  emphasized: false,
+)
+
+/// Example environment, based on the `theorem` environment.
+#let example = styled-environment.with(
+  kind: context i18n.translate("Example"),
+  emphasized: false,
+)
 
 /// Proof environment.
 ///
@@ -119,43 +146,12 @@
 /// #proof[Let $a=1$, then is $a+1 = 2$ immediate.]
 /// ```
 /// -> content
-#let proof(
-  /// The symbol that marks the end of the proof. -> content
-  qed: $square$,
-  /// The prefix that displayed at the beginning of the proof. -> content | str
-  prefix: context i18n.translate("Proof"),
-  /// The styling of the `prefix`. -> function
-  prefix-style: p => [_#p._],
-  /// The `fill` value of the proof box. -> none | color | gradient | tiling
-  fill: none,
-  /// The `stroke` value of the proof box. -> stroke
-  stroke: none,
-  /// The `inset` value of the proof box. -> length
-  inset: 0em,
-  /// The `outset` value of the proof box. -> length
-  outset: 0.5em,
-  /// The `radius` value of the proof box. -> length
-  radius: 0em,
-  /// The `above` value of the proof box. -> length
+#let proof = styled-environment.with(
+  kind: context i18n.translate("Proof"),
+  prefix-style: p => emph[#p],
+  numbering: none,
+  emphasized: false,
+  isproof: true,
   above: 1em,
-  /// The `below` value of the proof box. -> length
   below: 1em,
-  /// The `width` value of the proof box. -> auto | relative | fraction
-  width: 100%,
-  /// The body of the proof. -> content
-  content,
-) = {
-  let prefix = prefix-style(prefix)
-  block(
-    fill: fill,
-    stroke: stroke,
-    inset: inset,
-    outset: outset,
-    radius: radius,
-    above: above,
-    below: below,
-    width: width,
-    [#prefix #content #h(1fr)\u{2060}#box[#h(1em)#qed]],
-  )
-}
-
+)

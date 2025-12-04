@@ -17,6 +17,10 @@
   Corollary: (
     de: "Korollar",
   ),
+  Definition: (:),
+  Example: (
+    de: "Beispiel",
+  ),
   Proof: (
     de: "Beweis",
   ),
