@@ -115,16 +115,10 @@
 )
 
 /// Corollary environment, based on the `theorem` environment.
-#let corollary = _styled_environment.with(
-  kind: context i18n.translate("Corollary"),
-  emphasized: true,
-)
+#let corollary = theorem.with(kind: context i18n.translate("Corollary"))
 
 /// Lemma environment, based on the `theorem` environment.
-#let lemma = _styled_environment.with(
-  kind: context i18n.translate("Lemma"),
-  emphasized: true,
-)
+#let lemma = theorem.with(kind: context i18n.translate("Lemma"))
 
 /// Definition environment, based on the `theorem` environment.
 #let definition = _styled_environment.with(
