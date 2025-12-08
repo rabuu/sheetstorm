@@ -8,10 +8,12 @@
 /// #theorem(name: "Pythagoras")[$a^2 + b^2 = c^2$]
 /// ```
 /// -> content
-#let theorem(
-  /// The theorem kind which is displayed as prefix. -> content | str
-  kind: context i18n.translate("Theorem"),
-  /// The numbering of the theorem.
+#let _styled_environment(
+  /// The environment kind which is displayed as prefix. -> content | str
+  kind: none,
+  /// The styling of the `prefix`. -> function
+  prefix-style: strong,
+  /// The numbering of the environment.
   ///
   /// - #auto: Use an automatic counter.
   /// - `none`: Don't number the theorem at all.
@@ -19,41 +21,41 @@
   ///
   /// -> auto | none | content | str
   numbering: auto,
-  /// The name of the theorem. -> content | str | none
+  /// The name of the environment. -> content | str | none
   name: none,
   /// A label that you can reference or query. -> str | none
   label: none,
-  /// The supplement of the theorem which is used in outlines and references.
+  /// The supplement of the environment which is used in outlines and references.
   ///
   /// When set to #auto, it uses the same value as `kind`.
   ///
   /// -> auto | content | str | function | none
   supplement: auto,
-  /// Whether to reference the theorem by name if possible.
+  /// Whether to reference the environment by name if possible.
   ///
-  /// By default, theorems are referenced by number if possible.
+  /// By default, environments are referenced by number if possible.
   ///
   /// -> bool
   reference-prefer-name: false,
-  /// Whether the contents of the theorem is emphasized. -> bool
-  emphasized: true,
-  /// The `fill` value of the theorem box. -> none | color | gradient | tiling
+  /// Whether the contents of the environment is emphasized. -> bool
+  emphasized: false,
+  /// The `fill` value of the environment box. -> none | color | gradient | tiling
   fill: none,
-  /// The `stroke` value of the theorem box. -> stroke
+  /// The `stroke` value of the environment box. -> stroke
   stroke: none,
-  /// The `inset` value of the theorem box. -> length
+  /// The `inset` value of the environment box. -> length
   inset: 0em,
-  /// The `outset` value of the theorem box. -> length
+  /// The `outset` value of the environment box. -> length
   outset: 0.5em,
-  /// The `radius` value of the theorem box. -> length
+  /// The `radius` value of the environment box. -> length
   radius: 0em,
-  /// The `above` value of the theorem box. -> length
+  /// The `above` value of the environment box. -> length
   above: 1.3em,
-  /// The `below` value of the theorem box. -> length
+  /// The `below` value of the environment box. -> length
   below: 1.3em,
-  /// The `width` value of the theorem box. -> auto | relative | fraction
+  /// The `width` value of the environment box. -> auto | relative | fraction
   width: 100%,
-  /// The body of the theorem. -> content
+  /// The body of the environment. -> content
   content,
 ) = {
   let theorem-count = counter("sheetstorm-theorem-count")
@@ -74,7 +76,7 @@
   let prefix = {
     let numbering = if numbering != none [ #numbering]
     let name = if name != none [ (#name)]
-    [*#kind#numbering*#name*.*]
+    [#prefix-style[#kind#numbering]#name#prefix-style[.]]
   }
 
   if emphasized { content = emph(content) }
@@ -106,11 +108,27 @@
   }
 }
 
+/// Theorem environment, based on styled environment.
+#let theorem = _styled_environment.with(
+  kind: context i18n.translate("Theorem"),
+  emphasized: true,
+)
+
 /// Corollary environment, based on the `theorem` environment.
 #let corollary = theorem.with(kind: context i18n.translate("Corollary"))
 
 /// Lemma environment, based on the `theorem` environment.
 #let lemma = theorem.with(kind: context i18n.translate("Lemma"))
+
+/// Definition environment, based on the `theorem` environment.
+#let definition = _styled_environment.with(
+  kind: context i18n.translate("Definition"),
+)
+
+/// Example environment, based on the `theorem` environment.
+#let example = _styled_environment.with(
+  kind: context i18n.translate("Example"),
+)
 
 /// Proof environment.
 ///
@@ -120,12 +138,12 @@
 /// ```
 /// -> content
 #let proof(
-  /// The symbol that marks the end of the proof. -> content
-  qed: $square$,
   /// The prefix that displayed at the beginning of the proof. -> content | str
   prefix: context i18n.translate("Proof"),
+  /// The symbol that marks the end of the proof. -> content
+  qed: $square$,
   /// The styling of the `prefix`. -> function
-  prefix-style: p => [_#p._],
+  prefix-style: emph,
   /// The `fill` value of the proof box. -> none | color | gradient | tiling
   fill: none,
   /// The `stroke` value of the proof box. -> stroke
@@ -143,10 +161,12 @@
   /// The `width` value of the proof box. -> auto | relative | fraction
   width: 100%,
   /// The body of the proof. -> content
-  content,
+  body,
 ) = {
-  let prefix = prefix-style(prefix)
-  block(
+  _styled_environment(
+    kind: prefix,
+    prefix-style: prefix-style,
+    numbering: none,
     fill: fill,
     stroke: stroke,
     inset: inset,
@@ -155,7 +175,5 @@
     above: above,
     below: below,
     width: width,
-    [#prefix #content #h(1fr)\u{2060}#box[#h(1em)#qed]],
-  )
+  )[#body #h(1fr)\u{2060}#box[#h(1em)#qed]]
 }
-

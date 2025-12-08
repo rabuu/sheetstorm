@@ -1,5 +1,5 @@
 #import "@local/sheetstorm:0.4.0": (
-  assignment, corollary, lemma, proof, task, theorem,
+  assignment, corollary, definition, example, lemma, proof, task, theorem,
 )
 
 
@@ -31,6 +31,8 @@
   Now you can reference @banana easily and it's displayed with a nice name.
   Or you link to it manually: #link(<banana>)[banana].
 
+  #definition[This is a definition. It is customizable like a theorem.]
+
   #corollary(label: "cor")[
     A corollary usually follows from a preceding theorem.
   ]
@@ -47,4 +49,14 @@
   #proof(qed: $q.e.d.$)[
     This proof ends with a custom symbol.
   ]
+
+  #example[This is a very interesting example.]
+
+  #let example = example.with(
+    prefix-style: emph,
+    numbering: none,
+    inset: 0.5em,
+  )
+
+  #example[This is an example in a customized style. #lorem(40)]
 ]
