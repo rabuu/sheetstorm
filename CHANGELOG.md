@@ -6,9 +6,6 @@
 
 ## [Unreleased]
 
-## Changed (minor breaking)
-- Changed style behavior for theorem-style
-
 ### Added
 - Added an argument `todo` in `#task` to mark task with TODO
 - Added `definition` environment and `example` environment

@@ -53,7 +53,7 @@
   #example[This is a very interesting example.]
 
   #let example = example.with(
-    prefix-style: n => emph[#n],
+    prefix-style: emph,
     numbering: none,
     inset: 0.5em,
   )

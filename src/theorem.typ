@@ -12,7 +12,7 @@
   /// The environment kind which is displayed as prefix. -> content | str
   kind: none,
   /// The styling of the `prefix`. -> function
-  prefix-style: n => strong[#n],
+  prefix-style: strong,
   /// The numbering of the environment.
   ///
   /// - #auto: Use an automatic counter.
@@ -38,9 +38,7 @@
   /// -> bool
   reference-prefer-name: false,
   /// Whether the contents of the environment is emphasized. -> bool
-  emphasized: true,
-  /// The symbol that marks the end of a proof. -> content
-  qed: $square$,
+  emphasized: false,
   /// The `fill` value of the environment box. -> none | color | gradient | tiling
   fill: none,
   /// The `stroke` value of the environment box. -> stroke
@@ -111,28 +109,31 @@
 }
 
 /// Theorem environment, based on styled environment.
-#let theorem = _styled_environment.with(kind: context i18n.translate(
-  "Theorem",
-))
+#let theorem = _styled_environment.with(
+  kind: context i18n.translate("Theorem"),
+  emphasized: true,
+)
 
 /// Corollary environment, based on the `theorem` environment.
-#let corollary = _styled_environment.with(kind: context i18n.translate(
-  "Corollary",
-))
+#let corollary = _styled_environment.with(
+  kind: context i18n.translate("Corollary"),
+  emphasized: true,
+)
 
 /// Lemma environment, based on the `theorem` environment.
-#let lemma = _styled_environment.with(kind: context i18n.translate("Lemma"))
+#let lemma = _styled_environment.with(
+  kind: context i18n.translate("Lemma"),
+  emphasized: true,
+)
 
 /// Definition environment, based on the `theorem` environment.
 #let definition = _styled_environment.with(
   kind: context i18n.translate("Definition"),
-  emphasized: false,
 )
 
 /// Example environment, based on the `theorem` environment.
 #let example = _styled_environment.with(
   kind: context i18n.translate("Example"),
-  emphasized: false,
 )
 
 /// Proof environment.
@@ -143,12 +144,12 @@
 /// ```
 /// -> content
 #let proof(
+  /// The prefix that displayed at the beginning of the proof. -> content | str
+  prefix: context i18n.translate("Proof"),
   /// The symbol that marks the end of the proof. -> content
   qed: $square$,
   /// The styling of the `prefix`. -> function
-  prefix-style: p => emph[#p],
-  /// Whether the contents of the proof is emphasized. -> bool
-  emphasized: false,
+  prefix-style: emph,
   /// The `fill` value of the proof box. -> none | color | gradient | tiling
   fill: none,
   /// The `stroke` value of the proof box. -> stroke
@@ -169,10 +170,9 @@
   body,
 ) = {
   _styled_environment(
-    kind: context i18n.translate("Proof"),
+    kind: prefix,
     prefix-style: prefix-style,
     numbering: none,
-    emphasized: emphasized,
     fill: fill,
     stroke: stroke,
     inset: inset,
@@ -180,6 +180,6 @@
     radius: radius,
     above: above,
     below: below,
-    width: 100%,
+    width: width,
   )[#body #h(1fr)\u{2060}#box[#h(1em)#qed]]
 }
