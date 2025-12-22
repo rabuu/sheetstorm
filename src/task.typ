@@ -116,6 +116,7 @@
   state("sheetstorm-points").update(points-number)
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
+  state("sheetstorm-subtask").update((1,))
 
   if (todo) {
     c("sheetstorm-todo").step()
@@ -178,4 +179,86 @@
 
   c("sheetstorm-task").step()
   c("sheetstorm-todo").update(0)
+}
+
+#let subtask(
+  /// A label that you can reference or query. -> str | none
+  label: none,
+  /// The supplement of the task which is used in outlines and references.
+  ///
+  /// -> content | str | function | none
+  supplement: context i18n.translate("Subtask"),
+  /// Set the value of the subtask counter (for the current depth) manually.
+  ///
+  /// If set to #auto, the counter is not reset.
+  /// Regardless of this value, the counter is stepped at the end of the subtask.
+  ///
+  /// -> auto | int | function
+  counter: auto,
+  /// TODO: docs
+  numbering: ("a)", "1.", "i."),
+  /// TODO: docs
+  numbering-default: auto,
+  /// TODO: docs
+  numbering-cycle: false,
+  // TODO: points
+  //
+  /// How many points the subtask can give. -> int
+  // points: none,
+  /// Whether the subtask is a bonus subtask. -> bool
+  // bonus: false,
+  //
+  /// The body of the subtask. -> content
+  content,
+) = {
+  if counter != auto { c("sheetstorm-task").update(counter) }
+
+  let marker = context {
+    let depth = state("sheetstorm-subtask").get().len() - 1
+
+    let pattern = if numbering-cycle {
+      numbering.at(calc.rem(depth, numbering.len()))
+    } else {
+      let default = numbering-default
+      if numbering-default == auto { default = numbering.last() }
+      numbering.at(depth, default: default)
+    }
+
+    let num = state("sheetstorm-subtask").get().last()
+    std.numbering(pattern, num)
+  }
+
+  grid(
+    columns: (auto, 1fr),
+    column-gutter: 0.5em,
+    {
+      marker
+      if label != none {
+        impromptu-label(
+          kind: "sheetstorm-subtask-label",
+          supplement: supplement,
+          label,
+        )
+      }
+    },
+    {
+      state("sheetstorm-subtask").update(xs => {
+        xs.push(1)
+        xs
+      })
+
+      content
+
+      state("sheetstorm-subtask").update(xs => {
+        let _ = xs.pop()
+        xs
+      })
+    },
+  )
+
+  state("sheetstorm-subtask").update(xs => {
+    let x = xs.pop()
+    xs.push(x + 1)
+    xs
+  })
 }
