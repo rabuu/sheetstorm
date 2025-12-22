@@ -201,13 +201,6 @@
   numbering-default: auto,
   /// TODO: docs
   numbering-cycle: false,
-  // TODO: points
-  //
-  /// How many points the subtask can give. -> int
-  // points: none,
-  /// Whether the subtask is a bonus subtask. -> bool
-  // bonus: false,
-  //
   /// The body of the subtask. -> content
   content,
 ) = {
