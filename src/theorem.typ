@@ -1,5 +1,5 @@
 #import "i18n.typ"
-#import "labelling.typ": impromptu-label
+#import "util.typ": impromptu-label
 
 /// Theorem environment.
 ///

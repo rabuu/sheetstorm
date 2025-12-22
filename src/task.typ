@@ -1,7 +1,7 @@
 #import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
 #import "todo.typ": todo, todo-box
-#import "labelling.typ": impromptu-label
+#import "util.typ": impromptu-label
 
 /// Internal helper to process the `points` option of the `task` function.
 ///
@@ -184,7 +184,7 @@
 #let subtask(
   /// A label that you can reference or query. -> str | none
   label: none,
-  /// The supplement of the task which is used in outlines and references.
+  /// The supplement of the subtask which is used in outlines and references.
   ///
   /// -> content | str | function | none
   supplement: context i18n.translate("Subtask"),
@@ -223,6 +223,8 @@
       if numbering-default == auto { default = numbering.last() }
       numbering.at(depth, default: default)
     }
+
+    state("sheetstorm-subtask-pattern").update(pattern)
 
     let num = state("sheetstorm-subtask").get().last()
     std.numbering(pattern, num)

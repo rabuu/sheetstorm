@@ -46,7 +46,10 @@
 
     // Subtask labels
   } else if el.func() == figure and el.kind == "sheetstorm-subtask-label" {
-    link(el.location(), el.supplement)
+    let subtask-count = state("sheetstorm-subtask").at(el.location()).last()
+    let subtask-pattern = state("sheetstorm-subtask-pattern").at(el.location())
+    let supp = if it.supplement == auto { el.supplement } else { it.supplement }
+    link(el.location())[#supp #numbering(subtask-pattern, subtask-count)]
 
     // Theorem labels
   } else if el.func() == figure and el.kind == "sheetstorm-theorem-label" {

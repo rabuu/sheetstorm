@@ -5,4 +5,3 @@
 #import "appendix.typ": appendix
 #import "numbering.typ": custom-enum-numbering
 #import "todo.typ": todo, todo-box
-#import "labelling.typ": subtask-label
