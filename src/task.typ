@@ -195,11 +195,34 @@
   ///
   /// -> auto | int | function
   counter: auto,
-  /// TODO: docs
+  /// The numbering patterns to use for the subtask markers depending on depth.
+  ///
+  /// This is an array where the n-th element is the numbering pattern for subtasks of depth n.
+  ///
+  /// *Example*
+  /// ```typst
+  /// #let subtask = subtask.with(numbering: ("1.", "i."), numbering-cycle: true)
+  /// #subtask[
+  ///   Subtask 1.
+  ///   #subtask[Subtask i.]
+  ///   #subtask[Subtask ii.]
+  ///   #subtask[Subtask i.]
+  /// ]
+  /// #subtask[Subtask 2.]
+  /// ```
+  /// -> array
   numbering: ("a)", "1.", "i."),
-  /// TODO: docs
+  /// The default numbering pattern if nothing is specified for the current depth.
+  ///
+  /// If set to #auto, use the last element of `numbering`.
+  ///
+  /// -> auto | str
   numbering-default: auto,
-  /// TODO: docs
+  /// Whether to cycle through the provided numbering patterns if nothing is specified for the current depth.
+  ///
+  /// If this is set, the `numbering-default` option has no effect.
+  ///
+  /// -> bool
   numbering-cycle: false,
   /// The body of the subtask. -> content
   content,
