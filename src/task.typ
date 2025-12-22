@@ -211,7 +211,17 @@
   /// The body of the subtask. -> content
   content,
 ) = {
-  if counter != auto { c("sheetstorm-task").update(counter) }
+  if counter != auto {
+    state("sheetstorm-subtask").update(xs => {
+      let x = xs.pop()
+      let update-counter = counter
+      if type(counter) != function {
+        update-counter = _ => counter
+      }
+      xs.push(update-counter(x))
+      xs
+    })
+  }
 
   let marker = context {
     let depth = state("sheetstorm-subtask").get().len() - 1
