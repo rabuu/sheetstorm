@@ -231,7 +231,7 @@
     state("sheetstorm-subtask").update(xs => {
       let x = xs.pop()
       let update-counter = counter
-      if type(counter) != function {
+      if type(update-counter) != function {
         update-counter = _ => counter
       }
       xs.push(update-counter(x))
