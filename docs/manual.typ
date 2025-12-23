@@ -107,5 +107,4 @@
 
 = Utilities
 #documentation("appendix.typ")
-#documentation("labelling.typ")
 #documentation("numbering.typ")
