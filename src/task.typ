@@ -224,6 +224,14 @@
   ///
   /// -> bool
   numbering-cycle: false,
+  /// The indent of the subtask body.
+  ///
+  /// Note that the marker is not accounted for here.
+  ///
+  /// -> length
+  indent: 1.3em,
+  /// The space between marker and subtask body. -> length
+  marker-gap: 0.5em,
   /// The body of the subtask. -> content
   content,
 ) = {
@@ -257,10 +265,12 @@
   }
 
   grid(
-    columns: (auto, 1fr),
-    column-gutter: 0.5em,
+    columns: (indent, 1fr),
+    column-gutter: 0em,
     {
+      set align(right)
       marker
+      h(marker-gap)
       if label != none {
         impromptu-label(
           kind: "sheetstorm-subtask-label",
