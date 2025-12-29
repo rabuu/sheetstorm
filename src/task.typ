@@ -182,6 +182,14 @@
 }
 
 #let subtask(
+  /// The subtask marker.
+  ///
+  /// When set to #auto, this uses the subtask counter with the given numbering.
+  ///
+  /// -> auto | str
+  marker: auto,
+  /// The space between marker and subtask body. -> length
+  marker-gap: 0.5em,
   /// A label that you can reference or query. -> str | none
   label: none,
   /// The supplement of the subtask which is used in outlines and references.
@@ -230,8 +238,6 @@
   ///
   /// -> length
   indent: 1.3em,
-  /// The space between marker and subtask body. -> length
-  marker-gap: 0.5em,
   /// The body of the subtask. -> content
   content,
 ) = {
@@ -247,21 +253,23 @@
     })
   }
 
-  let marker = context {
-    let depth = state("sheetstorm-subtask").get().len() - 1
+  let marker = if marker != auto { marker } else {
+    context {
+      let depth = state("sheetstorm-subtask").get().len() - 1
 
-    let pattern = if numbering-cycle {
-      numbering.at(calc.rem(depth, numbering.len()))
-    } else {
-      let default = numbering-default
-      if numbering-default == auto { default = numbering.last() }
-      numbering.at(depth, default: default)
+      let pattern = if numbering-cycle {
+        numbering.at(calc.rem(depth, numbering.len()))
+      } else {
+        let default = numbering-default
+        if numbering-default == auto { default = numbering.last() }
+        numbering.at(depth, default: default)
+      }
+
+      state("sheetstorm-subtask-pattern").update(pattern)
+
+      let num = state("sheetstorm-subtask").get().last()
+      std.numbering(pattern, num)
     }
-
-    state("sheetstorm-subtask-pattern").update(pattern)
-
-    let num = state("sheetstorm-subtask").get().last()
-    std.numbering(pattern, num)
   }
 
   grid(
