@@ -8,6 +8,7 @@
 
 ### Breaking
 - Removed `custom-enum-numbering` helper
+- Removed `subtask-label` helper
 
 ### Added
 - Added `subtask` system
