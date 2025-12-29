@@ -31,12 +31,8 @@
 
   #subtask[
     _Solve the following equations for $x$._
-    #subtask[
-      $x^2 = 4 ==> x = plus.minus 2$
-    ]
-    #subtask[
-      $x = "color of banana" ==> x = "yellow"$, see @banana.
-    ]
+    #subtask[$x^2 = 4 ==> x = plus.minus 2$]
+    #subtask[$x = "color of banana" ==> x = "yellow"$, see @banana.]
   ]
 ]
 
