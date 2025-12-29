@@ -1,4 +1,3 @@
-#import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
 #import "todo.typ": todo, todo-box
 #import "util.typ": impromptu-label
@@ -73,17 +72,6 @@
   /// ```
   /// -> function
   todo-box: todo-box,
-  /// Set the numbering for subtasks.
-  ///
-  /// If you give a numbering, it just sets the enum numbering accordingly.
-  /// If you set it to `none`, it disables the custom numbering completely.
-  ///
-  /// The library provides a handy `custom-enum-numbering` function that is expected to be used
-  /// when setting the numbering to a non-trivial value.
-  /// The required `enum.full` option is set automatically.
-  ///
-  /// -> function | str | none
-  subtask-numbering: custom-enum-numbering("a)", "1.", "i."),
   /// How many points the task can give.
   ///
   /// If there are subtasks, you can specify an array of numbers.
@@ -150,11 +138,6 @@
   }
 
   block(width: 100%, above: space-above, below: space-below)[
-    #set enum(
-      full: type(subtask-numbering) != str,
-      numbering: subtask-numbering,
-    ) if subtask-numbering != none
-
     #if label != none {
       if supplement == auto { supplement = task-prefix }
       impromptu-label(
