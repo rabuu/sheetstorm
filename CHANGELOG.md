@@ -6,7 +6,11 @@
 
 ## [Unreleased]
 
+### Breaking
+- Removed `custom-enum-numbering` helper
+
 ### Added
+- Added `subtask` system
 - Added an argument `todo` in `#task` to mark task with TODO
 - Added `definition` environment and `example` environment
 
