@@ -23,13 +23,17 @@
 ]
 
 #task(name: "Subtasks", label: "task-subtasks", points: (1, 2))[
-  + _What is the color of a banana?_ #subtask-label("banana", display: "a)")
+  #subtask(label: "banana")[
+    _What is the color of a banana?_
 
     A banana is *yellow*.
+  ]
 
-  + _Solve the following equations for $x$._
-    + $x^2 = 4 ==> x = plus.minus 2$
-    + $x = "color of banana" ==> x = "yellow"$, see @banana.
+  #subtask[
+    _Solve the following equations for $x$._
+    #subtask[$x^2 = 4 ==> x = plus.minus 2$]
+    #subtask[$x = "color of banana" ==> x = "yellow"$, see @banana.]
+  ]
 ]
 
 #task(points: 11)[

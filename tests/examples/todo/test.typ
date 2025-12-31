@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.4.0": assignment, task, todo, todo-box
+#import "@local/sheetstorm:0.4.0": assignment, subtask, task, todo, todo-box
 
 #show: assignment.with(
   title: "Assignment with TODO's",
@@ -13,22 +13,34 @@
 
 /// Default is with `todo-show: true` and a red box around `TODO`
 #task(points: 42)[
-  + _Some interesting exercise._\
-    #lorem(200)\
+  #subtask[
+    _Some interesting exercise._
 
-  + _Some other exercise._\
+    #lorem(200)
+  ]
+
+  #subtask[
+    _Some other exercise._
+
     #todo[Here you can explain what's left to do.]
+  ]
 ]
 
 /// Deativate the warning TODO in the title, but add a comment and stroke color = black
 #task(points: 13, todo-show: false)[
-  + _Are bananas red?_\
-    #lorem(15)
+  #subtask[
+    _Are bananas red?_
 
-  + _Are apples blue?_\
-    #todo(
-      todo-box: todo-box.with(stroke: black),
-    )[Write down the proofs.]
+    #lorem(15)
+  ]
+
+  #subtask[
+    _Are apples blue?_
+
+    #todo(todo-box: todo-box.with(stroke: black))[
+      Write down the proofs.
+    ]
+  ]
 ]
 
 /// Activate TODO in task title manually
@@ -42,12 +54,21 @@
 #let todo = todo.with(todo-box: todo-box)
 #let task = task.with(todo-box: todo-box)
 #task(points: 22)[
-  + _What is your favorite fruit?_\
-    #lorem(50)\
+  #subtask[
+    _What is your favorite fruit?_
 
-  + _What is your favorite animal?_\
-    #todo()
+    #lorem(50)
+  ]
 
-  + _What is your favorite food?_\
+  #subtask[
+    _What is your favorite animal?_
+
     #todo()
+  ]
+
+  #subtask[
+    _What is your favorite food?_
+
+    #todo()
+  ]
 ]
