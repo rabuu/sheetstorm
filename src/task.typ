@@ -188,7 +188,8 @@
   counter: auto,
   /// The numbering patterns to use for the subtask markers depending on depth.
   ///
-  /// This is an array where the n-th element is the numbering pattern for subtasks of depth n.
+  /// This is an array of strings where the n-th element is the numbering pattern for subtasks of depth n.
+  /// A single string is interpreted as a singleton array.
   ///
   /// *Example*
   /// ```typst
@@ -201,7 +202,7 @@
   /// ]
   /// #subtask[Subtask 2.]
   /// ```
-  /// -> array
+  /// -> array | str
   numbering: ("a)", "1.", "i."),
   /// The default numbering pattern if nothing is specified for the current depth.
   ///
@@ -239,6 +240,13 @@
   let marker = if marker != auto { marker } else {
     context {
       let depth = state("sheetstorm-subtask").get().len() - 1
+      let numbering = if type(numbering) == array { numbering } else {
+        (numbering,)
+      }
+      assert(
+        numbering.all(p => type(p) == str),
+        message: "Numbering pattern is not a string",
+      )
 
       let pattern = if numbering-cycle {
         numbering.at(calc.rem(depth, numbering.len()))
