@@ -56,7 +56,7 @@
   counter: auto,
   /// Whether to display the value of the task counter in the task's title. -> bool
   counter-show: true,
-  /// Whether to mark the subtask with a TODO box. -> bool
+  /// Whether to mark the task with a TODO box. -> bool
   todo: false,
   /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
   todo-show: true,
