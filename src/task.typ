@@ -264,16 +264,17 @@
   }
 
   grid(
-    columns: (auto, 1fr),
+    columns: (auto, auto, 1fr),
     column-gutter: 0em,
     {
       set align(right)
 
       context box(
         width: calc.max(min-indent.to-absolute(), measure(marker).width),
+        inset: 0pt,
+        outset: 0pt,
         marker,
       )
-      h(marker-gap)
 
       if label != none {
         impromptu-label(
@@ -283,6 +284,7 @@
         )
       }
     },
+    h(marker-gap),
     {
       state("sheetstorm-subtask").update(xs => {
         xs.push(1)
