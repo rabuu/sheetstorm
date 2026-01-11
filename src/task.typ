@@ -221,7 +221,7 @@
   /// The indent of the subtask body is the maximum of this value and the width of the marker.
   ///
   /// -> length
-  min-indent: 1em,
+  min-indent: 1.2em,
   /// The body of the subtask. -> content
   content,
 ) = {
