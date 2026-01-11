@@ -216,12 +216,12 @@
   ///
   /// -> bool
   numbering-cycle: false,
-  /// The indent of the subtask body.
+  /// The minimum indent of the subtask body.
   ///
-  /// Note that the marker is not accounted for here.
+  /// The indent of the subtask body is the maximum of this value and the width of the marker.
   ///
   /// -> length
-  indent: 1.3em,
+  min-indent: 1.3em,
   /// The body of the subtask. -> content
   content,
 ) = {
@@ -264,12 +264,17 @@
   }
 
   grid(
-    columns: (indent, 1fr),
+    columns: (auto, 1fr),
     column-gutter: 0em,
     {
       set align(right)
-      marker
+
+      context box(
+        width: calc.max(min-indent.to-absolute(), measure(marker).width),
+        marker,
+      )
       h(marker-gap)
+
       if label != none {
         impromptu-label(
           kind: "sheetstorm-subtask-label",
