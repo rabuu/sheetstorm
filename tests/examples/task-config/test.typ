@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.4.0": assignment, custom-enum-numbering, task
+#import "@local/sheetstorm:0.4.0": assignment, subtask, task
 
 #show: assignment.with(
   title: "Task Configuration Example",
@@ -7,16 +7,28 @@
   initial-task-number: 3,
 )
 
-// You can customize the task command like so:
+// You can customize the task/subtask functions like so:
 #let task = task.with(
-  subtask-numbering: custom-enum-numbering("i)", "1.", "(a)"),
+  todo-show: false,
+)
+#let subtask = subtask.with(
+  numbering: ("a.", "i."),
+  numbering-cycle: true,
 )
 
 #task[
   We have our custom numbering pattern enabled by default:
-  + Hi
-    + Hey
-      + Ho
+  #subtask[
+    Foo
+
+    #subtask[
+      Bar
+
+      #subtask[
+        Baz
+      ]
+    ]
+  ]
 ]
 
 #task(counter-show: false, name: "Name")[

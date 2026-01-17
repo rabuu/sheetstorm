@@ -1,7 +1,6 @@
-#import "numbering.typ": custom-enum-numbering
 #import "i18n.typ"
 #import "todo.typ": todo, todo-box
-#import "labelling.typ": impromptu-label
+#import "util.typ": impromptu-label
 
 /// Internal helper to process the `points` option of the `task` function.
 ///
@@ -57,7 +56,7 @@
   counter: auto,
   /// Whether to display the value of the task counter in the task's title. -> bool
   counter-show: true,
-  /// Whether to show a warning beside the task title without calling `#todo`. -> bool
+  /// Whether to mark the task with a TODO box. -> bool
   todo: false,
   /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
   todo-show: true,
@@ -73,17 +72,6 @@
   /// ```
   /// -> function
   todo-box: todo-box,
-  /// Set the numbering for subtasks.
-  ///
-  /// If you give a numbering, it just sets the enum numbering accordingly.
-  /// If you set it to `none`, it disables the custom numbering completely.
-  ///
-  /// The library provides a handy `custom-enum-numbering` function that is expected to be used
-  /// when setting the numbering to a non-trivial value.
-  /// The required `enum.full` option is set automatically.
-  ///
-  /// -> function | str | none
-  subtask-numbering: custom-enum-numbering("a)", "1.", "i."),
   /// How many points the task can give.
   ///
   /// If there are subtasks, you can specify an array of numbers.
@@ -116,6 +104,7 @@
   state("sheetstorm-points").update(points-number)
   state("sheetstorm-bonus").update(bonus)
   state("sheetstorm-hidden-task").update(hidden)
+  state("sheetstorm-subtask").update((1,))
 
   if (todo) {
     c("sheetstorm-todo").step()
@@ -149,11 +138,6 @@
   }
 
   block(width: 100%, above: space-above, below: space-below)[
-    #set enum(
-      full: type(subtask-numbering) != str,
-      numbering: subtask-numbering,
-    ) if subtask-numbering != none
-
     #if label != none {
       if supplement == auto { supplement = task-prefix }
       impromptu-label(
@@ -178,4 +162,147 @@
 
   c("sheetstorm-task").step()
   c("sheetstorm-todo").update(0)
+}
+
+#let subtask(
+  /// The subtask marker.
+  ///
+  /// When set to #auto, this uses the subtask counter with the given numbering.
+  ///
+  /// -> auto | str
+  marker: auto,
+  /// The space between marker and subtask body. -> length
+  marker-gap: 0.5em,
+  /// A label that you can reference or query. -> str | none
+  label: none,
+  /// The supplement of the subtask which is used in outlines and references.
+  ///
+  /// -> content | str | function | none
+  supplement: context i18n.translate("Subtask"),
+  /// Set the value of the subtask counter (for the current depth) manually.
+  ///
+  /// If set to #auto, the counter is not reset.
+  /// Regardless of this value, the counter is stepped at the end of the subtask.
+  ///
+  /// -> auto | int | function
+  counter: auto,
+  /// The numbering patterns to use for the subtask markers depending on depth.
+  ///
+  /// This is an array of strings where the n-th element is the numbering pattern for subtasks of depth n.
+  /// A single string is interpreted as a singleton array.
+  ///
+  /// *Example*
+  /// ```typst
+  /// #let subtask = subtask.with(numbering: ("1.", "i."), numbering-cycle: true)
+  /// #subtask[
+  ///   Subtask 1.
+  ///   #subtask[Subtask i.]
+  ///   #subtask[Subtask ii.]
+  ///   #subtask[Subtask i.]
+  /// ]
+  /// #subtask[Subtask 2.]
+  /// ```
+  /// -> array | str
+  numbering: ("a)", "1.", "i."),
+  /// The default numbering pattern if nothing is specified for the current depth.
+  ///
+  /// If set to #auto, use the last element of `numbering`.
+  ///
+  /// -> auto | str
+  numbering-default: auto,
+  /// Whether to cycle through the provided numbering patterns if nothing is specified for the current depth.
+  ///
+  /// If this is set, the `numbering-default` option has no effect.
+  ///
+  /// -> bool
+  numbering-cycle: false,
+  /// The minimum indent of the subtask body.
+  ///
+  /// The indent of the subtask body is the maximum of this value and the width of the marker.
+  ///
+  /// -> length
+  min-indent: 1.2em,
+  /// The body of the subtask. -> content
+  content,
+) = {
+  if counter != auto {
+    state("sheetstorm-subtask").update(xs => {
+      let x = xs.pop()
+      let update-counter = counter
+      if type(update-counter) != function {
+        update-counter = _ => counter
+      }
+      xs.push(update-counter(x))
+      xs
+    })
+  }
+
+  let marker = if marker != auto { marker } else {
+    context {
+      let depth = state("sheetstorm-subtask").get().len() - 1
+      let numbering = if type(numbering) == array { numbering } else {
+        (numbering,)
+      }
+      assert(
+        numbering.all(p => type(p) == str),
+        message: "Numbering pattern is not a string",
+      )
+
+      let pattern = if numbering-cycle {
+        numbering.at(calc.rem(depth, numbering.len()))
+      } else {
+        let default = numbering-default
+        if numbering-default == auto { default = numbering.last() }
+        numbering.at(depth, default: default)
+      }
+
+      state("sheetstorm-subtask-pattern").update(pattern)
+
+      let num = state("sheetstorm-subtask").get().last()
+      std.numbering(pattern, num)
+    }
+  }
+
+  grid(
+    columns: (auto, auto, 1fr),
+    column-gutter: 0em,
+    {
+      set align(right)
+
+      context box(
+        width: calc.max(min-indent.to-absolute(), measure(marker).width),
+        inset: 0pt,
+        outset: 0pt,
+        marker,
+      )
+
+      if label != none {
+        impromptu-label(
+          kind: "sheetstorm-subtask-label",
+          supplement: supplement,
+          label,
+        )
+      }
+    },
+    h(marker-gap),
+    {
+      state("sheetstorm-subtask").update(xs => {
+        xs.push(1)
+        xs
+      })
+
+      content
+
+      state("sheetstorm-subtask").update(xs => {
+        let _ = xs.pop()
+        xs
+      })
+    },
+  )
+
+  state("sheetstorm-subtask").update(xs => {
+    let x = xs.pop()
+    xs.push(x + 1)
+    xs
+  })
 }
