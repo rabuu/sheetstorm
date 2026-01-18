@@ -3,6 +3,7 @@
 #import "i18n.typ"
 #import "util.typ": is-some, to-content
 #import "todo.typ": todo-box
+#import "ref.typ": ref-wrapper
 
 /// Internal helper to process the authors field in the `assignment` function.
 ///
@@ -29,46 +30,6 @@
   if author-emails.filter(is-some).len() == 0 { author-emails = none }
 
   return (author-names, author-ids, author-emails)
-}
-
-/// Internal wrapper of ref links.
-///
-/// This wraps the display implementation of the `ref` function.
-/// Since we provide some custom labels kinds, we must ensure that they get displayed correctly.
-#let _ref_wrapper(it) = {
-  let el = it.element
-
-  // Task labels
-  if el.func() == figure and el.kind == "sheetstorm-task-label" {
-    let task-count = counter("sheetstorm-task").at(el.location()).first()
-    let supp = if it.supplement == auto { el.supplement } else { it.supplement }
-    link(el.location())[#supp #task-count]
-
-    // Subtask labels
-  } else if el.func() == figure and el.kind == "sheetstorm-subtask-label" {
-    let subtask-count = state("sheetstorm-subtask").at(el.location()).last()
-    let subtask-pattern = state("sheetstorm-subtask-pattern").at(el.location())
-    let supp = if it.supplement == auto { el.supplement } else { it.supplement }
-    link(el.location())[#supp #numbering(subtask-pattern, subtask-count)]
-
-    // Theorem labels
-  } else if el.func() == figure and el.kind == "sheetstorm-theorem-label" {
-    let theorem-id = state("sheetstorm-theorem-id").at(el.location())
-    if theorem-id == auto {
-      theorem-id = counter("sheetstorm-theorem-count").at(el.location()).first()
-    }
-    if theorem-id == none {
-      panic(
-        "This theorem is not referencable. Provide a name or numbering.",
-      )
-    }
-    let supp = if it.supplement == auto { el.supplement } else { it.supplement }
-    link(el.location())[#supp #theorem-id]
-
-    // Everything else
-  } else {
-    it
-  }
 }
 
 /// Setup the document as an assignment sheet.
@@ -304,7 +265,7 @@
     justify: true,
   )
 
-  show ref: _ref_wrapper
+  show ref: ref-wrapper
 
   show link: it => {
     if type(it.dest) == str {

@@ -1,6 +1,6 @@
 #import "i18n.typ"
 #import "todo.typ": todo, todo-box
-#import "util.typ": impromptu-label
+#import "ref.typ": impromptu-label
 
 /// Internal helper to process the `points` option of the `task` function.
 ///
