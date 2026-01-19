@@ -92,10 +92,28 @@
   space-above: auto,
   /// Padding below the task. -> auto | length
   space-below: 2em,
-  /// The body of the task. -> content
-  content,
+  /// A function that provides styling to the description of a task. -> function
+  task-text-style: t => [_#t _],
+  /// The body of the task.
+  /// Either:
+  /// - [content]
+  /// - [task text][content]
+  /// -> content..
+  ..content,
 ) = {
   let c = std.counter
+
+  let parts = content.pos()
+
+  assert(
+    parts.len() == 1 or parts.len() == 2,
+    message: "task expects either [content] or [task text][content]",
+  )
+
+  let task-text = if parts.len() == 2 { parts.at(0) } else { none }
+
+  let content = if parts.len() == 2 { parts.at(1) } else { parts.at(0) }
+
 
   if counter != auto { c("sheetstorm-task").update(counter) }
 
@@ -156,6 +174,12 @@
         [(#points-display #points-prefix)]
       }
     })
+    #if (task-text != none) {
+      block[
+        #task-text-style(task-text)
+      ]
+    }
+
     #content
     #metadata("sheetstorm-task-end")<sheetstorm-task-end>
   ]
