@@ -258,7 +258,7 @@
 
   assert(
     parts.len() == 1 or parts.len() == 2,
-    message: "task expects either [content] or [task text][content]",
+    message: "subtask expects either [content] or [task text][content]",
   )
 
   let task-text = if parts.len() == 2 { parts.at(0) } else { none }
@@ -330,7 +330,7 @@
         xs.push(1)
         xs
       })
-      if(task-text != none){
+      if (task-text != none) {
         block(task-text-style(task-text))
       }
       content
