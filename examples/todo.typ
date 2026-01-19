@@ -14,14 +14,14 @@
 /// Default is with `todo-show: true` and a red box around `TODO`
 #task(points: 42)[
   #subtask[
-    _Some interesting exercise._
-
+    Some interesting exercise.
+  ][
     #lorem(200)
   ]
 
   #subtask[
-    _Some other exercise._
-
+    Some other exercise.
+  ][
     #todo[Here you can explain what's left to do.]
   ]
 ]
@@ -29,14 +29,14 @@
 /// Deativate the warning TODO in the title, but add a comment and stroke color = black
 #task(points: 13, todo-show: false)[
   #subtask[
-    _Are bananas red?_
-
+    Are bananas red?
+  ][
     #lorem(15)
   ]
 
   #subtask[
-    _Are apples blue?_
-
+    Are apples blue?
+  ][
     #todo(todo-box: todo-box.with(stroke: black))[
       Write down the proofs.
     ]
@@ -55,20 +55,20 @@
 #let task = task.with(todo-box: todo-box)
 #task(points: 22)[
   #subtask[
-    _What is your favorite fruit?_
-
+    What is your favorite fruit?
+  ][
     #lorem(50)
   ]
 
   #subtask[
-    _What is your favorite animal?_
-
+    What is your favorite animal?
+  ][
     #todo()
   ]
 
   #subtask[
-    _What is your favorite food?_
-
+    What is your favorite food?
+  ][
     #todo()
   ]
 ]
