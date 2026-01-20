@@ -9,7 +9,7 @@
 ### Breaking
 - Removed `custom-enum-numbering` helper
 - Removed `subtask-label` helper
-- Removed `bonus-show-start` option on `task` (in favor of the new `bonus-style` option)
+- Removed `bonus-show-star` option on `task` (in favor of the new `bonus-style` option)
 
 ### Added
 - Added `subtask` system
