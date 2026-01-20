@@ -56,6 +56,12 @@
   counter: auto,
   /// Whether to display the value of the task counter in the task's title. -> bool
   counter-show: true,
+  /// Step the task counter by the given number.
+  ///
+  /// This is applied after the general counter update (see `counter` parameter).
+  ///
+  /// -> none | int
+  skip: none,
   /// Whether to mark the task with a TODO box. -> bool
   todo: false,
   /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
@@ -98,6 +104,9 @@
   let c = std.counter
 
   if counter != auto { c("sheetstorm-task").update(counter) }
+  if skip != none and type(skip) == int {
+    c("sheetstorm-task").update(n => n + skip)
+  }
 
   let (points-number, points-display) = _handle_points(points)
 
@@ -186,6 +195,12 @@
   ///
   /// -> auto | int | function
   counter: auto,
+  /// Step the subtask counter by the given number.
+  ///
+  /// This is applied after the general counter update (see `counter` parameter).
+  ///
+  /// -> none | int
+  skip: none,
   /// The numbering patterns to use for the subtask markers depending on depth.
   ///
   /// This is an array of strings where the n-th element is the numbering pattern for subtasks of depth n.
@@ -233,6 +248,14 @@
         update-counter = _ => counter
       }
       xs.push(update-counter(x))
+      xs
+    })
+  }
+
+  if skip != none and type(skip) == int {
+    state("sheetstorm-subtask").update(xs => {
+      let x = xs.pop()
+      xs.push(x + skip)
       xs
     })
   }
