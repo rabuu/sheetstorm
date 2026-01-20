@@ -85,7 +85,7 @@
   /// Whether the task is a bonus task. -> bool
   bonus: false,
   /// A styling function applied to the title of bonus tasks. -> function | none
-  bonus-style: t => [#t (Bonus)],
+  bonus-style: t => [#t (#context i18n.translate("Bonus"))],
   /// Whether the task is hidden in the score box. -> bool
   hidden: false,
   /// Padding above the task. -> auto | length
