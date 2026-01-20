@@ -88,6 +88,8 @@
   bonus-show-star: true,
   /// Whether the task is hidden in the score box. -> bool
   hidden: false,
+  /// Whether to reset the theorem counter at the start of the task. -> bool
+  theorem-counter-reset: false,
   /// Padding above the task. -> auto | length
   space-above: auto,
   /// Padding below the task. -> auto | length
@@ -108,6 +110,10 @@
 
   if (todo) {
     c("sheetstorm-todo").step()
+  }
+
+  if theorem-counter-reset {
+    c("sheetstorm-theorem-count").update(1)
   }
 
   let maybe-todo = context {
@@ -216,6 +222,8 @@
   ///
   /// -> bool
   numbering-cycle: false,
+  /// Whether to reset the theorem counter at the start of the subtask. -> bool
+  theorem-counter-reset: false,
   /// The minimum indent of the subtask body.
   ///
   /// The indent of the subtask body is the maximum of this value and the width of the marker.
@@ -225,6 +233,8 @@
   /// The body of the subtask. -> content
   content,
 ) = {
+  let c = std.counter
+
   if counter != auto {
     state("sheetstorm-subtask").update(xs => {
       let x = xs.pop()
@@ -235,6 +245,10 @@
       xs.push(update-counter(x))
       xs
     })
+  }
+
+  if theorem-counter-reset {
+    c("sheetstorm-theorem-count").update(1)
   }
 
   let marker = if marker != auto { marker } else {

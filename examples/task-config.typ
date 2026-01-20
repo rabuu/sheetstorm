@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.4.0": assignment, subtask, task
+#import "@preview/sheetstorm:0.4.0": assignment, subtask, task, theorem
 
 #show: assignment.with(
   title: "Task Configuration Example",
@@ -10,6 +10,7 @@
 // You can customize the task/subtask functions like so:
 #let task = task.with(
   todo-show: false,
+  theorem-counter-reset: true,
 )
 #let subtask = subtask.with(
   numbering: ("a.", "i."),
@@ -33,8 +34,14 @@
 
 #task(counter-show: false, name: "Name")[
   You can disable the task number in the title.
+
+  #theorem[First theorem of the task.]
 ]
 
-#task(hidden: true, counter: 7)[This task is hidden in the score box.]
+#task(hidden: true, counter: 7)[
+  This task is hidden in the score box.
+
+  #theorem[Also the theorem counter was automatically reset.]
+]
 
 #task(counter: n => n + 1)[This would be task 8 but now it is task 9.]
