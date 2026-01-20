@@ -9,11 +9,13 @@
 ### Breaking
 - Removed `custom-enum-numbering` helper
 - Removed `subtask-label` helper
+- Removed `bonus-show-start` option on `task` (in favor of the new `bonus-style` option)
 
 ### Added
 - Added `subtask` system
 - Added an argument `todo` in `#task` to mark task with TODO
 - Added `definition` environment and `example` environment
+- Added `bonus-style` option for `task`
 
 ## [0.4.0] - 2025-11-22
 
