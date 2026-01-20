@@ -29,7 +29,7 @@ test: install
 
 update-expected: install
 	./scripts/testing/check-example-tests.sh
-	SOURCE_DATE_EPOC={{date}} tt update
+	SOURCE_DATE_EPOCH={{date}} tt update
 
 update-example-tests:
 	./scripts/testing/update-example-tests.sh
