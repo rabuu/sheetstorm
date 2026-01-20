@@ -84,8 +84,8 @@
   points-prefix: context i18n.translate("Points"),
   /// Whether the task is a bonus task. -> bool
   bonus: false,
-  /// Whether bonus tasks are marked with a star in the title. -> bool
-  bonus-show-star: true,
+  /// A styling function applied to the title of bonus tasks. -> function | none
+  bonus-style: t => [#t (Bonus)],
   /// Whether the task is hidden in the score box. -> bool
   hidden: false,
   /// Padding above the task. -> auto | length
@@ -123,13 +123,19 @@
   }
 
   let title = {
-    task-prefix
-    if counter-show {
-      if task-prefix != "" [ ]
-      context c("sheetstorm-task").display()
+    let text = {
+      task-prefix
+      if counter-show {
+        if task-prefix != "" [ ]
+        context c("sheetstorm-task").display()
+      }
+      if name != none [: #emph(name)]
     }
-    if name != none [: #emph(name)]
-    if bonus and bonus-show-star [\*]
+    if bonus and type(bonus-style) == function {
+      text = bonus-style(text)
+    }
+
+    text
 
     if todo-show and maybe-todo != none {
       h(0.7em)
