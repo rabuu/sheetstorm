@@ -93,7 +93,7 @@
   /// Padding below the task. -> auto | length
   space-below: 2em,
   /// A function that provides styling to the description of a task. -> function
-  task-text-style: t => [_#t _],
+  task-text-style: emph,
   /// The body of the task.
   /// Either:
   /// - [content]
@@ -105,14 +105,16 @@
 
   let parts = content.pos()
 
+
   assert(
-    parts.len() == 1 or parts.len() == 2,
-    message: "task expects either [content] or [task text][content]",
+    parts.len() == 1 or parts.len() == 2 and content.named().len() == 0,
+    message: "task expects either [content] or [task text][content] and does not accept named content args",
   )
 
-  let task-text = if parts.len() == 2 { parts.at(0) } else { none }
-
-  let content = if parts.len() == 2 { parts.at(1) } else { parts.at(0) }
+  let (task-text, content) = (
+    if parts.len() == 2 { parts.at(0) } else { none },
+    if parts.len() == 2 { parts.at(1) } else { parts.at(0) },
+  )
 
   if counter != auto { c("sheetstorm-task").update(counter) }
 
@@ -174,9 +176,7 @@
       }
     })
     #if (task-text != none) {
-      block[
-        #task-text-style(task-text)
-      ]
+      block(task-text-style(task-text))
     }
 
     #content
@@ -246,7 +246,7 @@
   /// -> length
   min-indent: 1.2em,
   /// A function that provides styling to the description of a subtask. -> function
-  task-text-style: t => [_#t _],
+  task-text-style: emph,
   /// The body of the subtask.
   /// Either:
   /// - [content]
@@ -257,13 +257,14 @@
   let parts = content.pos()
 
   assert(
-    parts.len() == 1 or parts.len() == 2,
-    message: "subtask expects either [content] or [task text][content]",
+    parts.len() == 1 or parts.len() == 2 and content.named().len() == 0,
+    message: "task expects either [content] or [task text][content] and does not accept named content args",
   )
 
-  let task-text = if parts.len() == 2 { parts.at(0) } else { none }
-
-  let content = if parts.len() == 2 { parts.at(1) } else { parts.at(0) }
+  let (task-text, content) = (
+    if parts.len() == 2 { parts.at(0) } else { none },
+    if parts.len() == 2 { parts.at(1) } else { parts.at(0) },
+  )
 
   if counter != auto {
     state("sheetstorm-subtask").update(xs => {
