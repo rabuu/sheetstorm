@@ -82,6 +82,16 @@
   points-show: true,
   /// The word that is displayed before the points. -> content | str
   points-prefix: context i18n.translate("Points"),
+  /// Whether to insert a colbreak before the task.
+  ///
+  /// Technically, this breaks the column and not the page
+  /// but a single-column layout is assumed.
+  ///
+  /// This does not apply to the very first task
+  /// where it usually makes no sense to break before.
+  ///
+  /// -> bool
+  begin-at-new-page: false,
   /// Whether the task is a bonus task. -> bool
   bonus: false,
   /// Whether bonus tasks are marked with a star in the title. -> bool
@@ -152,6 +162,16 @@
     if todo-show and maybe-todo != none {
       h(0.7em)
       maybe-todo
+    }
+  }
+
+  // maybe colbreak before task
+  context {
+    let is-first-task = (
+      query(selector(<sheetstorm-task>).before(here())).len() == 0
+    )
+    if begin-at-new-page and not is-first-task {
+      colbreak(weak: true)
     }
   }
 
@@ -244,6 +264,13 @@
   ///
   /// -> length
   min-indent: 1.2em,
+  /// Whether to insert a colbreak before the subtask.
+  ///
+  /// Technically, this breaks the column and not the page
+  /// but a single-column layout is assumed.
+  ///
+  /// -> bool
+  begin-at-new-page: false,
   /// A function that provides styling to the description of a subtask. -> function
   task-text-style: emph,
   /// The body of the subtask.
@@ -301,6 +328,10 @@
       let num = state("sheetstorm-subtask").get().last()
       std.numbering(pattern, num)
     }
+  }
+
+  if begin-at-new-page {
+    colbreak(weak: true)
   }
 
   grid(
