@@ -105,7 +105,6 @@
 
   let parts = content.pos()
 
-
   assert(
     parts.len() == 1 or parts.len() == 2 and content.named().len() == 0,
     message: "task expects either [content] or [task text][content] and does not accept named content args",
