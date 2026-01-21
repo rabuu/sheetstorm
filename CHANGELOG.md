@@ -14,6 +14,8 @@
 - Added `subtask` system
 - Added an argument `todo` in `#task` to mark task with TODO
 - Added `definition` environment and `example` environment
+- Added task text handling
+- Added `begin-at-new-page` option for `task` and `subtask`
 - Added `skip` option for `task` and `subtask`
 
 ## [0.4.0] - 2025-11-22

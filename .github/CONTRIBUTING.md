@@ -11,7 +11,8 @@ We use [`just`](https://github.com/casey/just) for most common developing tasks:
 - Install the package locally: `just install`
 - Run the test suite: `just test`
 - Format the code base: `just format`
-- Update all test references and example tests: `just update-expected`
+- Synchronize example tests: `just update-example-tests`
+- Update test references: `just update-expected`
 - Compile documentation: `just doc`
 
 See the `justfile` in the project root for more details.
@@ -30,4 +31,4 @@ We use `tytanic` as test runner.
 
 ### Example tests
 Sadly, we have to generate and synchronize the examples with their according tests (semi-)manually.
-Use `just update-expected`.
+Use `just update-example-tests`.

@@ -88,6 +88,16 @@
   points-show: true,
   /// The word that is displayed before the points. -> content | str
   points-prefix: context i18n.translate("Points"),
+  /// Whether to insert a colbreak before the task.
+  ///
+  /// Technically, this breaks the column and not the page
+  /// but a single-column layout is assumed.
+  ///
+  /// This does not apply to the very first task
+  /// where it usually makes no sense to break before.
+  ///
+  /// -> bool
+  begin-at-new-page: false,
   /// Whether the task is a bonus task. -> bool
   bonus: false,
   /// Whether bonus tasks are marked with a star in the title. -> bool
@@ -98,10 +108,28 @@
   space-above: auto,
   /// Padding below the task. -> auto | length
   space-below: 2em,
-  /// The body of the task. -> content
-  content,
+  /// A function that provides styling to the description of a task. -> function
+  task-text-style: emph,
+  /// The body of the task.
+  /// Either:
+  /// - [content]
+  /// - [task text][content]
+  /// -> content..
+  ..content,
 ) = {
   let c = std.counter
+
+  let parts = content.pos()
+
+  assert(
+    parts.len() == 1 or parts.len() == 2 and content.named().len() == 0,
+    message: "task expects either [content] or [task text][content] and does not accept named content args",
+  )
+
+  let (task-text, content) = (
+    if parts.len() == 2 { parts.at(0) } else { none },
+    if parts.len() == 2 { parts.at(1) } else { parts.at(0) },
+  )
 
   if counter != auto { c("sheetstorm-task").update(counter) }
   if skip != none and type(skip) == int {
@@ -146,6 +174,16 @@
     }
   }
 
+  // maybe colbreak before task
+  context {
+    let is-first-task = (
+      query(selector(<sheetstorm-task>).before(here())).len() == 0
+    )
+    if begin-at-new-page and not is-first-task {
+      colbreak(weak: true)
+    }
+  }
+
   block(width: 100%, above: space-above, below: space-below)[
     #if label != none {
       if supplement == auto { supplement = task-prefix }
@@ -165,6 +203,10 @@
         [(#points-display #points-prefix)]
       }
     })
+    #if (task-text != none) {
+      block(task-text-style(task-text))
+    }
+
     #content
     #metadata("sheetstorm-task-end")<sheetstorm-task-end>
   ]
@@ -237,9 +279,34 @@
   ///
   /// -> length
   min-indent: 1.2em,
-  /// The body of the subtask. -> content
-  content,
+  /// Whether to insert a colbreak before the subtask.
+  ///
+  /// Technically, this breaks the column and not the page
+  /// but a single-column layout is assumed.
+  ///
+  /// -> bool
+  begin-at-new-page: false,
+  /// A function that provides styling to the description of a subtask. -> function
+  task-text-style: emph,
+  /// The body of the subtask.
+  /// Either:
+  /// - [content]
+  /// - [task text][content]
+  /// -> content..
+  ..content,
 ) = {
+  let parts = content.pos()
+
+  assert(
+    parts.len() == 1 or parts.len() == 2 and content.named().len() == 0,
+    message: "task expects either [content] or [task text][content] and does not accept named content args",
+  )
+
+  let (task-text, content) = (
+    if parts.len() == 2 { parts.at(0) } else { none },
+    if parts.len() == 2 { parts.at(1) } else { parts.at(0) },
+  )
+
   if counter != auto {
     state("sheetstorm-subtask").update(xs => {
       let x = xs.pop()
@@ -286,6 +353,10 @@
     }
   }
 
+  if begin-at-new-page {
+    colbreak(weak: true)
+  }
+
   grid(
     columns: (auto, auto, 1fr),
     column-gutter: 0em,
@@ -313,7 +384,9 @@
         xs.push(1)
         xs
       })
-
+      if (task-text != none) {
+        block(task-text-style(task-text))
+      }
       content
 
       state("sheetstorm-subtask").update(xs => {
