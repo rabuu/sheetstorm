@@ -215,6 +215,22 @@
   c("sheetstorm-todo").update(0)
 }
 
+/// Create a subtask subsection.
+///
+/// Use this inside of the main `task` sections.
+/// Subtasks can be nested.
+///
+/// *Example*
+/// ```typst
+/// #task[
+///   #subtask[Some task text.][This is the first subtask.]
+///   #subtask[
+///     #subtask[This is a nested subtask.]
+///     #subtask[This is another.]
+///   ]
+/// ]
+/// ```
+/// -> content
 #let subtask(
   /// The subtask marker.
   ///
@@ -255,7 +271,6 @@
   ///   Subtask 1.
   ///   #subtask[Subtask i.]
   ///   #subtask[Subtask ii.]
-  ///   #subtask[Subtask i.]
   /// ]
   /// #subtask[Subtask 2.]
   /// ```
