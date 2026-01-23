@@ -1,12 +1,10 @@
 #import "i18n.typ"
 #import "ref.typ": impromptu-label
 
-/// Theorem environment.
+/// Internal generic building block for "theorem style" environments.
 ///
-/// *Example*
-/// ```typst
-/// #theorem(name: "Pythagoras")[$a^2 + b^2 = c^2$]
-/// ```
+/// This is not meant to be used directly.
+///
 /// -> content
 #let _styled_environment(
   /// The environment kind which is displayed as prefix. -> content | str
@@ -108,27 +106,31 @@
   }
 }
 
-/// Theorem environment, based on styled environment.
+/// Theorem environment.
+///
+/// *Example*
+/// ```typst
+/// #theorem(name: "Pythagoras")[$a^2 + b^2 = c^2$]
+/// ```
+/// -> content
 #let theorem = _styled_environment.with(
   kind: context i18n.translate("Theorem"),
   emphasized: true,
 )
 
-/// Corollary environment, based on the `theorem` environment.
+/// Corollary environment, based on the `theorem` environment. -> content
 #let corollary = theorem.with(kind: context i18n.translate("Corollary"))
 
-/// Lemma environment, based on the `theorem` environment.
+/// Lemma environment, based on the `theorem` environment. -> content
 #let lemma = theorem.with(kind: context i18n.translate("Lemma"))
 
-/// Definition environment, based on the `theorem` environment.
+/// Definition environment, based on the `theorem` environment. -> content
 #let definition = _styled_environment.with(
   kind: context i18n.translate("Definition"),
 )
 
-/// Example environment, based on the `theorem` environment.
-#let example = _styled_environment.with(
-  kind: context i18n.translate("Example"),
-)
+/// Example environment, based on the `theorem` environment. -> content
+#let example = _styled_environment.with(kind: context i18n.translate("Example"))
 
 /// Proof environment.
 ///
