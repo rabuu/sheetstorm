@@ -115,20 +115,20 @@
   /// - [content]
   /// - [task text][content]
   /// -> content..
-  ..content,
+  ..body-args,
 ) = {
   let c = std.counter
 
-  let parts = content.pos()
-
+  assert(body-args.named().len() == 0, message: "Unexpected named argument.")
   assert(
-    parts.len() == 1 or parts.len() == 2 and content.named().len() == 0,
-    message: "task expects either [content] or [task text][content] and does not accept named content args",
+    body-args.pos().len() == 1 or body-args.pos().len() == 2,
+    message: "task expects either [content] or [task text][content] as body arguments.",
   )
 
-  let (task-text, content) = (
-    if parts.len() == 2 { parts.at(0) } else { none },
-    if parts.len() == 2 { parts.at(1) } else { parts.at(0) },
+  let body-args = body-args.pos()
+  let (task-text, body) = (
+    if body-args.len() == 2 { body-args.at(0) } else { none },
+    if body-args.len() == 2 { body-args.at(1) } else { body-args.at(0) },
   )
 
   if counter != auto { c("sheetstorm-task").update(counter) }
@@ -207,7 +207,7 @@
       block(task-text-style(task-text))
     }
 
-    #content
+    #body
     #metadata("sheetstorm-task-end")<sheetstorm-task-end>
   ]
 
@@ -308,18 +308,18 @@
   /// - [content]
   /// - [task text][content]
   /// -> content..
-  ..content,
+  ..body-args,
 ) = {
-  let parts = content.pos()
-
+  assert(body-args.named().len() == 0, message: "Unexpected named argument.")
   assert(
-    parts.len() == 1 or parts.len() == 2 and content.named().len() == 0,
-    message: "task expects either [content] or [task text][content] and does not accept named content args",
+    body-args.pos().len() == 1 or body-args.pos().len() == 2,
+    message: "subtask expects either [content] or [task text][content] as body arguments.",
   )
 
-  let (task-text, content) = (
-    if parts.len() == 2 { parts.at(0) } else { none },
-    if parts.len() == 2 { parts.at(1) } else { parts.at(0) },
+  let body-args = body-args.pos()
+  let (task-text, body) = (
+    if body-args.len() == 2 { body-args.at(0) } else { none },
+    if body-args.len() == 2 { body-args.at(1) } else { body-args.at(0) },
   )
 
   if counter != auto {
@@ -402,7 +402,7 @@
       if (task-text != none) {
         block(task-text-style(task-text))
       }
-      content
+      body
 
       state("sheetstorm-subtask").update(xs => {
         let _ = xs.pop()
