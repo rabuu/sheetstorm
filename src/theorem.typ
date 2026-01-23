@@ -106,6 +106,12 @@
   }
 }
 
+// FIXME: Bug in tidy:0.4.3, cannot handle multi-line curried functions like below.
+// Temporarily join them into single line for generating docs.
+// Remove this comment when upgrading to next tidy version.
+// - Issue: https://github.com/Mc-Zen/tidy/issues/63
+// - Fix: https://github.com/Mc-Zen/tidy/pull/65
+
 /// Theorem environment.
 ///
 /// *Example*
