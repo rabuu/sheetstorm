@@ -44,4 +44,4 @@
   #theorem[Also the theorem counter was automatically reset.]
 ]
 
-#task(counter: n => n + 1)[This would be task 8 but now it is task 9.]
+#task(skip: 1)[This would be task 8 but now it is task 9.]

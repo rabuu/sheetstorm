@@ -23,13 +23,16 @@ format:
 check-format:
 	typstyle --check .
 
-test $SOURCE_DATE_EPOCH=date: install
+test: install
 	./scripts/testing/check-example-tests.sh
-	tt run --no-fail-fast
+	SOURCE_DATE_EPOCH={{date}} tt run --no-fail-fast
 
-update-expected $SOURCE_DATE_EPOCH=date: install
+update-expected: install
+	./scripts/testing/check-example-tests.sh
+	SOURCE_DATE_EPOCH={{date}} tt update
+
+update-example-tests:
 	./scripts/testing/update-example-tests.sh
-	tt update
 
 clean:
 	./scripts/cleanup-artifacts.sh

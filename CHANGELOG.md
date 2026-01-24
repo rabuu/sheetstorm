@@ -9,11 +9,16 @@
 ### Breaking
 - Removed `custom-enum-numbering` helper
 - Removed `subtask-label` helper
+- Removed `bonus-show-star` option on `task` (in favor of the new `bonus-style` option)
 
 ### Added
 - Added `subtask` system
 - Added an argument `todo` in `#task` to mark task with TODO
 - Added `definition` environment and `example` environment
+- Added task text handling
+- Added `begin-at-new-page` option for `task` and `subtask`
+- Added `skip` option for `task` and `subtask`
+- Added `bonus-style` option for `task`
 - Added `theorem-counter-reset` option for `task` and `subtask`
 
 ## [0.4.0] - 2025-11-22

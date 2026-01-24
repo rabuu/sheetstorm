@@ -6,8 +6,8 @@
 )
 
 #task(points: 42)[
-  _Compute the integral $integral_0^1 x^2 d x$._
-
+  Compute the integral $integral_0^1 x^2 d x$.
+][
   $integral_0^1 x^2 d x = 1/3$.
 
   For a full solution, see @app1.
