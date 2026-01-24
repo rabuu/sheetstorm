@@ -104,6 +104,8 @@
   bonus-style: t => [#t (#context i18n.translate("Bonus"))],
   /// Whether the task is hidden in the score box. -> bool
   hidden: false,
+  /// Whether to reset the theorem counter at the start of the task. -> bool
+  theorem-counter-reset: false,
   /// Padding above the task. -> auto | length
   space-above: auto,
   /// Padding below the task. -> auto | length
@@ -145,6 +147,10 @@
 
   if (todo) {
     c("sheetstorm-todo").step()
+  }
+
+  if theorem-counter-reset {
+    c("sheetstorm-theorem-count").update(1)
   }
 
   let maybe-todo = context {
@@ -294,6 +300,8 @@
   ///
   /// -> bool
   numbering-cycle: false,
+  /// Whether to reset the theorem counter at the start of the subtask. -> bool
+  theorem-counter-reset: false,
   /// The minimum indent of the subtask body.
   ///
   /// The indent of the subtask body is the maximum of this value and the width of the marker.
@@ -316,6 +324,8 @@
   /// -> content..
   ..body-args,
 ) = {
+  let c = std.counter
+
   assert(body-args.named().len() == 0, message: "Unexpected named argument.")
   assert(
     body-args.pos().len() == 1 or body-args.pos().len() == 2,
@@ -346,6 +356,10 @@
       xs.push(x + skip)
       xs
     })
+  }
+
+  if theorem-counter-reset {
+    c("sheetstorm-theorem-count").update(1)
   }
 
   let marker = if marker != auto { marker } else {
