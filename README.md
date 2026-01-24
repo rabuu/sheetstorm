@@ -7,7 +7,7 @@ Breaking changes in new versions are to be expected.
 
 ## Quick Start
 ```typst
-#import "@preview/sheetstorm:0.4.0": *
+#import "@preview/sheetstorm:0.5.0": *
 
 #show: assignment.with(
   title: "My title",

@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.4.0": assignment, subtask, task
+#import "@local/sheetstorm:0.5.0": assignment, subtask, task
 
 #show: assignment.with(
   title: "Task Configuration Example",

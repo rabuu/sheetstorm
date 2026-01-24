@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.4.0": assignment, subtask, task, todo, todo-box
+#import "@preview/sheetstorm:0.5.0": assignment, subtask, task, todo, todo-box
 
 #show: assignment.with(
   title: "Assignment with TODO's",
