@@ -325,7 +325,7 @@
   ..body-args,
 ) = {
   let c = std.counter
-  
+
   assert(body-args.named().len() == 0, message: "Unexpected named argument.")
   assert(
     body-args.pos().len() == 1 or body-args.pos().len() == 2,
@@ -350,7 +350,6 @@
     })
   }
 
-
   if skip != none and type(skip) == int {
     state("sheetstorm-subtask").update(xs => {
       let x = xs.pop()
@@ -358,7 +357,7 @@
       xs
     })
   }
-  
+
   if theorem-counter-reset {
     c("sheetstorm-theorem-count").update(1)
   }
