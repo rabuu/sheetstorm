@@ -40,5 +40,5 @@ clean:
 documentation:
 	typst compile docs/manual.typ --root .
 
-thumbnail:
+thumbnail: install
 	typst compile --format png --pages 1 "{{thumbnail-file}}" ./thumbnail.png

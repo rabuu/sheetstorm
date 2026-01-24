@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.4.0": assignment, subtask, task, theorem
+#import "@preview/sheetstorm:0.5.0": assignment, subtask, task, theorem
 
 #show: assignment.with(
   title: "Task Configuration Example",

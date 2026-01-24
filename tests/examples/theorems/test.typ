@@ -1,4 +1,4 @@
-#import "@local/sheetstorm:0.4.0": (
+#import "@local/sheetstorm:0.5.0": (
   assignment, corollary, definition, example, lemma, proof, task, theorem,
 )
 

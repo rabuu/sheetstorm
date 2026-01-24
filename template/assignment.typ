@@ -1,4 +1,4 @@
-#import "@preview/sheetstorm:0.4.0": *
+#import "@preview/sheetstorm:0.5.0": *
 
 #show: assignment.with(
   title: "My title",
