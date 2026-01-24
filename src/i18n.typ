@@ -9,6 +9,7 @@
   Points: (
     de: "Punkte",
   ),
+  Bonus: (:),
   // Theorem related
   Theorem: (
     de: "Satz",

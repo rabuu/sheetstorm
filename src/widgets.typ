@@ -19,9 +19,9 @@
   tasks: auto,
   /// Whether to show the points per task. -> bool
   show-points: true,
-  /// Whether the points of bonus tasks count into the sum. -> bool
-  bonus-show-star: true,
   /// Whether to mark bonus tasks in the score box with a star. -> bool
+  bonus-show-star: true,
+  /// Whether the points of bonus tasks count into the sum. -> bool
   bonus-counts-for-sum: false,
   /// Whether to fill all available horizontal space. -> bool
   fill-space: false,
