@@ -56,6 +56,12 @@
   counter: auto,
   /// Whether to display the value of the task counter in the task's title. -> bool
   counter-show: true,
+  /// Step the task counter by the given number.
+  ///
+  /// This is applied after the general counter update (see `counter` parameter).
+  ///
+  /// -> none | int
+  skip: none,
   /// Whether to mark the task with a TODO box. -> bool
   todo: false,
   /// Whether to show a warning beside the title if there are any TODOs in the task. -> bool
@@ -82,6 +88,16 @@
   points-show: true,
   /// The word that is displayed before the points. -> content | str
   points-prefix: context i18n.translate("Points"),
+  /// Whether to insert a colbreak before the task.
+  ///
+  /// Technically, this breaks the column and not the page
+  /// but a single-column layout is assumed.
+  ///
+  /// This does not apply to the very first task
+  /// where it usually makes no sense to break before.
+  ///
+  /// -> bool
+  begin-at-new-page: false,
   /// Whether the task is a bonus task. -> bool
   bonus: false,
   /// A styling function applied to the title of bonus tasks. -> function | none
@@ -92,12 +108,33 @@
   space-above: auto,
   /// Padding below the task. -> auto | length
   space-below: 2em,
-  /// The body of the task. -> content
-  content,
+  /// A function that provides styling to the description of a task. -> function
+  task-text-style: emph,
+  /// The body of the task.
+  /// Either:
+  /// - [content]
+  /// - [task text][content]
+  /// -> content..
+  ..body-args,
 ) = {
   let c = std.counter
 
+  assert(body-args.named().len() == 0, message: "Unexpected named argument.")
+  assert(
+    body-args.pos().len() == 1 or body-args.pos().len() == 2,
+    message: "task expects either [content] or [task text][content] as body arguments.",
+  )
+
+  let body-args = body-args.pos()
+  let (task-text, body) = (
+    if body-args.len() == 2 { body-args.at(0) } else { none },
+    if body-args.len() == 2 { body-args.at(1) } else { body-args.at(0) },
+  )
+
   if counter != auto { c("sheetstorm-task").update(counter) }
+  if skip != none and type(skip) == int {
+    c("sheetstorm-task").update(n => n + skip)
+  }
 
   let (points-number, points-display) = _handle_points(points)
 
@@ -143,6 +180,16 @@
     }
   }
 
+  // maybe colbreak before task
+  context {
+    let is-first-task = (
+      query(selector(<sheetstorm-task>).before(here())).len() == 0
+    )
+    if begin-at-new-page and not is-first-task {
+      colbreak(weak: true)
+    }
+  }
+
   block(width: 100%, above: space-above, below: space-below)[
     #if label != none {
       if supplement == auto { supplement = task-prefix }
@@ -162,7 +209,11 @@
         [(#points-display #points-prefix)]
       }
     })
-    #content
+    #if (task-text != none) {
+      block(task-text-style(task-text))
+    }
+
+    #body
     #metadata("sheetstorm-task-end")<sheetstorm-task-end>
   ]
 
@@ -170,6 +221,22 @@
   c("sheetstorm-todo").update(0)
 }
 
+/// Create a subtask subsection.
+///
+/// Use this inside of the main `task` sections.
+/// Subtasks can be nested.
+///
+/// *Example*
+/// ```typst
+/// #task[
+///   #subtask[Some task text.][This is the first subtask.]
+///   #subtask[
+///     #subtask[This is a nested subtask.]
+///     #subtask[This is another.]
+///   ]
+/// ]
+/// ```
+/// -> content
 #let subtask(
   /// The subtask marker.
   ///
@@ -192,6 +259,12 @@
   ///
   /// -> auto | int | function
   counter: auto,
+  /// Step the subtask counter by the given number.
+  ///
+  /// This is applied after the general counter update (see `counter` parameter).
+  ///
+  /// -> none | int
+  skip: none,
   /// The numbering patterns to use for the subtask markers depending on depth.
   ///
   /// This is an array of strings where the n-th element is the numbering pattern for subtasks of depth n.
@@ -204,7 +277,6 @@
   ///   Subtask 1.
   ///   #subtask[Subtask i.]
   ///   #subtask[Subtask ii.]
-  ///   #subtask[Subtask i.]
   /// ]
   /// #subtask[Subtask 2.]
   /// ```
@@ -228,9 +300,34 @@
   ///
   /// -> length
   min-indent: 1.2em,
-  /// The body of the subtask. -> content
-  content,
+  /// Whether to insert a colbreak before the subtask.
+  ///
+  /// Technically, this breaks the column and not the page
+  /// but a single-column layout is assumed.
+  ///
+  /// -> bool
+  begin-at-new-page: false,
+  /// A function that provides styling to the description of a subtask. -> function
+  task-text-style: emph,
+  /// The body of the subtask.
+  /// Either:
+  /// - [content]
+  /// - [task text][content]
+  /// -> content..
+  ..body-args,
 ) = {
+  assert(body-args.named().len() == 0, message: "Unexpected named argument.")
+  assert(
+    body-args.pos().len() == 1 or body-args.pos().len() == 2,
+    message: "subtask expects either [content] or [task text][content] as body arguments.",
+  )
+
+  let body-args = body-args.pos()
+  let (task-text, body) = (
+    if body-args.len() == 2 { body-args.at(0) } else { none },
+    if body-args.len() == 2 { body-args.at(1) } else { body-args.at(0) },
+  )
+
   if counter != auto {
     state("sheetstorm-subtask").update(xs => {
       let x = xs.pop()
@@ -239,6 +336,14 @@
         update-counter = _ => counter
       }
       xs.push(update-counter(x))
+      xs
+    })
+  }
+
+  if skip != none and type(skip) == int {
+    state("sheetstorm-subtask").update(xs => {
+      let x = xs.pop()
+      xs.push(x + skip)
       xs
     })
   }
@@ -269,6 +374,10 @@
     }
   }
 
+  if begin-at-new-page {
+    colbreak(weak: true)
+  }
+
   grid(
     columns: (auto, auto, 1fr),
     column-gutter: 0em,
@@ -296,8 +405,10 @@
         xs.push(1)
         xs
       })
-
-      content
+      if (task-text != none) {
+        block(task-text-style(task-text))
+      }
+      body
 
       state("sheetstorm-subtask").update(xs => {
         let _ = xs.pop()
