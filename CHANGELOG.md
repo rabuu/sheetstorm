@@ -9,6 +9,9 @@
 ### Fixed
 - Fixed `todo` option of `task` to propagate globally
 
+### Added
+- Added support for `task` and `subtask` without body argument
+
 ## [0.5.0] - 2026-01-24
 
 ### Breaking
