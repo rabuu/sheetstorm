@@ -147,6 +147,7 @@
 
   if (todo) {
     c("sheetstorm-todo").step()
+    c("sheetstorm-global-todo").step()
   }
 
   if theorem-counter-reset {
@@ -154,13 +155,9 @@
   }
 
   let maybe-todo = context {
-    let curr-task = query(selector(<sheetstorm-task>).before(here()))
-      .last()
-      .location()
     let curr-task-end = query(selector(<sheetstorm-task-end>).after(here()))
       .first()
       .location()
-
     let curr-todo-count = c("sheetstorm-todo").at(curr-task-end).first()
     if (curr-todo-count > 0) { todo-box() }
   }
