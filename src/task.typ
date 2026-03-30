@@ -114,6 +114,7 @@
   task-text-style: emph,
   /// The body of the task.
   /// Either:
+  /// - empty
   /// - [content]
   /// - [task text][content]
   /// -> content..
@@ -123,15 +124,19 @@
 
   assert(body-args.named().len() == 0, message: "Unexpected named argument.")
   assert(
-    body-args.pos().len() == 1 or body-args.pos().len() == 2,
+    body-args.pos().len() <= 2,
     message: "task expects either [content] or [task text][content] as body arguments.",
   )
 
   let body-args = body-args.pos()
-  let (task-text, body) = (
-    if body-args.len() == 2 { body-args.at(0) } else { none },
-    if body-args.len() == 2 { body-args.at(1) } else { body-args.at(0) },
-  )
+  let body-n = body-args.len()
+  let (task-text, body) = if body-n == 0 {
+    (none, none)
+  } else if body-n == 1 {
+    (none, body-args.at(0))
+  } else if body-n == 2 {
+    (body-args.at(0), body-args.at(1))
+  }
 
   if counter != auto { c("sheetstorm-task").update(counter) }
   if skip != none and type(skip) == int {
@@ -316,6 +321,7 @@
   task-text-style: emph,
   /// The body of the subtask.
   /// Either:
+  /// - empty
   /// - [content]
   /// - [task text][content]
   /// -> content..
@@ -325,15 +331,19 @@
 
   assert(body-args.named().len() == 0, message: "Unexpected named argument.")
   assert(
-    body-args.pos().len() == 1 or body-args.pos().len() == 2,
+    body-args.pos().len() <= 2,
     message: "subtask expects either [content] or [task text][content] as body arguments.",
   )
 
   let body-args = body-args.pos()
-  let (task-text, body) = (
-    if body-args.len() == 2 { body-args.at(0) } else { none },
-    if body-args.len() == 2 { body-args.at(1) } else { body-args.at(0) },
-  )
+  let body-n = body-args.len()
+  let (task-text, body) = if body-n == 0 {
+    (none, none)
+  } else if body-n == 1 {
+    (none, body-args.at(0))
+  } else if body-n == 2 {
+    (body-args.at(0), body-args.at(1))
+  }
 
   if counter != auto {
     state("sheetstorm-subtask").update(xs => {
