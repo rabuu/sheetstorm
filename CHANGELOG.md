@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-04-03
+
 ### Fixed
 - Fixed `todo` option of `task` to propagate globally
 
