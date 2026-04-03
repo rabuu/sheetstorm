@@ -48,9 +48,10 @@ find "$PKG_ROOT" \( -name '*.typ' -o -name 'README.md' \) -type f \
 
 sed -i "s/version = \"$PKG_VERSION\"/version = \"$NEW_VERSION\"/" "$PKG_ROOT/typst.toml"
 
-if git ls-files | xargs grep -q "$PKG_VERSION"; then
+relevant_files=$(git ls-files | grep -v '\.pdf$')
+if echo $relevant_files | xargs grep -q -F "$PKG_VERSION"; then
 	echo
 	echo "There are still some occurrences of the string '$PKG_VERSION':"
 	echo
-	git ls-files | xargs grep "$PKG_VERSION"
+	echo $relevant_files | xargs grep -F "$PKG_VERSION"
 fi
