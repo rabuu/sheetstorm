@@ -1,10 +1,6 @@
 # sheetstorm
 A Typst template for assignment sheets.
 
-*Disclaimer:*
-Although we find this library to be perfectly usable, it is still rather new and under active development.
-Breaking changes in new versions are to be expected.
-
 ## Quick Start
 ```typst
 #import "@preview/sheetstorm:0.5.1": *
