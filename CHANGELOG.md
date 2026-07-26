@@ -6,6 +6,9 @@
 
 ## [Unreleased]
 
+### Added
+- Added `signal` option for `todo`
+
 ## [0.5.1] - 2026-04-03
 
 ### Fixed

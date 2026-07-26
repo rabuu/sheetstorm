@@ -67,6 +67,12 @@
   /// ```
   /// -> function
   todo-box: todo-box,
+  /// Signal the warning to the context.
+  ///
+  /// Set this to `false` to disable triggering global/task warning boxes.
+  ///
+  /// -> bool
+  signal: true,
   /// Arbitrary content that is passed into the box.
   ///
   /// You can only pass _positional_ arguments.
@@ -74,7 +80,9 @@
   /// -> arguments
   ..comments,
 ) = {
-  counter("sheetstorm-todo").step()
-  counter("sheetstorm-global-todo").step()
+  if signal {
+    counter("sheetstorm-todo").step()
+    counter("sheetstorm-global-todo").step()
+  }
   todo-box(..comments)
 }
