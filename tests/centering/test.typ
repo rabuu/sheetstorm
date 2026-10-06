@@ -3,15 +3,15 @@
 #show: assignment
 
 #task[
-  #align(center, "Task text")
+  #align(center, "task text")
 ][
-  #align(center, "Solution text")
+  #align(center, "solution text")
 ]
 
 #task[
   #subtask[
-    #align(center, "Subtask text")
+    #align(center, "subtask text")
   ][
-    #align(center, "Subtask solution text")
+    #align(center, "subtask solution text")
   ]
 ]
