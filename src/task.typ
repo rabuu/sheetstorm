@@ -217,8 +217,12 @@
         [(#points-display #points-prefix)]
       }
     })
+
     #if (task-text != none) {
-      block(task-text-style(task-text))
+      block(
+        width: 100%,
+        task-text-style(task-text),
+      )
     }
 
     #body
@@ -426,9 +430,14 @@
         xs.push(1)
         xs
       })
+
       if (task-text != none) {
-        block(task-text-style(task-text))
+        block(
+          width: 100%,
+          task-text-style(task-text),
+        )
       }
+
       body
 
       state("sheetstorm-subtask").update(xs => {

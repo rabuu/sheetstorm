@@ -6,6 +6,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Fixed centering issue in (sub)task text blocks
+
 ### Added
 - Added `signal` option for `todo`
 
